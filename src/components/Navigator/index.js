@@ -1,6 +1,7 @@
 import React from 'react'
-import './navigator.css'
 import { Menu, Dropdown, Slider, Icon } from 'antd'
+
+import './navigator.css'
 
 class Navigator extends React.Component {
 	sliderTipFormatter(num) {

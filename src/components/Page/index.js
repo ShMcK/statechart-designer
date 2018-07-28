@@ -1,4 +1,5 @@
 import React from 'react'
+
 import './page.css'
 
 class Page extends React.Component {

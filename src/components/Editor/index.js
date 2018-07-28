@@ -1,5 +1,6 @@
 import React from 'react'
 import G6Editor from '@antv/g6-editor'
+
 import './editor.css'
 
 export default class Editor extends React.Component {
