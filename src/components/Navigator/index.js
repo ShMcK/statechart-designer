@@ -31,7 +31,7 @@ class Navigator extends React.Component {
 		)
 		return (
 			<div id="navigator">
-				<div className="pannel-title">导航器</div>
+				<div className="pannel-title">Navigator</div>
 				<div id="minimap" />
 				<div id="zoom-slider">
 					<Slider
