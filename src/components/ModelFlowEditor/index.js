@@ -1,5 +1,5 @@
 import React from 'react'
-import { Checkbox, Input } from 'antd'
+import { Checkbox } from 'antd'
 
 import './modelFlowEditor.css'
 import './Cards'
@@ -10,6 +10,7 @@ import Toolbar from '../Toolbar'
 import ContextMenu from '../ContextMenu'
 import Page from '../Page'
 
+import DetailsCanvas from './Details/Canvas'
 import DetailsState from './Details/State'
 import DetailsTransition from './Details/State'
 
@@ -133,7 +134,7 @@ class ModelFlowEditor extends Editor {
 							id="canvas_detailpannel">
 							<div className="pannel-title">Canvas</div>
 							<div className="block-container">
-								<Checkbox onChange={this.toggleGrid.bind(this)}>Grid</Checkbox>
+								<DetailsCanvas toggleGrid={this.toggleGrid.bind(this)} />
 							</div>
 						</div>
 					</div>
