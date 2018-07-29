@@ -14,6 +14,7 @@ import initEditorComponents from './components'
 import DetailsCanvas from './Details/Canvas'
 import DetailsState from './Details/State'
 import DetailsTransition from './Details/State'
+import Zoom from './Zoom'
 
 interface IState {
 	curZoom: number
@@ -24,49 +25,41 @@ interface IState {
 }
 
 class Editor extends React.Component<{}, IState> {
-	constructor(props) {
-		super(props)
-		this.state = {
-			curZoom: 1, // 当前缩放比率
-			maxZoom: 2, // 最大缩放比率s
-			minZoom: 0.5, // 最小缩放比率
-			tempModel: null,
-			selectedModel: {}, // 当前选中项数据模型
-		}
-	}
-	changeZoom = (zoom: number) => {
-		this.page.zoom(zoom)
-	}
-	toggleGrid = (ev) => {
-		const { page } = this
-		if (ev.target.checked) {
-			page.showGrid()
-		} else {
-			page.hideGrid()
-		}
-	}
-	updateGraph = (key: string, value: any) => {
-		const { editor } = this
-		editor.executeCommand(() => {
-			const { page } = this
-			const selectedItems = page.getSelected()
-			selectedItems.forEach((item) => {
-				const updateModel = {}
-				updateModel[key] = value
-				page.update(item, updateModel)
-			})
-		})
+	page: any
+	editor: any
+	state = {
+		tempModel: null,
+		selectedModel: {},
 	}
 	componentDidMount() {
 		const { page, editor } = initEditorComponents(this.onChange)
 		this.page = page
 		this.editor = editor
 	}
+
+	toggleGrid = (ev) => {
+		if (ev.target.checked) {
+			this.page.showGrid()
+		} else {
+			this.page.hideGrid()
+		}
+	}
+	updateGraph = (key: string, value: any) => {
+		this.editor.executeCommand(() => {
+			const selectedItems = this.page.getSelected()
+			selectedItems.forEach((item) => {
+				const updateModel = {}
+				updateModel[key] = value
+				this.page.update(item, updateModel)
+			})
+		})
+	}
+
 	onChange = (change) => {
 		this.setState(change)
 	}
 	render() {
-		const { curZoom, minZoom, maxZoom, tempModel, selectedModel } = this.state
+		const { tempModel, selectedModel } = this.state
 		const model = tempModel !== null ? tempModel : selectedModel
 		return (
 			<div id="editor">
@@ -139,12 +132,16 @@ class Editor extends React.Component<{}, IState> {
 							</div>
 						</div>
 					</div>
-					<Navigator
-						zoom={curZoom}
-						minZoom={minZoom}
-						maxZoom={maxZoom}
-						changeZoom={this.changeZoom}
-					/>
+					<Zoom>
+						{({ zoom, minZoom, maxZoom }) => (
+							<Navigator
+								zoom={zoom}
+								minZoom={minZoom}
+								maxZoom={maxZoom}
+								changeZoom={(change) => this.page.zoom(change)}
+							/>
+						)}
+					</Zoom>
 					<Page />
 				</div>
 			</div>

@@ -26,9 +26,8 @@ class Navigator extends React.Component<IProps> {
 		const { changeZoom } = this.props
 		changeZoom(Number(zoom))
 	}
-	render() {
-		const { zoom, minZoom, maxZoom } = this.props
-		const menu = (
+	get menu() {
+		return (
 			<Menu onClick={this.dropdownChange}>
 				<Menu.Item zoom="0.5">50%</Menu.Item>
 				<Menu.Item zoom="1">100%</Menu.Item>
@@ -36,6 +35,9 @@ class Navigator extends React.Component<IProps> {
 				<Menu.Item zoom="2">200%</Menu.Item>
 			</Menu>
 		)
+	}
+	render() {
+		const { zoom, minZoom, maxZoom } = this.props
 		return (
 			<div id="navigator">
 				<div className="pannel-title">Navigator</div>
@@ -47,7 +49,7 @@ class Navigator extends React.Component<IProps> {
 						tipFormatter={this.sliderTipFormatter}
 						onChange={this.sliderChange}
 					/>
-					<Dropdown overlay={menu}>
+					<Dropdown overlay={this.menu}>
 						<a className="zoom-dropdown-btn" href="#">
 							{Math.ceil(zoom * 100)} %<Icon type="down" />
 						</a>
