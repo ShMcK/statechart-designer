@@ -17,9 +17,6 @@ import DetailsTransition from './Details/State'
 import Zoom from './Zoom'
 
 interface IState {
-	curZoom: number
-	maxZoom: number
-	minZoom: number
 	selectedModel: object
 	tempModel: object | null
 }
@@ -28,8 +25,8 @@ class Editor extends React.Component<{}, IState> {
 	page: any
 	editor: any
 	state = {
-		tempModel: null,
 		selectedModel: {},
+		tempModel: null,
 	}
 	componentDidMount() {
 		const { page, editor } = initEditorComponents(this.onChange)
@@ -48,6 +45,7 @@ class Editor extends React.Component<{}, IState> {
 		this.editor.executeCommand(() => {
 			const selectedItems = this.page.getSelected()
 			selectedItems.forEach((item) => {
+				console.log('item', item)
 				const updateModel = {}
 				updateModel[key] = value
 				this.page.update(item, updateModel)
@@ -59,6 +57,7 @@ class Editor extends React.Component<{}, IState> {
 		this.setState(change)
 	}
 	render() {
+		console.log('this.state', this.state)
 		const { tempModel, selectedModel } = this.state
 		const model = tempModel !== null ? tempModel : selectedModel
 		return (
