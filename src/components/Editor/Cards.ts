@@ -26,8 +26,6 @@ Flow.registerNode('model-card', {
 			},
 		})
 
-		const label = model.label ? model.label : this.label
-
 		const shapes = [
 			{
 				type: 'path',
@@ -49,6 +47,7 @@ Flow.registerNode('model-card', {
 						['A', borderRadius, borderRadius, 0, 0, 0, x, y + borderRadius],
 					],
 					fill: this.color_type,
+					label: '文本标签',
 				},
 			},
 			{
@@ -74,7 +73,7 @@ Flow.registerNode('model-card', {
 			{
 				type: 'text',
 				attrs: {
-					text: label,
+					text: model.label ? model.label : this.label,
 					x: x + 52,
 					y: y + 13,
 					textAlign: 'start',
@@ -90,11 +89,7 @@ Flow.registerNode('model-card', {
 
 		return keyShape
 	},
-	// 设置锚点
-	anchor: [
-		[0.5, 0], // 上面边的中点
-		[0.5, 1], // 下边边的中点
-	],
+	anchor: [[0.5, 0], [0.5, 1]],
 })
 
 items.forEach((item) => {

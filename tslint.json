@@ -2,10 +2,9 @@
 	"extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
 	"rules": {
 		"object-literal-sort-keys": false,
-		"member-access": false
-	},
-	"jsRules": {
-		"object-literal-sort-keys": false
+		"member-access": false,
+		"jsx-no-lambda": false,
+		"no-implicit-dependencies": false
 	},
 	"linterOptions": {
 		"exclude": ["config/**/*.js", "node_modules/**/*.ts"]

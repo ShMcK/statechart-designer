@@ -1,7 +1,6 @@
 import * as React from 'react'
 
 import './Cards'
-// import * as components from './components'
 import './editor.css'
 import items from './items'
 import './modelFlowEditor.css'
@@ -13,7 +12,7 @@ import Toolbar from '../Toolbar'
 import initEditorComponents from './components'
 import DetailsCanvas from './Details/Canvas'
 import DetailsState from './Details/State'
-import DetailsTransition from './Details/State'
+import DetailsTransition from './Details/Transition'
 import Zoom from './Zoom'
 
 interface IState {
@@ -45,7 +44,6 @@ class Editor extends React.Component<{}, IState> {
 		this.editor.executeCommand(() => {
 			const selectedItems = this.page.getSelected()
 			selectedItems.forEach((item) => {
-				console.log('item', item)
 				const updateModel = {}
 				updateModel[key] = value
 				this.page.update(item, updateModel)
@@ -57,7 +55,6 @@ class Editor extends React.Component<{}, IState> {
 		this.setState(change)
 	}
 	render() {
-		console.log('this.state', this.state)
 		const { tempModel, selectedModel } = this.state
 		const model = tempModel !== null ? tempModel : selectedModel
 		return (

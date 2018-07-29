@@ -2,13 +2,13 @@ import { Checkbox, Input } from 'antd'
 import * as React from 'react'
 
 interface IProps {
-	model: { label: string; initial: boolean; parallel: boolean } | null
+	model: object | null
 	onChange(change: object): void
 	updateGraph(key: string, value: any): void
 }
 
 export default class StateDetails extends React.Component<IProps> {
-	onChange = (key, value) => {
+	onChange = (key: string, value: any) => {
 		const change = {
 			tempModel: {
 				...this.props.model,
@@ -17,7 +17,7 @@ export default class StateDetails extends React.Component<IProps> {
 		}
 		this.props.onChange(change)
 	}
-	onBlur = (key, value) => {
+	onBlur = (key: string, value: any) => {
 		this.props.updateGraph(key, value)
 		this.props.onChange({ tempModel: null })
 	}
@@ -51,6 +51,16 @@ export default class StateDetails extends React.Component<IProps> {
 						}>
 						Parallel
 					</Checkbox>
+				</div>
+				<div className="p">
+					On Entry:
+					<Input
+						size="small"
+						className="input name-input"
+						value={this.props.model.entryAction}
+						onChange={(e) => this.onChange('entryAction', e.target.value)}
+						onBlur={(e) => this.onBlur('entryAction', e.target.value)}
+					/>
 				</div>
 			</React.Fragment>
 		)

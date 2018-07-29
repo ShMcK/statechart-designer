@@ -15,39 +15,13 @@ const anchor = [
 
 export default [
 	{
-		key: 'initial-state',
-		size: '170*34',
-		label: 'Initial State',
-		class: 'pannel-type-icon',
-		color: '#1890FF',
-		typeIconUrl:
-			'https://gw.alipayobjects.com/zos/rmsportal/czNEJAmyDpclFaSucYWB.svg',
-		stateIconUrl:
-			'https://gw.alipayobjects.com/zos/rmsportal/MXXetJAxlqrbisIuZxDO.svg',
-		anchor,
-	},
-	{
-		key: 'random-forest',
+		key: 'state',
 		size: '170*34',
 		label: 'State',
 		class: 'pannel-type-icon',
-		color: '#9254DE',
-		typeIconUrl:
-			'https://gw.alipayobjects.com/zos/rmsportal/czNEJAmyDpclFaSucYWB.svg',
-		stateIconUrl:
-			'https://gw.alipayobjects.com/zos/rmsportal/MXXetJAxlqrbisIuZxDO.svg',
-		anchor,
-	},
-	{
-		key: 'PS-SMART',
-		size: '170*34',
-		label: 'Nested State',
-		class: 'pannel-type-icon',
 		color: '#1890FF',
-		typeIconUrl:
-			'https://gw.alipayobjects.com/zos/rmsportal/czNEJAmyDpclFaSucYWB.svg',
-		stateIconUrl:
-			'https://gw.alipayobjects.com/zos/rmsportal/MXXetJAxlqrbisIuZxDO.svg',
+		typeIconUrl: '/assets/icons/state.svg',
+		stateIconUrl: '/assets/icons/icon1.svg',
 		anchor,
 	},
 	{
@@ -56,10 +30,8 @@ export default [
 		label: 'Parallel State',
 		class: 'pannel-type-icon',
 		color: '#9254DE',
-		typeIconUrl:
-			'https://gw.alipayobjects.com/zos/rmsportal/czNEJAmyDpclFaSucYWB.svg',
-		stateIconUrl:
-			'https://gw.alipayobjects.com/zos/rmsportal/uZVdwjJGqDooqKLKtvGA.svg',
+		typeIconUrl: '/assets/icons/state.svg',
+		stateIconUrl: '/assets/icons/icon2.svg',
 		anchor,
 	},
 	{
@@ -68,10 +40,8 @@ export default [
 		label: 'History',
 		class: 'pannel-type-icon',
 		color: '#FAAD14',
-		typeIconUrl:
-			'https://gw.alipayobjects.com/zos/rmsportal/czNEJAmyDpclFaSucYWB.svg',
-		stateIconUrl:
-			'https://gw.alipayobjects.com/zos/rmsportal/MXXetJAxlqrbisIuZxDO.svg',
+		typeIconUrl: '/assets/icons/state.svg',
+		stateIconUrl: '/assets/icons/icon1.svg',
 		anchor,
 	},
 ]
