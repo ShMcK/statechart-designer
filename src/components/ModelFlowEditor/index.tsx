@@ -53,14 +53,12 @@ class ModelFlowEditor extends Editor {
 			})
 		}, 100)
 	}
+	onChange = (change) => {
+		this.setState(change)
+	}
 	render() {
-		const {
-			curZoom,
-			minZoom,
-			maxZoom,
-			inputingLabel,
-			selectedModel,
-		} = this.state
+		const { curZoom, minZoom, maxZoom, tempModel, selectedModel } = this.state
+		const model = tempModel !== null ? tempModel : selectedModel
 		return (
 			<div id="editor">
 				<Toolbar />
@@ -90,10 +88,8 @@ class ModelFlowEditor extends Editor {
 							<div className="pannel-title">State</div>
 							<div className="block-container">
 								<DetailsState
-									label={
-										inputingLabel !== null ? inputingLabel : selectedModel.label
-									}
-									onChange={(change) => this.setState(change)}
+									model={model}
+									onChange={this.onChange}
 									updateGraph={this.updateGraph}
 								/>
 							</div>
@@ -105,10 +101,8 @@ class ModelFlowEditor extends Editor {
 							<div className="pannel-title">Transition</div>
 							<div className="block-container">
 								<DetailsTransition
-									label={
-										inputingLabel !== null ? inputingLabel : selectedModel.label
-									}
-									onChange={(change) => this.setState(change)}
+									model={model}
+									onChange={this.onChange}
 									updateGraph={this.updateGraph}
 								/>
 							</div>
@@ -120,10 +114,8 @@ class ModelFlowEditor extends Editor {
 							<div className="pannel-title">Group</div>
 							<div className="block-container">
 								<DetailsState
-									label={
-										inputingLabel !== null ? inputingLabel : selectedModel.label
-									}
-									onChange={(change) => this.setState(change)}
+									model={model}
+									onChange={this.onChange}
 									updateGraph={this.updateGraph}
 								/>
 							</div>
@@ -139,7 +131,7 @@ class ModelFlowEditor extends Editor {
 						</div>
 					</div>
 					<Navigator
-						curZoom={curZoom}
+						zoom={curZoom}
 						minZoom={minZoom}
 						maxZoom={maxZoom}
 						changeZoom={this.changeZoom}

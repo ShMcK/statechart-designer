@@ -2,20 +2,24 @@ import { Input } from 'antd'
 import * as React from 'react'
 
 interface IProps {
-	label: string
+	model: { label: string } | null
 	onChange(change: object): void
 	updateGraph(key: string, value: any): void
 }
 
 export default class StateDetails extends React.Component<IProps> {
 	onChange = (e) => {
-		const change = { inputingLabel: e.target.value }
+		const change = {
+			tempModel: {
+				label: e.target.value,
+			},
+		}
 		this.props.onChange(change)
 	}
 	onBlur = (e) => {
 		const value = e.target.value
 		this.props.updateGraph('label', value)
-		this.props.onChange({ inputingLabel: null })
+		this.props.onChange({ tempModel: null })
 	}
 	render() {
 		return (
@@ -24,7 +28,7 @@ export default class StateDetails extends React.Component<IProps> {
 				<Input
 					size="small"
 					className="input name-input"
-					value={this.props.label}
+					value={this.props.model.label}
 					onChange={this.onChange}
 					onBlur={this.onBlur}
 				/>

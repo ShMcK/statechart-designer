@@ -4,7 +4,7 @@ import * as React from 'react'
 import './navigator.css'
 
 interface IProps {
-	curZoom: number
+	zoom: number
 	maxZoom: number
 	minZoom: number
 	changeZoom(zoom: number): void
@@ -27,7 +27,7 @@ class Navigator extends React.Component<IProps> {
 		changeZoom(Number(zoom))
 	}
 	render() {
-		const { curZoom, minZoom, maxZoom } = this.props
+		const { zoom, minZoom, maxZoom } = this.props
 		const menu = (
 			<Menu onClick={this.dropdownChange}>
 				<Menu.Item zoom="0.5">50%</Menu.Item>
@@ -42,14 +42,14 @@ class Navigator extends React.Component<IProps> {
 				<div id="minimap" />
 				<div id="zoom-slider">
 					<Slider
-						value={((curZoom - minZoom) / (maxZoom - minZoom)) * 100}
+						value={((zoom - minZoom) / (maxZoom - minZoom)) * 100}
 						className="slider"
 						tipFormatter={this.sliderTipFormatter}
 						onChange={this.sliderChange}
 					/>
 					<Dropdown overlay={menu}>
 						<a className="zoom-dropdown-btn" href="#">
-							{Math.ceil(curZoom * 100)} %<Icon type="down" />
+							{Math.ceil(zoom * 100)} %<Icon type="down" />
 						</a>
 					</Dropdown>
 				</div>

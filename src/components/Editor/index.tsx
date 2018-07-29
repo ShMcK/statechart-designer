@@ -8,6 +8,7 @@ interface IState {
 	maxZoom: number
 	minZoom: number
 	selectedModel: object
+	tempModel: object | null
 }
 
 export default class Editor extends React.Component<{}, IState> {
@@ -17,6 +18,7 @@ export default class Editor extends React.Component<{}, IState> {
 			curZoom: 1, // 当前缩放比率
 			maxZoom: 2, // 最大缩放比率s
 			minZoom: 0.5, // 最小缩放比率
+			tempModel: null,
 			selectedModel: {}, // 当前选中项数据模型
 		}
 	}
