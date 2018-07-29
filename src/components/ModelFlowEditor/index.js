@@ -2,13 +2,16 @@ import React from 'react'
 import { Checkbox, Input } from 'antd'
 
 import './modelFlowEditor.css'
-import './Flow'
+import './Cards'
 import items from './items'
 import Editor from '../Editor'
 import Navigator from '../Navigator'
 import Toolbar from '../Toolbar'
 import ContextMenu from '../ContextMenu'
 import Page from '../Page'
+
+import DetailsState from './Details/State'
+import DetailsTransition from './Details/State'
 
 class ModelFlowEditor extends Editor {
 	componentDidMount() {
@@ -57,27 +60,6 @@ class ModelFlowEditor extends Editor {
 			inputingLabel,
 			selectedModel,
 		} = this.state
-		const labelInput = (
-			<div className="p">
-				Name：
-				<Input
-					size="small"
-					className="input name-input"
-					value={inputingLabel !== null ? inputingLabel : selectedModel.label}
-					onChange={(ev) => {
-						this.setState({
-							inputingLabel: ev.target.value,
-						})
-					}}
-					onBlur={(ev) => {
-						this.updateGraph('label', ev.target.value)
-						this.setState({
-							inputingLabel: null,
-						})
-					}}
-				/>
-			</div>
-		)
 		return (
 			<div id="editor">
 				<Toolbar />
@@ -104,15 +86,46 @@ class ModelFlowEditor extends Editor {
 							data-status="node-selected"
 							className="pannel"
 							id="node_detailpannel">
-							<div className="pannel-title">Model Details</div>
-							<div className="block-container">{labelInput}</div>
+							<div className="pannel-title">State</div>
+							<div className="block-container">
+								<DetailsState
+									label={
+										inputingLabel !== null ? inputingLabel : selectedModel.label
+									}
+									onChange={(change) => this.setState(change)}
+									updateGraph={(k, v) => this.updateGraph(k, v)}
+								/>
+							</div>
+						</div>
+						<div
+							data-status="edge-selected"
+							className="pannel"
+							id="edge_detailpannel">
+							<div className="pannel-title">Transition</div>
+							<div className="block-container">
+								<DetailsTransition
+									label={
+										inputingLabel !== null ? inputingLabel : selectedModel.label
+									}
+									onChange={(change) => this.setState(change)}
+									updateGraph={(k, v) => this.updateGraph(k, v)}
+								/>
+							</div>
 						</div>
 						<div
 							data-status="group-selected"
 							className="pannel"
 							id="node_detailpannel">
-							<div className="pannel-title">Group Details</div>
-							<div className="block-container">{labelInput}</div>
+							<div className="pannel-title">Group</div>
+							<div className="block-container">
+								<DetailsState
+									label={
+										inputingLabel !== null ? inputingLabel : selectedModel.label
+									}
+									onChange={(change) => this.setState(change)}
+									updateGraph={(k, v) => this.updateGraph(k, v)}
+								/>
+							</div>
 						</div>
 						<div
 							data-status="canvas-selected"
