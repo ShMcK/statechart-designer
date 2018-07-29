@@ -1,9 +1,16 @@
-import * as React from 'react'
 import G6Editor from '@antv/g6-editor'
+import * as React from 'react'
 
 import './editor.css'
 
-export default class Editor extends React.Component {
+interface IState {
+	curZoom: number
+	maxZoom: number
+	minZoom: number
+	selectedModel: object
+}
+
+export default class Editor extends React.Component<{}, IState> {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -13,10 +20,10 @@ export default class Editor extends React.Component {
 			selectedModel: {}, // 当前选中项数据模型
 		}
 	}
-	changeZoom(zoom) {
+	changeZoom = (zoom: number) => {
 		this.page.zoom(zoom)
 	}
-	toggleGrid(ev) {
+	toggleGrid = (ev) => {
 		const { page } = this
 		if (ev.target.checked) {
 			page.showGrid()
@@ -24,7 +31,7 @@ export default class Editor extends React.Component {
 			page.hideGrid()
 		}
 	}
-	updateGraph(key, value) {
+	updateGraph = (key: string, value: any) => {
 		const { editor } = this
 		editor.executeCommand(() => {
 			const { page } = this

@@ -1,19 +1,26 @@
+import { Dropdown, Icon, Menu, Slider } from 'antd'
 import * as React from 'react'
-import { Menu, Dropdown, Slider, Icon } from 'antd'
 
 import './navigator.css'
 
-class Navigator extends React.Component {
-	sliderTipFormatter(num) {
+interface IProps {
+	curZoom: number
+	maxZoom: number
+	minZoom: number
+	changeZoom(zoom: number): void
+}
+
+class Navigator extends React.Component<IProps> {
+	sliderTipFormatter = (num) => {
 		const { minZoom, maxZoom } = this.props
 		const zoom = Math.ceil(num * (maxZoom - minZoom) + minZoom * 100)
 		return zoom + '%'
 	}
-	sliderChange(num) {
+	sliderChange = (num) => {
 		const { minZoom, maxZoom, changeZoom } = this.props
 		changeZoom((num / 100) * (maxZoom - minZoom) + minZoom)
 	}
-	dropdownChange(ev) {
+	dropdownChange = (ev) => {
 		const item = ev.item
 		const zoom = item.props.zoom
 		const { changeZoom } = this.props
@@ -22,7 +29,7 @@ class Navigator extends React.Component {
 	render() {
 		const { curZoom, minZoom, maxZoom } = this.props
 		const menu = (
-			<Menu onClick={this.dropdownChange.bind(this)}>
+			<Menu onClick={this.dropdownChange}>
 				<Menu.Item zoom="0.5">50%</Menu.Item>
 				<Menu.Item zoom="1">100%</Menu.Item>
 				<Menu.Item zoom="1.5">150%</Menu.Item>
@@ -37,8 +44,8 @@ class Navigator extends React.Component {
 					<Slider
 						value={((curZoom - minZoom) / (maxZoom - minZoom)) * 100}
 						className="slider"
-						tipFormatter={this.sliderTipFormatter.bind(this)}
-						onChange={this.sliderChange.bind(this)}
+						tipFormatter={this.sliderTipFormatter}
+						onChange={this.sliderChange}
 					/>
 					<Dropdown overlay={menu}>
 						<a className="zoom-dropdown-btn" href="#">

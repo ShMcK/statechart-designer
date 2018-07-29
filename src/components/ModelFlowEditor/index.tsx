@@ -1,15 +1,15 @@
-import * as React from 'react'
 import { Checkbox } from 'antd'
+import * as React from 'react'
 
-import './modelFlowEditor.css'
 import './Cards'
 import items from './items'
+import './modelFlowEditor.css'
+
+import ContextMenu from '../ContextMenu'
 import Editor from '../Editor'
 import Navigator from '../Navigator'
-import Toolbar from '../Toolbar'
-import ContextMenu from '../ContextMenu'
 import Page from '../Page'
-
+import Toolbar from '../Toolbar'
 import DetailsCanvas from './Details/Canvas'
 import DetailsState from './Details/State'
 import DetailsTransition from './Details/State'
@@ -94,7 +94,7 @@ class ModelFlowEditor extends Editor {
 										inputingLabel !== null ? inputingLabel : selectedModel.label
 									}
 									onChange={(change) => this.setState(change)}
-									updateGraph={(k, v) => this.updateGraph(k, v)}
+									updateGraph={this.updateGraph}
 								/>
 							</div>
 						</div>
@@ -109,7 +109,7 @@ class ModelFlowEditor extends Editor {
 										inputingLabel !== null ? inputingLabel : selectedModel.label
 									}
 									onChange={(change) => this.setState(change)}
-									updateGraph={(k, v) => this.updateGraph(k, v)}
+									updateGraph={this.updateGraph}
 								/>
 							</div>
 						</div>
@@ -124,7 +124,7 @@ class ModelFlowEditor extends Editor {
 										inputingLabel !== null ? inputingLabel : selectedModel.label
 									}
 									onChange={(change) => this.setState(change)}
-									updateGraph={(k, v) => this.updateGraph(k, v)}
+									updateGraph={this.updateGraph}
 								/>
 							</div>
 						</div>
@@ -134,7 +134,7 @@ class ModelFlowEditor extends Editor {
 							id="canvas_detailpannel">
 							<div className="pannel-title">Canvas</div>
 							<div className="block-container">
-								<DetailsCanvas toggleGrid={this.toggleGrid.bind(this)} />
+								<DetailsCanvas toggleGrid={this.toggleGrid} />
 							</div>
 						</div>
 					</div>
@@ -142,7 +142,7 @@ class ModelFlowEditor extends Editor {
 						curZoom={curZoom}
 						minZoom={minZoom}
 						maxZoom={maxZoom}
-						changeZoom={this.changeZoom.bind(this)}
+						changeZoom={this.changeZoom}
 					/>
 					<Page />
 				</div>
