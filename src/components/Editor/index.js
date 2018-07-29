@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import G6Editor from '@antv/g6-editor'
 
 import './editor.css'
@@ -7,10 +7,10 @@ export default class Editor extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			selectedModel: {}, // 当前选中项数据模型
 			curZoom: 1, // 当前缩放比率
-			minZoom: 0.5, // 最小缩放比率
 			maxZoom: 2, // 最大缩放比率s
+			minZoom: 0.5, // 最小缩放比率
+			selectedModel: {}, // 当前选中项数据模型
 		}
 	}
 	changeZoom(zoom) {
@@ -58,15 +58,15 @@ export default class Editor extends React.Component {
 			container: 'detailpannel',
 		})
 		const page = new G6Editor.Flow({
+			align: {
+				grid: true,
+			},
+			edgeResizeable: false,
 			graph: {
 				container: 'page',
 				height,
 			},
-			align: {
-				grid: true,
-			},
 			noEndEdge: false,
-			edgeResizeable: false,
 		})
 		page.on('afteritemselected', (ev) => {
 			this.setState({
