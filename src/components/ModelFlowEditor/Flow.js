@@ -1,4 +1,5 @@
 import G6Editor from '@antv/g6-editor'
+import items from './items'
 
 const Flow = G6Editor.Flow
 // 注册模型卡片基类
@@ -85,157 +86,16 @@ Flow.registerNode('model-card', {
 	],
 })
 
-// k 均值聚类
-Flow.registerNode(
-	'k-means',
-	{
-		label: 'k 均值聚类',
-		color_type: '#1890FF',
-		type_icon_url:
-			'https://gw.alipayobjects.com/zos/rmsportal/czNEJAmyDpclFaSucYWB.svg',
-		state_icon_url:
-			'https://gw.alipayobjects.com/zos/rmsportal/MXXetJAxlqrbisIuZxDO.svg',
-		// 设置锚点
-		anchor: [
-			[
-				0.5,
-				0,
-				{
-					type: 'input',
-				},
-			], // 上面边的中点
-			[
-				0.5,
-				1,
-				{
-					type: 'output',
-				},
-			], // 下边边的中点
-		],
-	},
-	'model-card',
-)
-
-// 随机森林
-Flow.registerNode(
-	'random-forest',
-	{
-		label: '随机森林',
-		color_type: '#9254DE',
-		type_icon_url:
-			'https://gw.alipayobjects.com/zos/rmsportal/czNEJAmyDpclFaSucYWB.svg',
-		state_icon_url:
-			'https://gw.alipayobjects.com/zos/rmsportal/MXXetJAxlqrbisIuZxDO.svg',
-		// 设置锚点
-		anchor: [
-			[
-				0.5,
-				0,
-				{
-					type: 'input',
-				},
-			],
-			[
-				0.5,
-				1,
-				{
-					type: 'output',
-				},
-			],
-		],
-	},
-	'model-card',
-)
-
-// PS-SMART 分类
-Flow.registerNode(
-	'PS-SMART',
-	{
-		label: 'PS-SMART 分类',
-		color_type: '#1890FF',
-		type_icon_url:
-			'https://gw.alipayobjects.com/zos/rmsportal/czNEJAmyDpclFaSucYWB.svg',
-		state_icon_url:
-			'https://gw.alipayobjects.com/zos/rmsportal/MXXetJAxlqrbisIuZxDO.svg',
-		// 设置锚点
-		anchor: [
-			[
-				0.5,
-				0,
-				{
-					type: 'input',
-				},
-			],
-			[
-				0.33,
-				1,
-				{
-					type: 'output',
-				},
-			],
-			[
-				0.66,
-				1,
-				{
-					type: 'output',
-				},
-			],
-		],
-	},
-	'model-card',
-)
-
-// 朴素贝叶斯
-Flow.registerNode(
-	'Bayes',
-	{
-		label: '朴素贝叶斯',
-		color_type: '#9254DE',
-		type_icon_url:
-			'https://gw.alipayobjects.com/zos/rmsportal/czNEJAmyDpclFaSucYWB.svg',
-		state_icon_url:
-			'https://gw.alipayobjects.com/zos/rmsportal/uZVdwjJGqDooqKLKtvGA.svg',
-		// 设置锚点
-		anchor: [
-			[
-				0.5,
-				0,
-				{
-					type: 'input',
-				},
-			],
-			[
-				0.5,
-				1,
-				{
-					type: 'output',
-				},
-			],
-		],
-	},
-	'model-card',
-)
-
-// 读数据表
-Flow.registerNode(
-	'read-data-base',
-	{
-		label: '读数据表',
-		color_type: '#FAAD14',
-		type_icon_url:
-			'https://gw.alipayobjects.com/zos/rmsportal/czNEJAmyDpclFaSucYWB.svg',
-		state_icon_url:
-			'https://gw.alipayobjects.com/zos/rmsportal/MXXetJAxlqrbisIuZxDO.svg',
-		// 设置锚点
-		anchor: [
-			[
-				0.5,
-				1,
-				{
-					type: 'output',
-				},
-			],
-		],
-	},
-	'model-card',
-)
+items.forEach((item) => {
+	Flow.registerNode(
+		item.key,
+		{
+			label: item.label,
+			color_type: item.color,
+			type_icon_url: item.typeIconUrl,
+			state_icon_url: item.stateIconUrl,
+			anchor: item.anchor,
+		},
+		'model-card',
+	)
+})

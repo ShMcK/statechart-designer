@@ -3,6 +3,7 @@ import { Checkbox, Input } from 'antd'
 
 import './modelFlowEditor.css'
 import './Flow'
+import items from './items'
 import Editor from '../Editor'
 import Navigator from '../Navigator'
 import Toolbar from '../Toolbar'
@@ -85,41 +86,17 @@ class ModelFlowEditor extends Editor {
 					<ContextMenu />
 					<div id="itempannel">
 						<ul>
-							<li
-								className="getItem"
-								data-shape="k-means"
-								data-type="node"
-								data-size="170*34">
-								<span className="pannel-type-icon" />K Cluster
-							</li>
-							<li
-								className="getItem"
-								data-shape="random-forest"
-								data-type="node"
-								data-size="170*34">
-								<span className="pannel-type-icon" />Forest
-							</li>
-							<li
-								className="getItem"
-								data-shape="PS-SMART"
-								data-type="node"
-								data-size="170*34">
-								<span className="pannel-type-icon" />Classification
-							</li>
-							<li
-								className="getItem"
-								data-shape="read-data-base"
-								data-type="node"
-								data-size="170*34">
-								<span className="pannel-type-icon" />DB
-							</li>
-							<li
-								className="getItem"
-								data-shape="Bayes"
-								data-type="node"
-								data-size="170*34">
-								<span className="pannel-type-icon" />Bayes
-							</li>
+							{items.map((item) => (
+								<li
+									key={item.key}
+									className="getItem"
+									data-shape={item.key}
+									data-type="node"
+									data-size={item.size}>
+									<span className={item.class} />
+									{item.label}
+								</li>
+							))}
 						</ul>
 					</div>
 					<div id="detailpannel">

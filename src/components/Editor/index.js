@@ -14,11 +14,10 @@ export default class Editor extends React.Component {
 		}
 	}
 	changeZoom(zoom) {
-		const page = this.page
-		page.zoom(zoom)
+		this.page.zoom(zoom)
 	}
 	toggleGrid(ev) {
-		const page = this.page
+		const { page } = this
 		if (ev.target.checked) {
 			page.showGrid()
 		} else {
@@ -26,9 +25,9 @@ export default class Editor extends React.Component {
 		}
 	}
 	updateGraph(key, value) {
-		const editor = this.editor
+		const { editor } = this
 		editor.executeCommand(() => {
-			const page = this.page
+			const { page } = this
 			const selectedItems = page.getSelected()
 			selectedItems.forEach((item) => {
 				const updateModel = {}
