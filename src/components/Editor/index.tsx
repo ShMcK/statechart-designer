@@ -1,7 +1,19 @@
-import G6Editor from '@antv/g6-editor'
 import * as React from 'react'
 
+import './Cards'
+// import * as components from './components'
 import './editor.css'
+import items from './items'
+import './modelFlowEditor.css'
+
+import ContextMenu from '../ContextMenu'
+import Navigator from '../Navigator'
+import Page from '../Page'
+import Toolbar from '../Toolbar'
+import initEditorComponents from './components'
+import DetailsCanvas from './Details/Canvas'
+import DetailsState from './Details/State'
+import DetailsTransition from './Details/State'
 
 interface IState {
 	curZoom: number
@@ -11,7 +23,7 @@ interface IState {
 	tempModel: object | null
 }
 
-export default class Editor extends React.Component<{}, IState> {
+class Editor extends React.Component<{}, IState> {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -46,54 +58,98 @@ export default class Editor extends React.Component<{}, IState> {
 		})
 	}
 	componentDidMount() {
-		// 生成 G6 Editor 编辑器
-		const height = window.innerHeight - 38
-		const editor = new G6Editor()
-		const minimap = new G6Editor.Minimap({
-			container: 'minimap',
-			height: 120,
-			width: 200,
-		})
-		const toolbar = new G6Editor.Toolbar({
-			container: 'toolbar',
-		})
-		const contextmenu = new G6Editor.Contextmenu({
-			container: 'contextmenu',
-		})
-		const itempannel = new G6Editor.Itempannel({
-			container: 'itempannel',
-		})
-		const detailpannel = new G6Editor.Detailpannel({
-			container: 'detailpannel',
-		})
-		const page = new G6Editor.Flow({
-			align: {
-				grid: true,
-			},
-			edgeResizeable: false,
-			graph: {
-				container: 'page',
-				height,
-			},
-			noEndEdge: false,
-		})
-		page.on('afteritemselected', (ev) => {
-			this.setState({
-				selectedModel: ev.item.getModel(),
-			})
-		})
-		page.on('afterzoom', (ev) => {
-			this.setState({
-				curZoom: ev.updateMatrix[0],
-			})
-		})
-		editor.add(minimap)
-		editor.add(toolbar)
-		editor.add(contextmenu)
-		editor.add(itempannel)
-		editor.add(detailpannel)
-		editor.add(page)
+		const { page, editor } = initEditorComponents(this.onChange)
 		this.page = page
 		this.editor = editor
 	}
+	onChange = (change) => {
+		this.setState(change)
+	}
+	render() {
+		const { curZoom, minZoom, maxZoom, tempModel, selectedModel } = this.state
+		const model = tempModel !== null ? tempModel : selectedModel
+		return (
+			<div id="editor">
+				<Toolbar />
+				<div style={{ height: '42px' }} />
+				<div className="bottom-container">
+					<ContextMenu />
+					<div id="itempannel">
+						<ul>
+							{items.map((item) => (
+								<li
+									key={item.key}
+									className="getItem"
+									data-shape={item.key}
+									data-type="node"
+									data-size={item.size}>
+									<span className={item.class} />
+									{item.label}
+								</li>
+							))}
+						</ul>
+					</div>
+					<div id="detailpannel">
+						<div
+							data-status="node-selected"
+							className="pannel"
+							id="node_detailpannel">
+							<div className="pannel-title">State</div>
+							<div className="block-container">
+								<DetailsState
+									model={model}
+									onChange={this.onChange}
+									updateGraph={this.updateGraph}
+								/>
+							</div>
+						</div>
+						<div
+							data-status="edge-selected"
+							className="pannel"
+							id="edge_detailpannel">
+							<div className="pannel-title">Transition</div>
+							<div className="block-container">
+								<DetailsTransition
+									model={model}
+									onChange={this.onChange}
+									updateGraph={this.updateGraph}
+								/>
+							</div>
+						</div>
+						<div
+							data-status="group-selected"
+							className="pannel"
+							id="node_detailpannel">
+							<div className="pannel-title">Group</div>
+							<div className="block-container">
+								<DetailsState
+									model={model}
+									onChange={this.onChange}
+									updateGraph={this.updateGraph}
+								/>
+							</div>
+						</div>
+						<div
+							data-status="canvas-selected"
+							className="pannel"
+							id="canvas_detailpannel">
+							<div className="pannel-title">Canvas</div>
+							<div className="block-container">
+								<DetailsCanvas toggleGrid={this.toggleGrid} />
+							</div>
+						</div>
+					</div>
+					<Navigator
+						zoom={curZoom}
+						minZoom={minZoom}
+						maxZoom={maxZoom}
+						changeZoom={this.changeZoom}
+					/>
+					<Page />
+				</div>
+			</div>
+		)
+	}
 }
+
+export default Editor
