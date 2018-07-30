@@ -1,7 +1,7 @@
 import { Icon } from 'antd'
 import * as React from 'react'
 
-import { save } from '../../utils/storage'
+import { load } from '../../utils/storage'
 import './toolbar.css'
 
 interface IProps {
@@ -9,21 +9,17 @@ interface IProps {
 }
 
 class Toolbar extends React.Component<IProps> {
-	state: {
-		data: null
-	}
-	save = () => {
-		if (this.props.page) {
-			const data = this.props.page.save()
-			this.setState({ data })
-			save(data)
-			console.log('save!', data)
-		}
-	}
-	export = () => {
-		if (this.props.page) {
-			console.log('export!', this.state.data)
-		}
+	// save = () => {
+	// 	if (this.props.page) {
+	// 		const data = this.props.page.save()
+	// 		this.setState({ data })
+	// 		save(data)
+	// 		console.log('save!', data)
+	// 	}
+	// }
+	export = async () => {
+		const data = await load()
+		console.log('export data', data)
 	}
 	render() {
 		return (
@@ -116,12 +112,12 @@ class Toolbar extends React.Component<IProps> {
 						alignItems: 'center',
 						padding: '0 2rem',
 					}}>
-					<Icon
+					{/* <Icon
 						type="save"
 						className="iconfont"
 						style={{ paddingTop: '4px' }}
 						onClick={this.save}
-					/>
+					/> */}
 					<Icon
 						type="export"
 						className="iconfont"

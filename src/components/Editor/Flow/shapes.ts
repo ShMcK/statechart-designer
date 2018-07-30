@@ -11,8 +11,6 @@ export default [
 				const y = -height / 2
 				const borderRadius = 4
 
-				console.log('draw', item)
-
 				// outline shape when drawing
 				const keyShape = group.addShape('rect', {
 					attrs: {

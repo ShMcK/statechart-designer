@@ -1,5 +1,7 @@
 import G6Editor, { IEditorEvent } from '@antv/g6-editor'
 
+import { save } from '../../utils/storage'
+
 const initEditorComponents = (onChange: (change: any) => void) => {
 	const editor = new G6Editor()
 
@@ -82,6 +84,11 @@ const initEditorComponents = (onChange: (change: any) => void) => {
 		) {
 			ev.cancel = true
 		}
+	})
+
+	page.on('afterchange', () => {
+		const data = page.save()
+		save(data)
 	})
 
 	return {

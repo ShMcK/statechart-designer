@@ -33,9 +33,9 @@ class Editor extends React.Component<{}, IState> {
 		this.page = page
 		this.editor = editor
 		initFlow()
-		setTimeout(() => {
-			this.load()
-		}, 1000)
+
+		// load saved data
+		this.load()
 	}
 
 	componentWillUnmount() {
