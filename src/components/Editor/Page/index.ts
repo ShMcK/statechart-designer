@@ -1,32 +1,7 @@
 import G6Editor, { IEditorEvent } from '@antv/g6-editor'
+import { save } from '../../../utils/storage'
 
-import { save } from '../../utils/storage'
-
-const initEditorComponents = (onChange: (change: any) => void) => {
-	const editor = new G6Editor()
-
-	const minimap = new G6Editor.Minimap({
-		container: 'minimap',
-		height: 120,
-		width: 200,
-	})
-
-	const toolbar = new G6Editor.Toolbar({
-		container: 'toolbar',
-	})
-
-	const contextmenu = new G6Editor.Contextmenu({
-		container: 'contextmenu',
-	})
-
-	const itempannel = new G6Editor.Itempannel({
-		container: 'itempannel',
-	})
-
-	const detailpannel = new G6Editor.Detailpannel({
-		container: 'detailpannel',
-	})
-
+export default (onChange: any) => {
 	const page = new G6Editor.Flow({
 		align: {
 			grid: true,
@@ -49,13 +24,6 @@ const initEditorComponents = (onChange: (change: any) => void) => {
 			curZoom: ev.updateMatrix[0],
 		})
 	})
-	editor.add(minimap)
-	editor.add(toolbar)
-	editor.add(contextmenu)
-	editor.add(itempannel)
-	editor.add(detailpannel)
-	editor.add(page)
-
 	// before connecting anchor point
 	page.on('hoveranchor:beforeaddedge', (ev: IEditorEvent) => {
 		if (ev.anchor.type === 'input') {
@@ -86,24 +54,21 @@ const initEditorComponents = (onChange: (change: any) => void) => {
 		}
 	})
 
-	page.on('afterchange', () => {
+	page.on('edge', (ev: any) => {
+		console.log('BEFORE ADD EDGE', ev)
+	})
+
+	page.on('afterchange', (ev: any) => {
+		// highlight transition on creation
+		if (ev.action === 'add' && ev.item.type === 'edge') {
+			page.clearSelected()
+			page.setSelected(ev.item.id, true)
+		}
+
+		// save
 		const data = page.save()
 		save(data)
 	})
 
-	editor.on('beforecommandexecute', (ev: any) => {
-		switch (ev.command.name) {
-			case 'addGroup':
-				console.log('group!')
-			default:
-				return
-		}
-	})
-
-	return {
-		page,
-		editor,
-	}
+	return page
 }
-
-export default initEditorComponents

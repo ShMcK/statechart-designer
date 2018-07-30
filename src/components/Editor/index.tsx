@@ -10,10 +10,11 @@ import ContextMenu from '../ContextMenu'
 import Navigator from '../Navigator'
 import Page from '../Page'
 import Toolbar from '../Toolbar'
-import initEditorComponents from './components'
 import DetailsCanvas from './Details/Canvas'
 import DetailsState from './Details/State'
 import DetailsTransition from './Details/Transition'
+import initEditor from './Editor'
+import initPage from './Page'
 import Zoom from './Zoom'
 
 interface IState {
@@ -29,7 +30,8 @@ class Editor extends React.Component<{}, IState> {
 		tempModel: null,
 	}
 	componentDidMount() {
-		const { page, editor } = initEditorComponents(this.onChange)
+		const page = initPage(this.onChange)
+		const editor = initEditor(page)
 		this.page = page
 		this.editor = editor
 		initFlow()
