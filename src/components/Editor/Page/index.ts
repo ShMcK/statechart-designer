@@ -24,12 +24,14 @@ export default (onChange: any) => {
 			curZoom: ev.updateMatrix[0],
 		})
 	})
+
 	// before connecting anchor point
 	page.on('hoveranchor:beforeaddedge', (ev: IEditorEvent) => {
 		if (ev.anchor.type === 'input') {
 			ev.cancel = true
 		}
 	})
+
 	page.on('dragedge:beforeshowanchor', (ev: IEditorEvent) => {
 		// inputs connect to outputs
 		if (
@@ -54,15 +56,16 @@ export default (onChange: any) => {
 		}
 	})
 
-	page.on('edge', (ev: any) => {
-		console.log('BEFORE ADD EDGE', ev)
-	})
-
 	page.on('afterchange', (ev: any) => {
-		// highlight transition on creation
-		if (ev.action === 'add' && ev.item.type === 'edge') {
-			page.clearSelected()
-			page.setSelected(ev.item.id, true)
+		if (ev.action === 'add') {
+			// highlight transition on creation
+			if (ev.item.type === 'edge') {
+				ev.item.model.label = 'Event'
+				page.clearSelected()
+				page.setSelected(ev.item.id, true)
+			} else if (ev.item.type === 'group') {
+				ev.item.model.label = 'Group'
+			}
 		}
 
 		// save
