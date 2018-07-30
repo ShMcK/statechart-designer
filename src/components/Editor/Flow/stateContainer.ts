@@ -11,7 +11,7 @@ export default [
 				const y = -height / 2
 				const borderRadius = 4
 
-				// outline shape when drawing
+				// state outline
 				const keyShape = group.addShape('rect', {
 					attrs: {
 						x,
@@ -26,6 +26,7 @@ export default [
 
 				const shapes = [
 					{
+						// color label for state
 						type: 'path',
 						attrs: {
 							path: [
@@ -49,6 +50,7 @@ export default [
 						},
 					},
 					{
+						// left icon
 						type: 'image',
 						attrs: {
 							img: this.type_icon_url,
@@ -59,6 +61,7 @@ export default [
 						},
 					},
 					{
+						// right icon
 						type: 'image',
 						attrs: {
 							img: this.state_icon_url,
@@ -69,9 +72,10 @@ export default [
 						},
 					},
 					{
+						// state title
 						type: 'text',
 						attrs: {
-							text: model.label ? model.label : this.label,
+							text: model.label ? model.label : this.label || 'state',
 							x: x + 52,
 							y: y + 13,
 							textAlign: 'start',

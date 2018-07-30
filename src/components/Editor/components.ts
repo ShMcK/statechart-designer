@@ -91,6 +91,15 @@ const initEditorComponents = (onChange: (change: any) => void) => {
 		save(data)
 	})
 
+	editor.on('beforecommandexecute', (ev: any) => {
+		switch (ev.command.name) {
+			case 'addGroup':
+				console.log('group!')
+			default:
+				return
+		}
+	})
+
 	return {
 		page,
 		editor,

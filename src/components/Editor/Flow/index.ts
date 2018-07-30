@@ -1,13 +1,13 @@
 import G6Editor from '@antv/g6-editor'
 
 import items from './items'
-import shapes from './shapes'
+import stateContainer from './stateContainer'
 
 const Flow = G6Editor.Flow
 
 export default () => {
-	shapes.forEach((shape) => {
-		Flow.registerNode(...shape)
+	stateContainer.forEach((item) => {
+		Flow.registerNode(...item)
 	})
 
 	items.forEach((item) => {
