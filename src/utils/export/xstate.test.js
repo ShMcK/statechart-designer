@@ -17,13 +17,12 @@ describe('export xstate', () => {
 		const result = exportToXState(data)
 
 		const expected = {
-			key: 'First',
-			inital: 'First',
+			initial: 'First',
 			states: {
 				First: {},
 			},
 		}
-		expect(result).toBe(expected)
+		expect(result).toEqual(expected)
 	})
 
 	it('should export 2 nodes with 1 edge', () => {
@@ -58,8 +57,7 @@ describe('export xstate', () => {
 		const result = exportToXState(data)
 
 		const expected = {
-			key: 'First',
-			inital: 'First',
+			initial: 'First',
 			states: {
 				First: {
 					on: {
@@ -69,7 +67,7 @@ describe('export xstate', () => {
 				Second: {},
 			},
 		}
-		expect(result).toBe(expected)
+		expect(result).toEqual(expected)
 	})
 
 	it('should export 2 nodes with 2 edges', () => {
@@ -111,8 +109,7 @@ describe('export xstate', () => {
 		const result = exportToXState(data)
 
 		const expected = {
-			key: 'First',
-			inital: 'First',
+			initial: 'First',
 			states: {
 				First: {
 					on: {
@@ -126,6 +123,6 @@ describe('export xstate', () => {
 				},
 			},
 		}
-		expect(result).toBe(expected)
+		expect(result).toEqual(expected)
 	})
 })
