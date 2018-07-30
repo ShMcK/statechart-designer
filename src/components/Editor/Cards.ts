@@ -4,7 +4,7 @@ import items from './items'
 const Flow = G6Editor.Flow
 
 Flow.registerNode('model-card', {
-	draw(item) {
+	draw(this: any, item: any) {
 		const group = item.getGraphicGroup()
 		const model = item.getModel()
 		const width = 184

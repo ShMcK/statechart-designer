@@ -4,7 +4,8 @@
 		"object-literal-sort-keys": false,
 		"member-access": false,
 		"jsx-no-lambda": false,
-		"no-implicit-dependencies": false
+		"no-implicit-dependencies": false,
+		"no-console": false
 	},
 	"linterOptions": {
 		"exclude": ["config/**/*.js", "node_modules/**/*.ts"]

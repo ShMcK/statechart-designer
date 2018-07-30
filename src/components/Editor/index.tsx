@@ -16,8 +16,8 @@ import DetailsTransition from './Details/Transition'
 import Zoom from './Zoom'
 
 interface IState {
-	selectedModel: object
-	tempModel: object | null
+	selectedModel: any
+	tempModel: any
 }
 
 class Editor extends React.Component<{}, IState> {
@@ -33,7 +33,7 @@ class Editor extends React.Component<{}, IState> {
 		this.editor = editor
 	}
 
-	toggleGrid = (ev) => {
+	toggleGrid = (ev: any) => {
 		if (ev.target.checked) {
 			this.page.showGrid()
 		} else {
@@ -43,7 +43,7 @@ class Editor extends React.Component<{}, IState> {
 	updateGraph = (key: string, value: any) => {
 		this.editor.executeCommand(() => {
 			const selectedItems = this.page.getSelected()
-			selectedItems.forEach((item) => {
+			selectedItems.forEach((item: any) => {
 				const updateModel = {}
 				updateModel[key] = value
 				this.page.update(item, updateModel)
@@ -51,7 +51,7 @@ class Editor extends React.Component<{}, IState> {
 		})
 	}
 
-	onChange = (change) => {
+	onChange = (change: any) => {
 		this.setState(change)
 	}
 	render() {

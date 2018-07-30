@@ -1,8 +1,12 @@
+import { Icon } from 'antd'
 import * as React from 'react'
 
 import './toolbar.css'
 
 class Toolbar extends React.Component {
+	export = () => {
+		console.log('export!')
+	}
 	render() {
 		return (
 			<div id="toolbar">
@@ -85,6 +89,7 @@ class Toolbar extends React.Component {
 					className="command iconfont icon-ungroup"
 					title="ungroup"
 				/>
+				<Icon type="export" onClick={this.export} />
 			</div>
 		)
 	}

@@ -1,8 +1,8 @@
-import { Checkbox, Input } from 'antd'
+import { Input } from 'antd'
 import * as React from 'react'
 
 interface IProps {
-	model: object | null
+	model: any
 	onChange(change: object): void
 	updateGraph(key: string, value: any): void
 }
@@ -34,7 +34,7 @@ export default class StateDetails extends React.Component<IProps> {
 						onBlur={(e) => this.onBlur('label', e.target.value)}
 					/>
 				</div>
-				<div className="p">
+				{/* <div className="p">
 					<Checkbox
 						checked={this.props.model.initial}
 						onChange={(e) =>
@@ -61,7 +61,7 @@ export default class StateDetails extends React.Component<IProps> {
 						onChange={(e) => this.onChange('entryAction', e.target.value)}
 						onBlur={(e) => this.onBlur('entryAction', e.target.value)}
 					/>
-				</div>
+				</div> */}
 			</React.Fragment>
 		)
 	}

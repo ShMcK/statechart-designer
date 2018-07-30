@@ -11,16 +11,16 @@ interface IProps {
 }
 
 class Navigator extends React.Component<IProps> {
-	sliderTipFormatter = (num) => {
+	sliderTipFormatter = (num: number) => {
 		const { minZoom, maxZoom } = this.props
 		const zoom = Math.ceil(num * (maxZoom - minZoom) + minZoom * 100)
 		return zoom + '%'
 	}
-	sliderChange = (num) => {
+	sliderChange = (num: number) => {
 		const { minZoom, maxZoom, changeZoom } = this.props
 		changeZoom((num / 100) * (maxZoom - minZoom) + minZoom)
 	}
-	dropdownChange = (ev) => {
+	dropdownChange = (ev: any) => {
 		const item = ev.item
 		const zoom = item.props.zoom
 		const { changeZoom } = this.props

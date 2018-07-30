@@ -1,13 +1,13 @@
 import * as React from 'react'
 
-interface IProps {
-	children(IState): any
-}
-
 interface IState {
 	zoom: number
 	maxZoom: number
 	minZoom: number
+}
+
+interface IProps {
+	children(params: IState): any
 }
 
 export default class Zoom extends React.Component<IProps, IState> {

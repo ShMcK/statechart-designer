@@ -16,9 +16,10 @@
 		"noImplicitAny": true,
 		"strictNullChecks": true,
 		"suppressImplicitAnyIndexErrors": true,
-		"noUnusedLocals": true
+		"noUnusedLocals": true,
+		"skipLibCheck": true
 	},
-	"include": ["src/typings"],
+	"include": ["src/typings", "src/**/*"],
 	"exclude": [
 		"node_modules",
 		"build",

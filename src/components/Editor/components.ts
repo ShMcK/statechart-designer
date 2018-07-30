@@ -1,6 +1,34 @@
 import G6Editor from '@antv/g6-editor'
 
-const initEditorComponents = (onChange) => {
+interface IEditorEvent {
+	currentItem: any
+	currentShape: any
+	shape: any
+	item: {
+		getModel(): any
+	}
+	domEvent: any
+	x: number
+	y: number
+	anchor: {
+		index: number
+		x: number
+		y: number
+		type: string
+	}
+	source: any
+	target: any
+	sourceAnchor: any
+	targetAnchor: any
+	dragEndPointType: any
+	action: any
+	toShape: any
+	toItem: any
+	updateMatrix: any
+	cancel: any
+}
+
+const initEditorComponents = (onChange: (change: any) => void) => {
 	const editor = new G6Editor()
 
 	const minimap = new G6Editor.Minimap({
@@ -37,12 +65,12 @@ const initEditorComponents = (onChange) => {
 		noEndEdge: false,
 	})
 
-	page.on('afteritemselected', (ev) => {
+	page.on('afteritemselected', (ev: IEditorEvent) => {
 		onChange({
 			selectedModel: ev.item.getModel(),
 		})
 	})
-	page.on('afterzoom', (ev) => {
+	page.on('afterzoom', (ev: IEditorEvent) => {
 		onChange({
 			curZoom: ev.updateMatrix[0],
 		})
@@ -55,12 +83,12 @@ const initEditorComponents = (onChange) => {
 	editor.add(page)
 
 	// before connecting anchor point
-	page.on('hoveranchor:beforeaddedge', (ev) => {
+	page.on('hoveranchor:beforeaddedge', (ev: IEditorEvent) => {
 		if (ev.anchor.type === 'input') {
 			ev.cancel = true
 		}
 	})
-	page.on('dragedge:beforeshowanchor', (ev) => {
+	page.on('dragedge:beforeshowanchor', (ev: IEditorEvent) => {
 		// inputs connect to outputs
 		if (
 			!(ev.targetAnchor.type === 'input' && ev.sourceAnchor.type === 'output')
