@@ -32,6 +32,9 @@ class Editor extends React.Component<{}, IState> {
 		this.page = page
 		this.editor = editor
 	}
+	componentWillUnmount() {
+		this.editor.destroy()
+	}
 
 	toggleGrid = (ev: any) => {
 		if (ev.target.checked) {
@@ -55,11 +58,12 @@ class Editor extends React.Component<{}, IState> {
 		this.setState(change)
 	}
 	render() {
+		console.log('render page', this.page)
 		const { tempModel, selectedModel } = this.state
 		const model = tempModel !== null ? tempModel : selectedModel
 		return (
 			<div id="editor">
-				<Toolbar />
+				<Toolbar page={this.page} />
 				<div style={{ height: '42px' }} />
 				<div className="bottom-container">
 					<ContextMenu />

@@ -1,32 +1,4 @@
-import G6Editor from '@antv/g6-editor'
-
-interface IEditorEvent {
-	currentItem: any
-	currentShape: any
-	shape: any
-	item: {
-		getModel(): any
-	}
-	domEvent: any
-	x: number
-	y: number
-	anchor: {
-		index: number
-		x: number
-		y: number
-		type: string
-	}
-	source: any
-	target: any
-	sourceAnchor: any
-	targetAnchor: any
-	dragEndPointType: any
-	action: any
-	toShape: any
-	toItem: any
-	updateMatrix: any
-	cancel: any
-}
+import G6Editor, { IEditorEvent } from '@antv/g6-editor'
 
 const initEditorComponents = (onChange: (change: any) => void) => {
 	const editor = new G6Editor()

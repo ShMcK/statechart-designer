@@ -1,4 +1,4 @@
-// import { Input } from 'antd'
+import { Input } from 'antd'
 import * as React from 'react'
 
 interface IProps {
@@ -17,15 +17,15 @@ export default class TransitionDetails extends React.Component<IProps> {
 		}
 		this.props.onChange(change)
 	}
-	// onBlur = (key: string, value: any) => {
-	// 	let label = this.props.model.event || ''
-	// 	if (this.props.model.guard) {
-	// 		label = `${label} [${this.props.model.guard}]`
-	// 	}
+	onBlur = (key: string, value: any) => {
+		// let label = this.props.model.event || ''
+		// if (this.props.model.guard) {
+		// 	label = `${label} [${this.props.model.guard}]`
+		// }
 
-	// 	this.props.updateGraph('label', label)
-	// 	this.props.onChange({ tempModel: null })
-	// }
+		this.props.updateGraph(key, value)
+		this.props.onChange({ tempModel: null })
+	}
 	fromLabel() {
 		return {
 			event: 'EVENT',
@@ -35,17 +35,17 @@ export default class TransitionDetails extends React.Component<IProps> {
 	render() {
 		return (
 			<React.Fragment>
-				{/* <div className="p">
+				<div className="p">
 					Event:
 					<Input
 						size="small"
 						className="input name-input"
-						value={this.props.model.event}
-						onChange={(e) => this.onChange('event', e.target.value)}
-						onBlur={(e) => this.onBlur('event', e.target.value)}
+						value={this.props.model.label}
+						onChange={(e) => this.onChange('label', e.target.value)}
+						onBlur={(e) => this.onBlur('label', e.target.value)}
 					/>
 				</div>
-				<div className="p">
+				{/* <div className="p">
 					Guard:
 					<Input
 						size="small"

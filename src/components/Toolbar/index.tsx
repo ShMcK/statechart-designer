@@ -3,9 +3,25 @@ import * as React from 'react'
 
 import './toolbar.css'
 
-class Toolbar extends React.Component {
+interface IProps {
+	page: any
+}
+
+class Toolbar extends React.Component<IProps> {
+	state: {
+		data: null
+	}
+	save = () => {
+		if (this.props.page) {
+			const data = this.props.page.save()
+			this.setState({ data })
+			console.log('save!', data)
+		}
+	}
 	export = () => {
-		console.log('export!')
+		if (this.props.page) {
+			console.log('export!', this.state.data)
+		}
 	}
 	render() {
 		return (
@@ -89,7 +105,8 @@ class Toolbar extends React.Component {
 					className="command iconfont icon-ungroup"
 					title="ungroup"
 				/>
-				<Icon type="export" onClick={this.export} />
+				<Icon type="save" className="iconfont" onClick={this.save} />
+				<Icon type="export" className="iconfont" onClick={this.export} />
 			</div>
 		)
 	}

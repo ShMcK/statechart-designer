@@ -1,4 +1,32 @@
 declare module '@antv/g6-editor' {
+	export interface IEditorEvent {
+		currentItem: any
+		currentShape: any
+		shape: any
+		item: {
+			getModel(): any
+		}
+		domEvent: any
+		x: number
+		y: number
+		anchor: {
+			index: number
+			x: number
+			y: number
+			type: string
+		}
+		source: any
+		target: any
+		sourceAnchor: any
+		targetAnchor: any
+		dragEndPointType: any
+		action: any
+		toShape: any
+		toItem: any
+		updateMatrix: any
+		cancel: any
+	}
+
 	interface FlowNodeOptions {
 		anchor: number[][]
 		draw(item: any): any

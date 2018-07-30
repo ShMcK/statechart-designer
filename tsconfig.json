@@ -19,7 +19,7 @@
 		"noUnusedLocals": true,
 		"skipLibCheck": true
 	},
-	"include": ["src/typings", "src/**/*"],
+	"include": ["typings", "src/**/*"],
 	"exclude": [
 		"node_modules",
 		"build",
