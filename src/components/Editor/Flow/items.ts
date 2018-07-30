@@ -13,7 +13,7 @@ const anchor = [
 	[1, 1, { type: 'output' }],
 ]
 
-export default [
+const items = [
 	{
 		key: 'state',
 		size: '170*34',
@@ -45,3 +45,5 @@ export default [
 		anchor,
 	},
 ]
+
+export default items

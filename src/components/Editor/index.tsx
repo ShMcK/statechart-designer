@@ -1,8 +1,8 @@
 import * as React from 'react'
 
-import './Cards'
 import './editor.css'
-import items from './items'
+import initFlow from './Flow'
+import items from './Flow/items'
 import './modelFlowEditor.css'
 
 import ContextMenu from '../ContextMenu'
@@ -31,6 +31,7 @@ class Editor extends React.Component<{}, IState> {
 		const { page, editor } = initEditorComponents(this.onChange)
 		this.page = page
 		this.editor = editor
+		initFlow()
 	}
 	componentWillUnmount() {
 		this.editor.destroy()
@@ -58,7 +59,6 @@ class Editor extends React.Component<{}, IState> {
 		this.setState(change)
 	}
 	render() {
-		console.log('render page', this.page)
 		const { tempModel, selectedModel } = this.state
 		const model = tempModel !== null ? tempModel : selectedModel
 		return (
@@ -69,7 +69,7 @@ class Editor extends React.Component<{}, IState> {
 					<ContextMenu />
 					<div id="itempannel">
 						<ul>
-							{items.map((item) => (
+							{items.map((item: any) => (
 								<li
 									key={item.key}
 									className="getItem"
