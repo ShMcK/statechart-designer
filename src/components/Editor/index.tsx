@@ -5,6 +5,7 @@ import initFlow from './Flow'
 import items from './Flow/items'
 import './modelFlowEditor.css'
 
+import { load } from '../../utils/storage'
 import ContextMenu from '../ContextMenu'
 import Navigator from '../Navigator'
 import Page from '../Page'
@@ -32,9 +33,18 @@ class Editor extends React.Component<{}, IState> {
 		this.page = page
 		this.editor = editor
 		initFlow()
+		setTimeout(() => {
+			this.load()
+		}, 1000)
 	}
+
 	componentWillUnmount() {
 		this.editor.destroy()
+	}
+
+	load = async () => {
+		const loaded = await load()
+		this.page.read(loaded)
 	}
 
 	toggleGrid = (ev: any) => {
