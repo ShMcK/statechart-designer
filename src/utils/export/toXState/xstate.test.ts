@@ -1,6 +1,6 @@
-import { IData } from '../../../typings/g6-editor/data'
-import { StateNodeConfig } from '../../../typings/xstate/index'
-import { exportToXState } from './index'
+import { IData } from '../../../../typings/g6-editor/data'
+import { StateNodeConfig } from '../../../../typings/xstate/index'
+import exportToXState from './index'
 
 describe('export xstate', () => {
 	it('should export 1 node', () => {
@@ -226,4 +226,14 @@ describe('export xstate', () => {
 		}
 		expect(result).toEqual(expected)
 	})
+
+	// it('1 initial state')
+
+	// it('nested state with 2nd initial state')
+
+	// it('onEntry action')
+
+	// it('onExit action')
+
+	// it('transition guard')
 })

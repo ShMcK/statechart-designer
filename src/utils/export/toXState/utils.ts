@@ -1,4 +1,4 @@
-import { IData, IEdge, INode } from '../../../typings/g6-editor/data'
+import { IData, IEdge, INode } from '../../../../typings/g6-editor/data'
 
 export function getInitial(data: IData): INode {
 	const hasInitialNode = data.nodes.find(
