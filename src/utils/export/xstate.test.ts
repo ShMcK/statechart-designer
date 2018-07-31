@@ -1,9 +1,10 @@
-import { StateNodeConfig } from '../../../typings/xstate'
+import { IData } from '../../../typings/g6-editor/data'
+import { StateNodeConfig } from '../../../typings/xstate/index'
 import { exportToXState } from './index'
 
 describe('export xstate', () => {
 	it('should export 1 node', () => {
-		const data = {
+		const data: IData = {
 			nodes: [
 				{
 					shape: 'state',
@@ -27,7 +28,7 @@ describe('export xstate', () => {
 	})
 
 	it('should export 2 nodes with 1 edge', () => {
-		const data = {
+		const data: IData = {
 			nodes: [
 				{
 					shape: 'state',
@@ -72,7 +73,7 @@ describe('export xstate', () => {
 	})
 
 	it('should export 2 nodes with 2 edges', () => {
-		const data = {
+		const data: IData = {
 			nodes: [
 				{
 					shape: 'state',

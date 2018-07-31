@@ -1,26 +1,7 @@
-import { StateNodeConfig } from '../../../typings/xstate'
+import { IData, IEdge, INode } from '../../../typings/g6-editor/data'
+import { StateNodeConfig } from '../../../typings/xstate/index'
 
-interface IData {
-	nodes: INode[]
-	edges: IEdge[]
-}
-
-interface INode {
-	shape: string
-	type: string
-	id: string
-	index: number
-	label: string
-	initialNode?: boolean
-}
-
-interface IEdge {
-	source: string
-	target: string
-	id: string
-	index: number
-	label: string
-}
+import { getEdgesByNode, getInitial } from './utils'
 
 export const exportToXState = (data: IData) => {
 	// normalize nodes & edges
@@ -37,18 +18,7 @@ export const exportToXState = (data: IData) => {
 		nodes[node.id] = node
 	})
 
-	// if no initial, use index 0 node
-	function getInitial(): INode {
-		const hasInitialNode = data.nodes.find(
-			(node: INode) => node.initialNode === true,
-		)
-		if (hasInitialNode) {
-			return hasInitialNode
-		}
-		return data.nodes[0]
-	}
-
-	const initial: INode = getInitial()
+	const initial: INode = getInitial(data)
 
 	xstate.initial = initial.label
 
@@ -68,20 +38,13 @@ export const exportToXState = (data: IData) => {
 		edges[edge.id] = edge
 	})
 
-	// for each node, search its edges as source
-	function getEdgesByNode(node: INode) {
-		return data.edges.filter((edge: IEdge) => edge.source === node.id)
-	}
+	const nodeEdges = getEdgesByNode(data, data.nodes[0])
 
-	if (data.edges) {
-		const nodeEdges = getEdgesByNode(data.nodes[0])
-
-		nodeEdges.forEach((edge: IEdge) => {
-			if (xstate.states) {
-				xstate.states[edge.target] = {}
-			}
-		})
-	}
+	nodeEdges.forEach((edge: IEdge) => {
+		if (xstate.states) {
+			xstate.states[edge.target] = {}
+		}
+	})
 
 	xstate.states = {
 		[data.nodes[0].label]: {},
