@@ -24,12 +24,13 @@ export const exportToXState = (data: IData) => {
 	})
 
 	const initial: INode = getInitial(data)
-
 	xstate.initial = initial.label
-
-	if (xstate.states) {
-		xstate.states[initial.label] = {}
+	xstate.states = {
+		[initial.label]: {},
 	}
+
+	const traversedStates = {}
+	const untraversedStateIds: string[] = [initial.id]
 
 	// if no edges, cannot continue
 	if (!data.edges) {
@@ -41,22 +42,42 @@ export const exportToXState = (data: IData) => {
 		edges[edge.id] = edge
 	})
 
+	function traverseEdges(edgeList: IEdge[]): void {
+		edgeList.forEach((edge: IEdge) => {
+			if (xstate.states) {
+				// add state
+				const target = nodes[edge.target].label
+				xstate.states[target] = xstate.states[target] || {}
+				untraversedStateIds.push(edge.target)
+
+				// add state.on
+				const source = nodes[edge.source].label
+				xstate.states[source].on = {
+					...xstate.states[source].on,
+					[edge.label]: target,
+				}
+			}
+		})
+	}
+
+	function traverseNode(node: INode) {
+		if (!traversedStates[node.id]) {
+			const nodeEdges = getEdgesByNode(data, node)
+			if (!nodeEdges) {
+				return xstate
+			}
+			traversedStates[node.id] = true
+			traverseEdges(nodeEdges)
+		}
+	}
+
 	// use edges to find other nodes
 	// breadth first
-	const nodeEdges = getEdgesByNode(data, data.nodes[0])
-
-	if (!nodeEdges) {
-		return xstate
+	while (untraversedStateIds.length) {
+		const nextId: string = untraversedStateIds.shift() || ''
+		const node = nodes[nextId]
+		traverseNode(node)
 	}
 
-	nodeEdges.forEach((edge: IEdge) => {
-		if (xstate.states) {
-			xstate.states[edge.target] = {}
-		}
-	})
-
-	xstate.states = {
-		[data.nodes[0].label]: {},
-	}
 	return xstate
 }
