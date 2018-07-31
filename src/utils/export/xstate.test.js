@@ -1,4 +1,5 @@
-import { exportToXState } from './export'
+import { StateNodeConfig } from '../../../typings/xstate'
+import { exportToXState } from './index'
 
 describe('export xstate', () => {
 	it('should export 1 node', () => {
@@ -16,7 +17,7 @@ describe('export xstate', () => {
 
 		const result = exportToXState(data)
 
-		const expected = {
+		const expected: StateNodeConfig = {
 			initial: 'First',
 			states: {
 				First: {},
@@ -56,7 +57,7 @@ describe('export xstate', () => {
 
 		const result = exportToXState(data)
 
-		const expected = {
+		const expected: StateNodeConfig = {
 			initial: 'First',
 			states: {
 				First: {
@@ -108,7 +109,7 @@ describe('export xstate', () => {
 
 		const result = exportToXState(data)
 
-		const expected = {
+		const expected: StateNodeConfig = {
 			initial: 'First',
 			states: {
 				First: {

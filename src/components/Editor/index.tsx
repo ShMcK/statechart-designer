@@ -19,7 +19,7 @@ import Zoom from './Zoom'
 
 interface IState {
 	selectedModel: any
-	tempModel: any
+	tempModel: any | null
 }
 
 class Editor extends React.Component<{}, IState> {

@@ -40,18 +40,15 @@ declare module '@antv/g6-editor' {
 		Toolbar: (options: { container: string }) => void
 	}
 
+	interface Flow {
+		registerNode: (name: string, options: object, extandShape?: string) => void
+	}
+
 	let EditorObject = {
-		Flow: {
-			registerNode: (
-				name: string,
-				options: object,
-				extandShape?: string,
-			) => void
-		}
+		Flow: Flow,
 	}
 
 	let G6Editor: EditorObject
-
 
 	export default G6Editor
 }

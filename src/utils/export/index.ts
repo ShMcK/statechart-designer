@@ -1,9 +1,17 @@
+import { StateNodeConfig } from '../../../typings/xstate'
+
+interface IData {
+	nodes: INode[]
+	edges: IEdge[]
+}
+
 interface INode {
 	shape: string
 	type: string
 	id: string
 	index: number
 	label: string
+	initialNode?: boolean
 }
 
 interface IEdge {
@@ -14,18 +22,13 @@ interface IEdge {
 	label: string
 }
 
-interface IXState {
-	initial?: string
-	states?: any
-}
-
-export const exportToXState = (data: any) => {
+export const exportToXState = (data: IData) => {
 	// normalize nodes & edges
 	const nodes = {}
 	const edges = {}
 
 	// xstate setup
-	const xstate: IXState = {
+	const xstate: StateNodeConfig = {
 		states: {},
 	}
 
@@ -35,9 +38,23 @@ export const exportToXState = (data: any) => {
 	})
 
 	// if no initial, use index 0 node
-	const initial: INode = data.nodes[0]
+	function getInitial(): INode {
+		const hasInitialNode = data.nodes.find(
+			(node: INode) => node.initialNode === true,
+		)
+		if (hasInitialNode) {
+			return hasInitialNode
+		}
+		return data.nodes[0]
+	}
+
+	const initial: INode = getInitial()
+
 	xstate.initial = initial.label
-	xstate.states[initial.label] = {}
+
+	if (xstate.states) {
+		xstate.states[initial.label] = {}
+	}
 
 	// if no edges, cannot continue
 	if (!data.edges) {
@@ -60,7 +77,9 @@ export const exportToXState = (data: any) => {
 		const nodeEdges = getEdgesByNode(data.nodes[0])
 
 		nodeEdges.forEach((edge: IEdge) => {
-			xstate.states[edge.target] = {}
+			if (xstate.states) {
+				xstate.states[edge.target] = {}
+			}
 		})
 	}
 
