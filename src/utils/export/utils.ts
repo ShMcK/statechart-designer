@@ -11,7 +11,7 @@ export function getInitial(data: IData): INode {
 }
 
 // for each node, search its edges as source
-export function getEdgesByNode(data: IData, node: INode) {
+export function getEdgesByNode(data: IData, node: INode): IEdge[] | null {
 	if (!data.edges) {
 		return null
 	}

@@ -1,16 +1,21 @@
-import { IData, IEdge, INode } from '../../../typings/g6-editor/data'
+import { IData, IEdge, INode } from '../../../typings/g6-editor/data' // IGroup
 import { StateNodeConfig } from '../../../typings/xstate/index'
 
 import { getEdgesByNode, getInitial } from './utils'
 
 export const exportToXState = (data: IData) => {
 	// normalize nodes & edges
-	const nodes = {}
-	const edges = {}
+	const nodes: { [key: string]: INode } = {}
+	const edges: { [key: string]: IEdge } = {}
+	// const groups: { [key: string]: IGroup } = {}
 
 	// xstate setup
 	const xstate: StateNodeConfig = {
 		states: {},
+	}
+
+	if (!data.nodes) {
+		return xstate
 	}
 
 	// normalize nodes
@@ -31,14 +36,18 @@ export const exportToXState = (data: IData) => {
 		return xstate
 	}
 
-	// use edges to find other nodes
-	// breadth first
-
+	// normalize edges
 	data.edges.forEach((edge: IEdge) => {
 		edges[edge.id] = edge
 	})
 
+	// use edges to find other nodes
+	// breadth first
 	const nodeEdges = getEdgesByNode(data, data.nodes[0])
+
+	if (!nodeEdges) {
+		return xstate
+	}
 
 	nodeEdges.forEach((edge: IEdge) => {
 		if (xstate.states) {
