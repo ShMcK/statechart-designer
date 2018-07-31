@@ -127,4 +127,103 @@ describe('export xstate', () => {
 		}
 		expect(result).toEqual(expected)
 	})
+
+	it('should export 3 nodes with 6 edges', () => {
+		const data: IData = {
+			nodes: [
+				{
+					shape: 'state',
+					type: 'node',
+					id: '7d8ff3c3',
+					index: 0,
+					label: 'First',
+				},
+				{
+					shape: 'state',
+					type: 'node',
+					id: '37770e39',
+					index: 1,
+					label: 'Second',
+				},
+				{
+					shape: 'state',
+					type: 'node',
+					id: 'f7bef9df',
+					index: 2,
+					label: 'Third',
+				},
+			],
+			edges: [
+				{
+					source: '7d8ff3c3',
+					target: '37770e39',
+					id: '6b8089cb',
+					index: 3,
+					label: 'FirstToSecond',
+				},
+				{
+					source: '37770e39',
+					target: '7d8ff3c3',
+					id: 'aefc2051',
+					index: 4,
+					label: 'SecondToFirst',
+				},
+				{
+					source: '37770e39',
+					target: 'f7bef9df',
+					id: '803d5bd6',
+					index: 5,
+					label: 'SecondToThird',
+				},
+				{
+					source: 'f7bef9df',
+					target: '37770e39',
+					id: '80ff6b0c',
+					index: 6,
+					label: 'ThirdToSecond',
+				},
+				{
+					source: 'f7bef9df',
+					target: '7d8ff3c3',
+					id: 'cd1e948b',
+					index: 7,
+					label: 'ThirdToFirst',
+				},
+				{
+					source: '7d8ff3c3',
+					target: 'f7bef9df',
+					id: '266b33d5',
+					index: 8,
+					label: 'FirstToThird',
+				},
+			],
+		}
+
+		const result = exportToXState(data)
+
+		const expected: StateNodeConfig = {
+			initial: 'First',
+			states: {
+				First: {
+					on: {
+						FirstToSecond: 'Second',
+						FirstToThird: 'Third',
+					},
+				},
+				Second: {
+					on: {
+						SecondToFirst: 'First',
+						SecondToThird: 'Third',
+					},
+				},
+				Third: {
+					on: {
+						ThirdToFirst: 'First',
+						ThirdToSecond: 'Second',
+					},
+				},
+			},
+		}
+		expect(result).toEqual(expected)
+	})
 })

@@ -60,15 +60,16 @@ export const exportToXState = (data: IData) => {
 		})
 	}
 
-	function traverseNode(node: INode) {
+	function traverseNode(node: INode): void {
 		if (!traversedStates[node.id]) {
 			const nodeEdges = getEdgesByNode(data, node)
 			if (!nodeEdges) {
-				return xstate
+				return
 			}
 			traversedStates[node.id] = true
 			traverseEdges(nodeEdges)
 		}
+		return
 	}
 
 	// use edges to find other nodes
