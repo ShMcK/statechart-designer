@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import './editor.css'
 import './modelFlowEditor.css'
-import initFlow from './RegisterFlow'
+import registerFlow from './RegisterFlow'
 import { items } from './RegisterFlow/PanelItems'
 
 import { load } from '../../utils/storage'
@@ -14,7 +14,7 @@ import DetailsCanvas from './Details/Canvas'
 import DetailsState from './Details/State'
 import DetailsTransition from './Details/Transition'
 import initEditor from './Editor'
-import initPage from './Page'
+import initFlow from './Flow'
 import Zoom from './Zoom'
 
 interface IState {
@@ -23,18 +23,18 @@ interface IState {
 }
 
 class Editor extends React.Component<{}, IState> {
-	page: any
+	flow: any
 	editor: any
 	state = {
 		selectedModel: {},
 		tempModel: null,
 	}
 	componentDidMount() {
-		const page = initPage(this.onChange)
-		const editor = initEditor(page)
-		this.page = page
+		const flow = initFlow(this.onChange)
+		const editor = initEditor(flow)
+		this.flow = flow
 		this.editor = editor
-		initFlow()
+		registerFlow()
 		// load saved data
 		this.load()
 	}
@@ -46,23 +46,23 @@ class Editor extends React.Component<{}, IState> {
 	load = async () => {
 		const loaded = await load()
 		console.log('loaded', loaded)
-		this.page.read(loaded)
+		this.flow.read(loaded)
 	}
 
 	toggleGrid = (ev: any) => {
 		if (ev.target.checked) {
-			this.page.showGrid()
+			this.flow.showGrid()
 		} else {
-			this.page.hideGrid()
+			this.flow.hideGrid()
 		}
 	}
 	updateGraph = (key: string, value: any) => {
 		this.editor.executeCommand(() => {
-			const selectedItems = this.page.getSelected()
+			const selectedItems = this.flow.getSelected()
 			selectedItems.forEach((item: any) => {
 				const updateModel = {}
 				updateModel[key] = value
-				this.page.update(item, updateModel)
+				this.flow.update(item, updateModel)
 			})
 		})
 	}
@@ -75,7 +75,7 @@ class Editor extends React.Component<{}, IState> {
 		const model = tempModel !== null ? tempModel : selectedModel
 		return (
 			<div id="editor">
-				<Toolbar page={this.page} />
+				<Toolbar />
 				<div style={{ height: '42px' }} />
 				<div className="bottom-container">
 					<ContextMenu />
@@ -150,7 +150,7 @@ class Editor extends React.Component<{}, IState> {
 								zoom={zoom}
 								minZoom={minZoom}
 								maxZoom={maxZoom}
-								changeZoom={(change) => this.page.zoom(change)}
+								changeZoom={(change) => this.flow.zoom(change)}
 							/>
 						)}
 					</Zoom>

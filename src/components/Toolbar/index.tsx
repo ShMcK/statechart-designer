@@ -5,14 +5,10 @@ import { exportToXState } from '../../utils/export'
 import { load } from '../../utils/storage'
 import './toolbar.css'
 
-interface IProps {
-	page: any
-}
-
-class Toolbar extends React.Component<IProps> {
+class Toolbar extends React.Component {
 	// save = () => {
-	// 	if (this.props.page) {
-	// 		const data = this.props.page.save()
+	// 	if (this.props.flow) {
+	// 		const data = this.props.flow.save()
 	// 		this.setState({ data })
 	// 		save(data)
 	// 		console.log('save!', data)
