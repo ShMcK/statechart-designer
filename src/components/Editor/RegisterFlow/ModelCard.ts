@@ -44,7 +44,7 @@ export default (Flow: any): void => {
 							['A', borderRadius, borderRadius, 0, 0, 0, x, y + borderRadius],
 						],
 						fill: this.color_type,
-						label: '文本标签',
+						label: 'Text Label',
 					},
 				},
 				{

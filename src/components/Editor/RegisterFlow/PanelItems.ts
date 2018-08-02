@@ -1,17 +1,4 @@
-const anchor = [
-	[0, 0, { type: 'input' }],
-	[0, 0, { type: 'output' }],
-	[0.5, 0, { type: 'input' }],
-	[0.5, 0, { type: 'output' }],
-	[1, 0, { type: 'input' }],
-	[1, 0, { type: 'output' }],
-	[0, 1, { type: 'input' }],
-	[0, 1, { type: 'output' }],
-	[0.5, 1, { type: 'input' }],
-	[0.5, 1, { type: 'output' }],
-	[1, 1, { type: 'input' }],
-	[1, 1, { type: 'output' }],
-]
+import anchor from './anchor'
 
 export const items = [
 	{
