@@ -1,9 +1,9 @@
 import * as React from 'react'
 
 import './editor.css'
-import initFlow from './Flow'
-import items from './Flow/items'
 import './modelFlowEditor.css'
+import initFlow from './RegisterFlow'
+import { items } from './RegisterFlow/PanelItems'
 
 import { load } from '../../utils/storage'
 import ContextMenu from '../ContextMenu'
@@ -35,7 +35,6 @@ class Editor extends React.Component<{}, IState> {
 		this.page = page
 		this.editor = editor
 		initFlow()
-
 		// load saved data
 		this.load()
 	}

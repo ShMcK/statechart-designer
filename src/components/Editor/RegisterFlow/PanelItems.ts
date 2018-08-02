@@ -13,7 +13,7 @@ const anchor = [
 	[1, 1, { type: 'output' }],
 ]
 
-const items = [
+export const items = [
 	{
 		key: 'state',
 		size: '170*34',
@@ -46,4 +46,18 @@ const items = [
 	},
 ]
 
-export default items
+export default (Flow: any) => {
+	items.forEach((item) => {
+		Flow.registerNode(
+			item.key,
+			{
+				label: item.label,
+				color_type: item.color,
+				type_icon_url: item.typeIconUrl,
+				state_icon_url: item.stateIconUrl,
+				anchor: item.anchor,
+			},
+			'model-card',
+		)
+	})
+}
