@@ -42,7 +42,7 @@ class Editor extends React.Component<{}, IState> {
 	}
 
 	load = async () => {
-		const loaded = await load()
+		const loaded = (await load()) || {}
 		console.log('loaded', loaded)
 		this.flow.read(loaded)
 	}
