@@ -10,7 +10,7 @@ export interface INode {
 	shape: string
 	type: string
 	label: string
-	initialNode?: boolean
+	initial?: boolean
 }
 
 export interface IEdge {
@@ -26,6 +26,6 @@ export interface IGroup {
 	index: number
 	label: string
 	collapsed: boolean
-	x: number
-	y: number
+	initial?: boolean
+	parallel?: boolean
 }

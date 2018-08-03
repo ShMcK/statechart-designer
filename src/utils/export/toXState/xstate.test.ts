@@ -227,7 +227,53 @@ describe('export xstate', () => {
 		expect(result).toEqual(expected)
 	})
 
-	// it('1 initial state')
+	it('uses the root initial state', () => {
+		const data: IData = {
+			nodes: [
+				{
+					shape: 'state',
+					type: 'node',
+					id: 'e54f9f9b',
+					index: 1,
+					label: 'Second',
+					initial: true,
+				},
+				{
+					shape: 'state',
+					type: 'node',
+					id: '05a22f1a',
+					index: 3,
+					initial: false,
+					label: 'First',
+				},
+			],
+			edges: [
+				{
+					source: 'e54f9f9b',
+					target: '05a22f1a',
+					id: '36bc360f',
+					index: 2,
+					label: 'SecondToFirst',
+				},
+			],
+			groups: [{ id: '64cf37d8', index: 0, label: 'Group' }],
+		}
+
+		const result = exportToXState(data)
+
+		const expected: StateNodeConfig = {
+			initial: 'Second',
+			states: {
+				First: {},
+				Second: {
+					on: {
+						SecondToFirst: 'First',
+					},
+				},
+			},
+		}
+		expect(result).toEqual(expected)
+	})
 
 	// it('nested state with 2nd initial state')
 
