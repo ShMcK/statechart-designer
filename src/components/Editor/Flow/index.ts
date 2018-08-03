@@ -1,4 +1,6 @@
 import G6Editor, { IEditorEvent } from '@antv/g6-editor'
+import { INode } from '../../../../typings/g6-editor/data'
+import getSiblingNodes from '../../../utils/getSiblingNodes'
 import { save } from '../../../utils/storage'
 
 export default (onChange: any) => {
@@ -73,36 +75,68 @@ export default (onChange: any) => {
 		}
 	})
 
-	flow.on('afterchange', (ev: { action: string; item: any; model: any }) => {
-		console.log('after', ev)
-		if (ev.action === 'add') {
-			const { item } = ev
-			switch (item.type) {
-				case 'node':
-					// set first node to "initial": true
-					const firstNode = Object.keys(ev.item.dataMap).length < 2
-					if (firstNode) {
-						item.model.initial = true
-						flow.update(item, item.model)
-					}
-					break
-				case 'edge':
-					// highlight transition on creation
-					item.model.label = 'Event'
-					flow.clearSelected()
-					flow.setSelected(item.id, true)
+	flow.on(
+		'afterchange',
+		(ev: { action: string; item: any; model: any; updateModel: any }) => {
+			console.log('after', ev)
+			if (ev.action === 'add') {
+				const { item } = ev
+				switch (item.type) {
+					case 'node':
+						const siblings = getSiblingNodes(ev.item.id, ev.item.dataMap)
 
-					break
-				case 'group':
-					break
-				default:
+						// set first node to "initial": true
+						const firstNode = siblings.length === 0
+						if (firstNode) {
+							item.model.initial = true
+							flow.update(item, item.model)
+						}
+
+						break
+					case 'edge':
+						// highlight transition on creation
+						item.model.label = 'Event'
+						flow.clearSelected()
+						flow.setSelected(item.id, true)
+
+						break
+					case 'group':
+						break
+					default:
+				}
+			} else if (ev.action === 'update') {
+				const { item, updateModel } = ev
+				switch (item.type) {
+					case 'node':
+						// treat initial like a radio button with its siblings
+						if (updateModel.initial && updateModel.initial === true) {
+							const siblings = getSiblingNodes(ev.item.id, ev.item.dataMap)
+							const resetSiblingInitial = siblings.filter(
+								(node: INode) => node.initial,
+							)
+							resetSiblingInitial.forEach((node: INode) => {
+								const nodeItem = item.itemMap._nodes.find(
+									(id: string) => node.id,
+								)
+								console.log('nodeItem', nodeItem)
+								nodeItem.model.initial = false
+								flow.update(nodeItem, nodeItem.model)
+							})
+						}
+						break
+					case 'edge':
+						break
+					case 'group':
+						break
+					default:
+				}
 			}
-		}
 
-		// save
-		const data = flow.save()
-		save(data)
-	})
+			// save
+			const data = flow.save()
+			save(data)
+		},
+	)
 
 	return flow
 }
