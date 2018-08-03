@@ -14,7 +14,7 @@ export default (Flow: any) => {
 
 			// const collapsed = model.collapsed
 
-			// group fcontainer
+			// group container
 			const keyShape = group.addShape('rect', {
 				attrs: {
 					x: childBox.x - padding,
@@ -36,6 +36,18 @@ export default (Flow: any) => {
 					textAlign: 'center',
 					textBaseline: 'top',
 					fill: 'rgba(0,0,0,0.65)',
+				},
+			})
+
+			// parallel icon
+			const isParallel = model.parallel || this.parallel || false
+			group.addShape('image', {
+				attrs: {
+					img: isParallel ? '/assets/icons/icon1.svg' : null,
+					x: childBox.maxX - padding,
+					y: childBox.minY - paddingTop,
+					width: 16,
+					height: 16,
 				},
 			})
 

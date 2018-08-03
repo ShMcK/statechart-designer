@@ -22,71 +22,28 @@ export default (Flow: any): void => {
 				},
 			})
 
-			const isInitial = model.initial ? model.initial : this.initial || false
-
-			const shapes = [
-				// {
-				// 	// color label for state
-				// 	type: 'path',
-				// 	attrs: {
-				// 		path: [
-				// 			['M', x, y + borderRadius],
-				// 			['L', x, y + height - borderRadius],
-				// 			[
-				// 				'A',
-				// 				borderRadius,
-				// 				borderRadius,
-				// 				0,
-				// 				0,
-				// 				0,
-				// 				x + borderRadius,
-				// 				y + height,
-				// 			],
-				// 			['L', x + borderRadius, y],
-				// 			['A', borderRadius, borderRadius, 0, 0, 0, x, y + borderRadius],
-				// 		],
-				// 		fill: this.color_type,
-				// 		label: 'Text Label',
-				// 	},
-				// },
-				{
-					// left icon
-					type: 'image',
-					attrs: {
-						img: isInitial ? '/assets/icons/icon1.svg' : null,
-						x: x + 158,
-						y: y + 12,
-						width: 16,
-						height: 16,
-					},
+			// state title
+			group.addShape('text', {
+				attrs: {
+					text: model.label ? model.label : this.label || 'state',
+					x: x + 13,
+					y: y + 13,
+					textAlign: 'start',
+					textBaseline: 'top',
+					fill: 'rgba(0,0,0,0.65)',
 				},
-				// {
-				// 	// right icon
-				// 	type: 'image',
-				// 	attrs: {
-				// 		img: this.state_icon_url,
-				// 		x: x + 158,
-				// 		y: y + 12,
-				// 		width: 16,
-				// 		height: 16,
-				// 	},
-				// },
-				{
-					// state title
-					type: 'text',
-					attrs: {
-						text: model.label ? model.label : this.label || 'state',
-						x: x + 13,
-						y: y + 13,
-						textAlign: 'start',
-						textBaseline: 'top',
-						fill: 'rgba(0,0,0,0.65)',
-					},
-				},
-			]
+			})
 
-			shapes.forEach(({ type, ...rest }) => {
-				group.addShape(type, rest)
+			// initial icon
+			const isInitial = model.initial || this.initial || false
+			group.addShape('image', {
+				attrs: {
+					img: isInitial ? '/assets/icons/icon1.svg' : null,
+					x: x + 158,
+					y: y + 12,
+					width: 16,
+					height: 16,
+				},
 			})
 
 			return keyShape
