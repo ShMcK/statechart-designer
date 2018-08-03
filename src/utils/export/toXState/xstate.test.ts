@@ -353,12 +353,23 @@ describe('export xstate', () => {
 			expect(result).toEqual(expected)
 		})
 
-		// it('nested state with 2nd initial state')
+		describe('nested states', () => {
+			it('should connect to a nested state', () => {
+				const data: IData = {}
 
-		// it('onEntry action')
+				const result = {}
+				const expected = {}
+				expect(result).toEqual(expected)
+			})
+		})
 
-		// it('onExit action')
+		describe('transitions', () => {
+			// it('transition guard')
+		})
 
-		// it('transition guard')
+		describe('actions', () => {
+			// it('onEntry action')
+			// it('onExit action')
+		})
 	})
 })
