@@ -7,7 +7,7 @@ interface IProps {
 	updateGraph(key: string, value: any): void
 }
 
-export default class StateDetails extends React.Component<IProps> {
+export default class GroupDetails extends React.Component<IProps> {
 	onChange = (key: string, value: any) => {
 		const change = {
 			tempModel: {
@@ -22,7 +22,6 @@ export default class StateDetails extends React.Component<IProps> {
 		this.props.onChange({ tempModel: null })
 	}
 	render() {
-		console.log(this.props)
 		return (
 			<React.Fragment>
 				<div className="p">
@@ -37,12 +36,11 @@ export default class StateDetails extends React.Component<IProps> {
 				</div>
 				<div className="p">
 					<Checkbox
-						checked={this.props.model.initial}
-						onChange={(e) => {
-							console.log('e', e)
-							this.onChange('initial', !this.props.model.initial)
-						}}>
-						Initial
+						checked={this.props.model.parallel}
+						onChange={(e) =>
+							this.onChange('parallel', !this.props.model.parallel)
+						}>
+						Parallel
 					</Checkbox>
 				</div>
 				{/* <div className="p">

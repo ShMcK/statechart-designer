@@ -16,14 +16,9 @@ export default class TransitionDetails extends React.Component<IProps> {
 			},
 		}
 		this.props.onChange(change)
-	}
-	onBlur = (key: string, value: any) => {
-		// let label = this.props.model.event || ''
-		// if (this.props.model.guard) {
-		// 	label = `${label} [${this.props.model.guard}]`
-		// }
-
 		this.props.updateGraph(key, value)
+	}
+	onBlur = () => {
 		this.props.onChange({ tempModel: null })
 	}
 	fromLabel() {
@@ -42,7 +37,7 @@ export default class TransitionDetails extends React.Component<IProps> {
 						className="input name-input"
 						value={this.props.model.label}
 						onChange={(e) => this.onChange('label', e.target.value)}
-						onBlur={(e) => this.onBlur('label', e.target.value)}
+						onBlur={(e) => this.onBlur()}
 					/>
 				</div>
 				{/* <div className="p">

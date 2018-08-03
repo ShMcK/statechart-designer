@@ -10,9 +10,7 @@ import ContextMenu from '../ContextMenu'
 import Navigator from '../Navigator'
 import Page from '../Page'
 import Toolbar from '../Toolbar'
-import DetailsCanvas from './Details/Canvas'
-import DetailsState from './Details/State'
-import DetailsTransition from './Details/Transition'
+import * as Details from './Details'
 import initEditor from './Editor'
 import initFlow from './Flow'
 import Zoom from './Zoom'
@@ -101,7 +99,7 @@ class Editor extends React.Component<{}, IState> {
 							id="node_detailpannel">
 							<div className="pannel-title">State</div>
 							<div className="block-container">
-								<DetailsState
+								<Details.State
 									model={model}
 									onChange={this.onChange}
 									updateGraph={this.updateGraph}
@@ -114,7 +112,7 @@ class Editor extends React.Component<{}, IState> {
 							id="edge_detailpannel">
 							<div className="pannel-title">Transition</div>
 							<div className="block-container">
-								<DetailsTransition
+								<Details.Transition
 									model={model}
 									onChange={this.onChange}
 									updateGraph={this.updateGraph}
@@ -127,7 +125,7 @@ class Editor extends React.Component<{}, IState> {
 							id="node_detailpannel">
 							<div className="pannel-title">Group</div>
 							<div className="block-container">
-								<DetailsState
+								<Details.Group
 									model={model}
 									onChange={this.onChange}
 									updateGraph={this.updateGraph}
@@ -140,7 +138,7 @@ class Editor extends React.Component<{}, IState> {
 							id="canvas_detailpannel">
 							<div className="pannel-title">Canvas</div>
 							<div className="block-container">
-								<DetailsCanvas toggleGrid={this.toggleGrid} />
+								<Details.Canvas toggleGrid={this.toggleGrid} />
 							</div>
 						</div>
 					</div>

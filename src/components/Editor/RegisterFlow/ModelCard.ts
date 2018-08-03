@@ -22,6 +22,8 @@ export default (Flow: any): void => {
 				},
 			})
 
+			const isInitial = model.initial ? model.initial : this.initial || false
+
 			const shapes = [
 				// {
 				// 	// color label for state
@@ -47,17 +49,17 @@ export default (Flow: any): void => {
 				// 		label: 'Text Label',
 				// 	},
 				// },
-				// {
-				// 	// left icon
-				// 	type: 'image',
-				// 	attrs: {
-				// 		img: this.type_icon_url,
-				// 		x: x + 16,
-				// 		y: y + 12,
-				// 		width: 20,
-				// 		height: 16,
-				// 	},
-				// },
+				{
+					// left icon
+					type: 'image',
+					attrs: {
+						img: isInitial ? '/assets/icons/icon1.svg' : null,
+						x: x + 158,
+						y: y + 12,
+						width: 16,
+						height: 16,
+					},
+				},
 				// {
 				// 	// right icon
 				// 	type: 'image',
