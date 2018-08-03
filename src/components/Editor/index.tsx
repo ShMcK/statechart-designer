@@ -142,13 +142,13 @@ class Editor extends React.Component<{}, IState> {
 							</div>
 						</div>
 					</div>
-					<Zoom>
-						{({ zoom, minZoom, maxZoom }) => (
+					<Zoom changeZoom={(zoom: number) => this.flow.zoom(zoom)}>
+						{({ zoom, minZoom, maxZoom, changeZoom }: any) => (
 							<Navigator
 								zoom={zoom}
 								minZoom={minZoom}
 								maxZoom={maxZoom}
-								changeZoom={(change) => this.flow.zoom(change)}
+								changeZoom={changeZoom}
 							/>
 						)}
 					</Zoom>
