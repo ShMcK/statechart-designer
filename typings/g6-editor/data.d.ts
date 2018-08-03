@@ -26,7 +26,7 @@ export interface IGroup {
 	id: string
 	index: number
 	label: string
-	collapsed: boolean
+	collapsed?: boolean
 	initial?: boolean
 	parallel?: boolean
 	parent?: string

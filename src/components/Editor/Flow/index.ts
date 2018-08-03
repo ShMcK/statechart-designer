@@ -56,7 +56,9 @@ export default (onChange: any) => {
 		}
 	})
 
-	// page.on('beforechange', (ev: any) => {})
+	// page.on('beforechange', (ev: any) => {
+	// 	console.log(ev)
+	// })
 
 	page.on('afterchange', (ev: any) => {
 		if (ev.action === 'add') {
