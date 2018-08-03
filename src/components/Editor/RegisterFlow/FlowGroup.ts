@@ -43,11 +43,22 @@ export default (Flow: any) => {
 			const isParallel = model.parallel || this.parallel || false
 			group.addShape('image', {
 				attrs: {
-					img: isParallel ? '/assets/icons/icon1.svg' : null,
+					img: isParallel ? '/assets/icons/parallel.svg' : null,
 					x: childBox.maxX - padding,
 					y: childBox.minY - paddingTop,
 					width: 16,
 					height: 16,
+				},
+			})
+
+			const isInitial = model.initial || this.initial || false
+			group.addShape('image', {
+				attrs: {
+					img: isInitial ? '/assets/icons/initial-state.svg' : null,
+					x: childBox.minX + width / 2 - 29,
+					y: childBox.minY - paddingTop - 60,
+					width: 19,
+					height: 40,
 				},
 			})
 

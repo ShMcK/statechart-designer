@@ -38,11 +38,11 @@ export default (Flow: any): void => {
 			const isInitial = model.initial || this.initial || false
 			group.addShape('image', {
 				attrs: {
-					img: isInitial ? '/assets/icons/icon1.svg' : null,
-					x: x + 158,
-					y: y + 12,
-					width: 16,
-					height: 16,
+					img: isInitial ? '/assets/icons/initial-state.svg' : null,
+					x: x - 10 + width / 2,
+					y: y - 40,
+					width: 19,
+					height: 40,
 				},
 			})
 

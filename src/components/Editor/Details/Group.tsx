@@ -43,6 +43,15 @@ export default class GroupDetails extends React.Component<IProps> {
 						Parallel
 					</Checkbox>
 				</div>
+				<div className="p">
+					<Checkbox
+						checked={this.props.model.initial}
+						onChange={(e) => {
+							this.onChange('initial', !this.props.model.initial)
+						}}>
+						Initial
+					</Checkbox>
+				</div>
 				{/* <div className="p">
 					On Entry:
 					<Input
