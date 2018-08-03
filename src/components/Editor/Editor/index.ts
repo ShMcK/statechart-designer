@@ -33,7 +33,6 @@ const initEditorComponents = (page: any) => {
 	editor.add(page)
 
 	editor.on('aftercommandexecute', (ev: any) => {
-		// console.log('ev', ev)
 		switch (ev.command.name) {
 			case 'addGroup':
 				console.log('group!', ev)

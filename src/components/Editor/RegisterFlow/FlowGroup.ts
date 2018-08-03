@@ -6,7 +6,7 @@ export default (Flow: any) => {
 			const model = item.getModel()
 			const group = item.getGraphicGroup()
 			const childBox = item.getChildrenBBox()
-			console.log({ model, group, childBox })
+
 			const padding = 20
 			const paddingTop = 30
 			const width = childBox.maxX - childBox.minX + padding * 2

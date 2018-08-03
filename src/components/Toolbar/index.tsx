@@ -6,14 +6,6 @@ import { load } from '../../utils/storage'
 import './toolbar.css'
 
 class Toolbar extends React.Component {
-	// save = () => {
-	// 	if (this.props.flow) {
-	// 		const data = this.props.flow.save()
-	// 		this.setState({ data })
-	// 		save(data)
-	// 		console.log('save!', data)
-	// 	}
-	// }
 	export = async () => {
 		const data = await load()
 		const xstate = exportToXState(data)

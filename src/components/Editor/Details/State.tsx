@@ -22,7 +22,6 @@ export default class StateDetails extends React.Component<IProps> {
 		this.props.onChange({ tempModel: null })
 	}
 	render() {
-		console.log(this.props)
 		return (
 			<React.Fragment>
 				<div className="p">
@@ -39,7 +38,6 @@ export default class StateDetails extends React.Component<IProps> {
 					<Checkbox
 						checked={this.props.model.initial}
 						onChange={(e) => {
-							console.log('e', e)
 							this.onChange('initial', !this.props.model.initial)
 						}}>
 						Initial
