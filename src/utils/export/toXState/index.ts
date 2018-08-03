@@ -1,7 +1,7 @@
 import { IData, IEdge, INode } from '../../../../typings/g6-editor/data' // IGroup
 import { StateNodeConfig } from '../../../../typings/xstate/index'
 
-import { getEdgesByNode, getInitial } from './utils'
+import { getEdgesByNode, getStart } from './utils'
 
 export default (data: IData) => {
 	// normalize nodes & edges
@@ -23,7 +23,7 @@ export default (data: IData) => {
 		nodes[node.id] = node
 	})
 
-	const initial: INode = getInitial(data)
+	const initial: INode = getStart(data)
 	xstate.initial = initial.label
 	xstate.states = {
 		[initial.label]: {},

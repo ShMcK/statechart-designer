@@ -11,6 +11,7 @@ export interface INode {
 	type: string
 	label: string
 	initial?: boolean
+	parent?: string
 }
 
 export interface IEdge {
@@ -28,4 +29,5 @@ export interface IGroup {
 	collapsed: boolean
 	initial?: boolean
 	parallel?: boolean
+	parent?: string
 }

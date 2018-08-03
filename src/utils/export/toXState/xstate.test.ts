@@ -12,6 +12,7 @@ describe('export xstate', () => {
 					id: '27bd6ab5',
 					index: 0,
 					label: 'First',
+					initial: true,
 				},
 			],
 		}
@@ -36,6 +37,7 @@ describe('export xstate', () => {
 					id: '27bd6ab5',
 					index: 0,
 					label: 'First',
+					initial: true,
 				},
 				{
 					shape: 'state',
@@ -81,6 +83,7 @@ describe('export xstate', () => {
 					id: '27bd6ab5',
 					index: 0,
 					label: 'First',
+					initial: true,
 				},
 				{
 					shape: 'state',
@@ -137,6 +140,7 @@ describe('export xstate', () => {
 					id: '7d8ff3c3',
 					index: 0,
 					label: 'First',
+					initial: true,
 				},
 				{
 					shape: 'state',

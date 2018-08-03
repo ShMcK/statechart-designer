@@ -1,13 +1,16 @@
 import { IData, IEdge, INode } from '../../../../typings/g6-editor/data'
 
-export function getInitial(data: IData): INode {
-	const hasInitialNode = data.nodes.find(
-		(node: INode) => node.initialNode === true,
+export function getStart(data: IData): INode {
+	const rootNodes = data.nodes.filter(
+		(node: INode) => node.initial === true && !node.parent,
 	)
-	if (hasInitialNode) {
-		return hasInitialNode
+	if (rootNodes.length > 1) {
+		throw new Error('Too many initial start states')
+	} else if (!rootNodes.length) {
+		throw new Error('No initial starting state')
+	} else {
+		return rootNodes[0]
 	}
-	return data.nodes[0]
 }
 
 // for each node, search its edges as source
