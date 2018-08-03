@@ -14,7 +14,7 @@ export default (Flow: any) => {
 
 			// const collapsed = model.collapsed
 
-			// container
+			// group fcontainer
 			const keyShape = group.addShape('rect', {
 				attrs: {
 					x: childBox.x - padding,
@@ -27,14 +27,13 @@ export default (Flow: any) => {
 				},
 			})
 
-			// title
+			// group title
 			group.addShape('text', {
-				type: 'text',
 				attrs: {
 					text: model.label ? model.label : this.label || 'Group',
-					x: childBox.minX,
-					y: childBox.minY,
-					textAlign: 'start',
+					x: childBox.minX + padding,
+					y: childBox.minY - paddingTop,
+					textAlign: 'center',
 					textBaseline: 'top',
 					fill: 'rgba(0,0,0,0.65)',
 				},

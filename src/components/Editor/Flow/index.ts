@@ -56,6 +56,8 @@ export default (onChange: any) => {
 		}
 	})
 
+	// page.on('beforechange', (ev: any) => {})
+
 	page.on('afterchange', (ev: any) => {
 		if (ev.action === 'add') {
 			// highlight transition on creation
@@ -64,7 +66,7 @@ export default (onChange: any) => {
 				page.clearSelected()
 				page.setSelected(ev.item.id, true)
 			} else if (ev.item.type === 'group') {
-				ev.item.model.label = 'Group'
+				console.log('ev', ev)
 			}
 		}
 

@@ -23,58 +23,58 @@ export default (Flow: any): void => {
 			})
 
 			const shapes = [
-				{
-					// color label for state
-					type: 'path',
-					attrs: {
-						path: [
-							['M', x, y + borderRadius],
-							['L', x, y + height - borderRadius],
-							[
-								'A',
-								borderRadius,
-								borderRadius,
-								0,
-								0,
-								0,
-								x + borderRadius,
-								y + height,
-							],
-							['L', x + borderRadius, y],
-							['A', borderRadius, borderRadius, 0, 0, 0, x, y + borderRadius],
-						],
-						fill: this.color_type,
-						label: 'Text Label',
-					},
-				},
-				{
-					// left icon
-					type: 'image',
-					attrs: {
-						img: this.type_icon_url,
-						x: x + 16,
-						y: y + 12,
-						width: 20,
-						height: 16,
-					},
-				},
-				{
-					// right icon
-					type: 'image',
-					attrs: {
-						img: this.state_icon_url,
-						x: x + 158,
-						y: y + 12,
-						width: 16,
-						height: 16,
-					},
-				},
+				// {
+				// 	// color label for state
+				// 	type: 'path',
+				// 	attrs: {
+				// 		path: [
+				// 			['M', x, y + borderRadius],
+				// 			['L', x, y + height - borderRadius],
+				// 			[
+				// 				'A',
+				// 				borderRadius,
+				// 				borderRadius,
+				// 				0,
+				// 				0,
+				// 				0,
+				// 				x + borderRadius,
+				// 				y + height,
+				// 			],
+				// 			['L', x + borderRadius, y],
+				// 			['A', borderRadius, borderRadius, 0, 0, 0, x, y + borderRadius],
+				// 		],
+				// 		fill: this.color_type,
+				// 		label: 'Text Label',
+				// 	},
+				// },
+				// {
+				// 	// left icon
+				// 	type: 'image',
+				// 	attrs: {
+				// 		img: this.type_icon_url,
+				// 		x: x + 16,
+				// 		y: y + 12,
+				// 		width: 20,
+				// 		height: 16,
+				// 	},
+				// },
+				// {
+				// 	// right icon
+				// 	type: 'image',
+				// 	attrs: {
+				// 		img: this.state_icon_url,
+				// 		x: x + 158,
+				// 		y: y + 12,
+				// 		width: 16,
+				// 		height: 16,
+				// 	},
+				// },
 				{
 					// state title
 					type: 'text',
 					attrs: {
 						text: model.label ? model.label : this.label || 'state',
-						x: x + 52,
+						x: x + 13,
 						y: y + 13,
 						textAlign: 'start',
 						textBaseline: 'top',
