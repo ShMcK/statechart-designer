@@ -1,12 +1,13 @@
-// import { IItem } from '@antv/g6'
+import { IKeyShape } from '@antv/g6'
+import { IFlow } from '@antv/g6-editor'
 import anchor from './anchor'
 
-export default (Flow: any) => {
+export default (Flow: IFlow) => {
 	Flow.registerGroup('flow-group', {
-		draw(this: any, item: any) {
+		draw(this: any, item: any): IKeyShape {
 			const model = item.getModel()
-			console.log('model', model)
 			const group = item.getGraphicGroup()
+			// console.log('group', group)
 			const childBox = item.getChildrenBBox()
 
 			const padding = 20
@@ -17,7 +18,7 @@ export default (Flow: any) => {
 			// const collapsed = model.collapsed
 
 			// group container
-			const keyShape = group.addShape('rect', {
+			const keyShape: IKeyShape = group.addShape('rect', {
 				attrs: {
 					x: childBox.x - padding,
 					y: childBox.y - (padding + paddingTop),

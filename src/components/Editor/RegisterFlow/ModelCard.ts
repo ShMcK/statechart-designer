@@ -1,4 +1,6 @@
-export default (Flow: any): void => {
+import { IFlow } from '@antv/g6-editor'
+
+export default (Flow: IFlow): void => {
 	Flow.registerNode('model-card', {
 		draw(this: any, item: any) {
 			const group = item.getGraphicGroup()

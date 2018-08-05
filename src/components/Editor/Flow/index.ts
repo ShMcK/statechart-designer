@@ -1,4 +1,13 @@
-import { IAction, IData, IGraph, IItem, INode, IPoint, IZoom } from '@antv/g6'
+import {
+	IAction,
+	IData,
+	IGraph,
+	IItem,
+	INode,
+	IPoint,
+	IPointType,
+	IZoom,
+} from '@antv/g6'
 import G6Editor from '@antv/g6-editor'
 
 import getSiblingNodes from '../../../utils/getSiblingNodes'
@@ -42,7 +51,7 @@ export default (onChange: any) => {
 		'dragedge:beforeshowanchor',
 		(ev: {
 			cancel: boolean
-			dragEndPointType: 'source' | 'target'
+			dragEndPointType: IPointType
 			source: IItem
 			sourceAnchor: IPoint
 			target: IItem

@@ -1,3 +1,4 @@
+import { IFlow } from '@antv/g6-editor'
 import anchor from './anchor'
 
 export const items = [
@@ -21,7 +22,7 @@ export const items = [
 	},
 ]
 
-export default (Flow: any) => {
+export default (Flow: IFlow) => {
 	items.forEach((item) => {
 		Flow.registerNode(
 			item.key,

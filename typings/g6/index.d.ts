@@ -1,9 +1,20 @@
 declare module '@antv/g6' {
 	export type IGraphType = 'node' | 'edge' | 'guide' | 'model'
 
+	export type IAnchorType = 'input' | 'output'
+	export type IAnchor = [number, number, { type: IAnchorType }]
+	export type IPointType = 'source' | 'target'
+
+	export interface IKeyShape {
+		eventPreFix: string
+		gid: string
+		id: string
+		isKeyShape: boolean
+	}
+
 	export type IPoint = {
 		index: number
-		type: 'input' | 'output'
+		type: IAnchorType
 		x: number
 		y: number
 	}
@@ -159,16 +170,20 @@ declare module '@antv/g6' {
 		getParent(): IItem
 		getChildren(): IItem[]
 		getChildrenBBox(): BBox
+		getKeyShape(): IKeyShape
 	}
 
 	export interface IGroupItem {
 		getChildren(): INode[]
 		getAllChildren(): INode[]
+		getChildrenBBox(): BBox
 	}
 
 	export interface INodeItem {
+		getGraphicGroup(): IGroup
 		getAnchorPoints(t: any): any[]
 		getEges(t: any): IEdge[]
+		getModel(): IModel
 		getInEdges(): IEdge[]
 		getOutEdges(): IEdge[]
 		getLinkPoints(t: any): any
@@ -218,7 +233,7 @@ declare module '@antv/g6' {
 		eventType: 'dragedge:beforeshowanchor',
 		ev: {
 			cancel: boolean
-			dragEndPointType: 'source' | 'target'
+			dragEndPointType: IPointType
 			source: IItem
 			sourceAnchor: IPoint
 			target: IItem

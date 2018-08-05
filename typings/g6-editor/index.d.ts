@@ -1,3 +1,5 @@
+// import { IKeyShape } from '@antv/g6'
+
 declare module '@antv/g6-editor' {
 	interface FlowNodeOptions {
 		anchor: number[][]
@@ -12,12 +14,13 @@ declare module '@antv/g6-editor' {
 		Toolbar: (options: { container: string }) => void
 	}
 
-	interface Flow {
-		registerNode: (name: string, options: object, extandShape?: string) => void
+	export interface IFlow {
+		registerNode(name: string, options: object, extandShape?: string): void
+		registerGroup(name: string, FlowNodeOptions, extandShape?: string): void
 	}
 
 	let EditorObject = {
-		Flow: Flow,
+		Flow: IFlow,
 	}
 
 	let G6Editor: EditorObject
