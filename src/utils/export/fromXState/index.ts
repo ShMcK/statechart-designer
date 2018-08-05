@@ -1,5 +1,5 @@
-import { IData } from '../../../../typings/g6-editor/data' // IGroup
-import { StateNodeConfig } from '../../../../typings/xstate/index'
+import { IData } from '@antv/g6' // IGroup
+import { StateNodeConfig } from 'typings/xstate'
 
 export default (xstate: StateNodeConfig): IData => {
 	return {

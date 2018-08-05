@@ -1,7 +1,7 @@
-import { IData, IEdge, INode } from '../../../../typings/g6-editor/data' // IGroup
-import { StateNodeConfig } from '../../../../typings/xstate/index'
+import { IData, IEdge, INode } from '@antv/g6' // IGroup
+import { StateNodeConfig } from 'typings/xstate'
 
-import { getEdgesByNode, getStart } from './utils'
+import { getEdgesByNode, getLabel, getStart } from './utils'
 
 export default (data: IData) => {
 	// normalize nodes & edges
@@ -24,9 +24,10 @@ export default (data: IData) => {
 	})
 
 	const initial: INode = getStart(data)
-	xstate.initial = initial.label
+	const label = getLabel(initial.label)
+	xstate.initial = label
 	xstate.states = {
-		[initial.label]: {},
+		[label]: {},
 	}
 
 	const traversedStates = {}

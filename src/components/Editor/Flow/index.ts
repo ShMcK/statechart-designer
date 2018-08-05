@@ -1,5 +1,6 @@
+import { INode } from '@antv/g6'
 import G6Editor, { IEditorEvent } from '@antv/g6-editor'
-import { INode } from '../../../../typings/g6-editor/data'
+
 import getSiblingNodes from '../../../utils/getSiblingNodes'
 import { save } from '../../../utils/storage'
 

@@ -1,4 +1,4 @@
-import { INode } from '../../typings/g6-editor/data'
+import { INode } from '@antv/g6'
 
 // get sibling nodes
 export default (id: string, nodes: { [id: string]: INode }) => {

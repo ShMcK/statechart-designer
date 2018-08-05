@@ -1,4 +1,4 @@
-import { IData, IEdge, INode } from '../../../../typings/g6-editor/data'
+import { IData, IEdge, ILabel, INode } from '@antv/g6'
 
 export function getStart(data: IData): INode {
 	const rootNodes = data.nodes.filter(
@@ -19,4 +19,15 @@ export function getEdgesByNode(data: IData, node: INode): IEdge[] | null {
 		return null
 	}
 	return data.edges.filter((edge: IEdge) => edge.source === node.id)
+}
+
+export function getLabel(label: ILabel): string {
+	switch (typeof label) {
+		case 'object':
+			return label.text ? label.text : ''
+		case 'string':
+			return label
+		default:
+			return ''
+	}
 }
