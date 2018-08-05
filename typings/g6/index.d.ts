@@ -10,6 +10,71 @@ declare module '@antv/g6' {
 		gid: string
 		id: string
 		isKeyShape: boolean
+		calculateBox(): any
+		canFill: boolean
+		canStroke: boolean
+		createPath(t: any): any
+		getDefaultAttrs(): any
+		isPointInPath(t: any, e: any): any
+		type: IBoxShape | 'line'
+	}
+
+	export interface IGraphicGroup {
+		add(t: any): any
+		addGroup(t: any, e: any): any
+		addListener(t: any, e: any): any
+		addListeners(t: any, e: any): any
+		addOnceListener(t: any, e: any): any
+		addShape(t: any, e: any): any
+		animate(t: any, e: any, n: any, u: any): any
+		apply(t: any, e: any)
+		attr(t: any, e: any)
+		canFill: boolean
+		canStroke: boolean
+		clear(t: any): any
+		clearBBox(): any
+		clearTotalMatrix(): any
+		clone(): any
+		contain(t: any): any
+		deepEach(t: any, e: any): any
+		defineEvent(t: any): any
+		defineEvents(t: any): any
+		destroy(): any
+		drawInner(t: any): any
+		emit(t: any): any
+		emitEvent(t: any, e: any): any
+		flattenListeners(t: any): any
+		find(t: any): any
+		findAll(t: any): any
+		findBy(t: any): any
+		findByClass(t: any): any
+		findById(t: any): any
+		get(t: any): any
+		getBBox(): any
+		getChildByIndex(t: any): any
+		getCount(): any
+		getDefaultAttrs(): any
+		getDefaultCfg(): any
+		getFirst(): any
+		getLast(): any
+		getListeners(t: any): any
+		getListenersAsObject(t: any): any
+		getMatrix(): any
+		getParent(): any
+		getTotalMatrix(): any
+		getShape(t: any, e: any): any
+		hasClass(t: any): any
+		hasFill(): any
+		hasStroke(): any
+		hide(): any
+		move(t: any, e: any): any
+		isGroup: boolean
+		removeChild(t: any, e: any): any
+		renderBack(t: any, e: any): any
+		setZIndex(index: number): any
+		show(): any
+		sort(): any
+		sortyBy(t: any): any
 	}
 
 	export type IPoint = {
@@ -30,9 +95,18 @@ declare module '@antv/g6' {
 	}
 
 	interface IBoxStyle {
-		fill?: string
-		stroke?: string
-		strokeWeight?: number
+		fill?: string // color
+		fillOpacity?: number // 0..1
+		fillStyle?: string // color
+		height?: number
+		lineWidth?: number
+		matrix?: number[]
+		opacity?: number // 0..1
+		radius?: number
+		stroke?: string // color
+		strokeOpacity?: number // 0..1
+		strokeStyle?: string // color
+		width?: number
 	}
 
 	interface IBoxLabel extends IBoxStyle {
@@ -147,7 +221,7 @@ declare module '@antv/g6' {
 		toItem: any
 	}
 
-	export type IModel = INode | IEdge | IGroup | IGuide
+	// export type IModel = INode | IEdge | IGroup | IGuide
 
 	export interface IBBox {
 		centerX: number
@@ -163,14 +237,15 @@ declare module '@antv/g6' {
 	}
 
 	export interface IItem {
-		getModel(): IModel
-		getGraphicGroup(): IGroup
+		getModel(): any
+		getGraphicGroup(): IGraphicGroup
 		getKeyShape(): object
 		getBBox(): IBBox
 		getParent(): IItem
 		getChildren(): IItem[]
 		getChildrenBBox(): BBox
 		getKeyShape(): IKeyShape
+		model: any
 	}
 
 	export interface IGroupItem {
@@ -180,10 +255,10 @@ declare module '@antv/g6' {
 	}
 
 	export interface INodeItem {
-		getGraphicGroup(): IGroup
+		getGraphicGroup(): IGraphicGroup
 		getAnchorPoints(t: any): any[]
 		getEges(t: any): IEdge[]
-		getModel(): IModel
+		getModel(): any
 		getInEdges(): IEdge[]
 		getOutEdges(): IEdge[]
 		getLinkPoints(t: any): any
@@ -250,7 +325,7 @@ declare module '@antv/g6' {
 	): void
 
 	interface IGraph {
-		add(type: IGraphType, model: IModel)
+		add(type: IGraphType, model: any)
 		addGroup(t: any): any
 		addOutterShape(t: any, e: any, n: any): any
 		anchorHasBeenLinked(start: IItem, anchor: IPoint): any
@@ -274,7 +349,7 @@ declare module '@antv/g6' {
 		endAdd(): void
 		endEditLabel(): void
 		find(id: string): INode | undefined
-		focus(item: string | IModel)
+		focus(item: string | any)
 		focusPoint(graphPoint: IPoint): IPoint
 		focusPointByDom(t: any): any
 		forceDraw(): void
@@ -313,7 +388,7 @@ declare module '@antv/g6' {
 		toBack(): void
 		toFront(): void
 		translate(t: number, t: number): void
-		update(item: string | IItem, model: IModel)
+		update(item: string | IItem, model: any)
 		updateMatrix(t: any): any
 		updateStatus(): any
 		unGroup(): any

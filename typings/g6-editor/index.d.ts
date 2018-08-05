@@ -1,9 +1,18 @@
-// import { IKeyShape } from '@antv/g6'
-
 declare module '@antv/g6-editor' {
-	interface FlowNodeOptions {
-		anchor: number[][]
-		draw(item: any): any
+	export interface IFlowNodeOptions extends IItem {
+		type?: string
+		anchor?: number[]
+		draw?(item: any): any
+		drawCollapsed?(item: any): any
+		drawExpanded?(item: any): any
+		drawKeyShape?(a: any, b: any, c: any, d: any, e: any): any
+		drawLabel?(a: any, b: any, c: any): any
+		getActivedOutterStyle?(): any
+		getActivedStyle?(): any
+		getLabel?(item: any): any
+		getPath?(): any
+		getSelectedOUtterStyle?(): any
+		getSelectedStyle?(): any
 	}
 
 	class Editor {
@@ -16,7 +25,7 @@ declare module '@antv/g6-editor' {
 
 	export interface IFlow {
 		registerNode(name: string, options: object, extandShape?: string): void
-		registerGroup(name: string, FlowNodeOptions, extandShape?: string): void
+		registerGroup(name: string, options: object, extandShape?: string): void
 	}
 
 	let EditorObject = {

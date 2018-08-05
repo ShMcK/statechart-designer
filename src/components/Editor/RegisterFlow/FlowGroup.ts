@@ -1,13 +1,13 @@
-import { IKeyShape } from '@antv/g6'
-import { IFlow } from '@antv/g6-editor'
+import { IItem, IKeyShape } from '@antv/g6'
+import { IFlow, IFlowNodeOptions } from '@antv/g6-editor'
 import anchor from './anchor'
 
 export default (Flow: IFlow) => {
 	Flow.registerGroup('flow-group', {
-		draw(this: any, item: any): IKeyShape {
+		draw(this: IFlowNodeOptions, item: IItem): IKeyShape {
 			const model = item.getModel()
 			const group = item.getGraphicGroup()
-			// console.log('group', group)
+
 			const childBox = item.getChildrenBBox()
 
 			const padding = 20
@@ -33,7 +33,7 @@ export default (Flow: IFlow) => {
 			// group title
 			group.addShape('text', {
 				attrs: {
-					text: model.label ? model.label : this.label || 'Group',
+					text: model.label ? model.label : 'Group',
 					x: childBox.minX + padding,
 					y: childBox.minY - paddingTop,
 					textAlign: 'center',
@@ -43,7 +43,7 @@ export default (Flow: IFlow) => {
 			})
 
 			// parallel icon
-			const isParallel = model.parallel || this.parallel || false
+			const isParallel = model.parallel || false
 			group.addShape('image', {
 				attrs: {
 					img: isParallel ? '/assets/icons/parallel.svg' : null,
@@ -54,7 +54,7 @@ export default (Flow: IFlow) => {
 				},
 			})
 
-			const isInitial = model.initial || this.initial || false
+			const isInitial = model.initial || false
 			group.addShape('image', {
 				attrs: {
 					img: isInitial ? '/assets/icons/initial-state.svg' : null,
