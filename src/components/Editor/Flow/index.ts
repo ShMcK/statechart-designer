@@ -1,11 +1,11 @@
-import { INode } from '@antv/g6'
-import G6Editor, { IEditorEvent } from '@antv/g6-editor'
+import { IAction, IData, IGraph, IItem, INode, IPoint, IZoom } from '@antv/g6'
+import G6Editor from '@antv/g6-editor'
 
 import getSiblingNodes from '../../../utils/getSiblingNodes'
 import { save } from '../../../utils/storage'
 
 export default (onChange: any) => {
-	const flow = new G6Editor.Flow({
+	const flow: IGraph = new G6Editor.Flow({
 		align: {
 			grid: true,
 		},
@@ -17,50 +17,62 @@ export default (onChange: any) => {
 		noEndEdge: false,
 	})
 
-	flow.on('afteritemselected', (ev: IEditorEvent) => {
+	flow.on('afteritemselected', (ev: { item: IItem }) => {
 		onChange({
 			selectedModel: ev.item.getModel(),
 		})
 	})
-	flow.on('afterzoom', (ev: IEditorEvent) => {
+	flow.on('afterzoom', (ev: IZoom) => {
 		onChange({
 			curZoom: ev.updateMatrix[0],
 		})
 	})
 
 	// before connecting anchor point
-	flow.on('hoveranchor:beforeaddedge', (ev: IEditorEvent) => {
-		if (ev.anchor.type === 'input') {
-			ev.cancel = true
-		}
-	})
+	flow.on(
+		'hoveranchor:beforeaddedge',
+		(ev: { anchor: IPoint; item: IItem; cancel: boolean }) => {
+			if (ev.anchor.type === 'input') {
+				ev.cancel = true
+			}
+		},
+	)
 
-	flow.on('dragedge:beforeshowanchor', (ev: IEditorEvent) => {
-		// inputs connect to outputs
-		if (
-			!(ev.targetAnchor.type === 'input' && ev.sourceAnchor.type === 'output')
-		) {
-			ev.cancel = true
-		}
-		// cancels if not connected to target
-		if (
-			ev.dragEndPointType === 'target' &&
-			flow.anchorHasBeenLinked(ev.target, ev.targetAnchor)
-		) {
-			ev.cancel = true
-		}
+	flow.on(
+		'dragedge:beforeshowanchor',
+		(ev: {
+			cancel: boolean
+			dragEndPointType: 'source' | 'target'
+			source: IItem
+			sourceAnchor: IPoint
+			target: IItem
+			targetAnchor: IPoint
+		}) => {
+			// inputs connect to outputs
+			if (
+				!(ev.targetAnchor.type === 'input' && ev.sourceAnchor.type === 'output')
+			) {
+				ev.cancel = true
+			}
+			// cancels if not connected to target
+			if (
+				ev.dragEndPointType === 'target' &&
+				flow.anchorHasBeenLinked(ev.target, ev.targetAnchor)
+			) {
+				ev.cancel = true
+			}
 
-		// cancels if not connected to source
-		if (
-			ev.dragEndPointType === 'source' &&
-			flow.anchorHasBeenLinked(ev.source, ev.sourceAnchor)
-		) {
-			ev.cancel = true
-		}
-	})
+			// cancels if not connected to source
+			if (
+				ev.dragEndPointType === 'source' &&
+				flow.anchorHasBeenLinked(ev.source, ev.sourceAnchor)
+			) {
+				ev.cancel = true
+			}
+		},
+	)
 
-	flow.on('beforechange', (ev: { action: string; item: any; model: any }) => {
-		console.log('before', ev)
+	flow.on('beforechange', (ev: { action: IAction; item: any; model: any }) => {
 		if (ev.action === 'add') {
 			const { model } = ev
 			switch (model.type) {
@@ -78,8 +90,7 @@ export default (onChange: any) => {
 
 	flow.on(
 		'afterchange',
-		(ev: { action: string; item: any; model: any; updateModel: any }) => {
-			console.log('after', ev)
+		(ev: { action: IAction; item: any; model: any; updateModel: any }) => {
 			if (ev.action === 'add') {
 				const { item } = ev
 				switch (item.type) {
@@ -119,7 +130,6 @@ export default (onChange: any) => {
 								const nodeItem = item.itemMap._nodes.find(
 									(id: string) => node.id,
 								)
-								console.log('nodeItem', nodeItem)
 								nodeItem.model.initial = false
 								flow.update(nodeItem, nodeItem.model)
 							})
@@ -134,7 +144,7 @@ export default (onChange: any) => {
 			}
 
 			// save
-			const data = flow.save()
+			const data: IData = flow.save()
 			save(data)
 		},
 	)

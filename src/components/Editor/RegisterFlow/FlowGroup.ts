@@ -1,9 +1,11 @@
+// import { IItem } from '@antv/g6'
 import anchor from './anchor'
 
 export default (Flow: any) => {
 	Flow.registerGroup('flow-group', {
 		draw(this: any, item: any) {
 			const model = item.getModel()
+			console.log('model', model)
 			const group = item.getGraphicGroup()
 			const childBox = item.getChildrenBBox()
 

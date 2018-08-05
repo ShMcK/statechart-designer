@@ -1,4 +1,18 @@
 declare module '@antv/g6' {
+	export type IGraphType = 'node' | 'edge' | 'guide' | 'model'
+
+	export type IPoint = {
+		index: number
+		type: 'input' | 'output'
+		x: number
+		y: number
+	}
+
+	export interface IZoom {
+		originMatrix: number[]
+		updateMatrix: number[]
+	}
+
 	interface IControlPoint {
 		x: number
 		y: number
@@ -29,7 +43,7 @@ declare module '@antv/g6' {
 		id: string
 		index: number
 		shape: IBoxShape
-		type: string
+		type: IGraphType
 		label: ILabel
 		style: IBoxStyle
 		parent?: string
@@ -70,7 +84,7 @@ declare module '@antv/g6' {
 
 	export interface IGuide {}
 
-	export type IEventType = IDOMEvent & IOtherEvent
+	export type IEventType = IDOMEvent | IOtherEvent | IEditorEvent
 
 	type IDOMEvent =
 		| 'click'
@@ -99,7 +113,13 @@ declare module '@antv/g6' {
 		| 'beforechange'
 		| 'afterchange'
 
-	export type IEventAction = 'add' | 'update' | 'remove' | 'changeData'
+	type IEditorEvent =
+		| 'afteritemselected'
+		| 'afterzoom'
+		| 'hoveranchor:beforeaddedge'
+		| 'dragedge:beforeshowanchor'
+
+	export type IAction = 'add' | 'update' | 'remove' | 'changeData'
 
 	export interface IEvent {
 		currentItem: any
@@ -111,22 +131,34 @@ declare module '@antv/g6' {
 		y: number
 		domX: number
 		domY: number
-		action: IEventAction
+		action: IAction
 		toShape: IBoxShape
 		toItem: any
 	}
 
-	export type IGraphType = 'node' | 'edge' | 'guide' | 'model'
-
 	export type IModel = INode | IEdge | IGroup | IGuide
+
+	export interface IBBox {
+		centerX: number
+		centerY: number
+		height: number
+		width: number
+		x: number
+		y: number
+		minX: numner
+		maxX: number
+		minY: number
+		maxY: number
+	}
 
 	export interface IItem {
 		getModel(): IModel
 		getGraphicGroup(): IGroup
 		getKeyShape(): object
-		getBBox(): object
+		getBBox(): IBBox
 		getParent(): IItem
 		getChildren(): IItem[]
+		getChildrenBBox(): BBox
 	}
 
 	export interface IGroupItem {
@@ -135,13 +167,24 @@ declare module '@antv/g6' {
 	}
 
 	export interface INodeItem {
-		getEges(): IEdge[]
+		getAnchorPoints(t: any): any[]
+		getEges(t: any): IEdge[]
+		getInEdges(): IEdge[]
+		getOutEdges(): IEdge[]
+		getLinkPoints(t: any): any
+		layoutUpdate(): void
 	}
 
 	export interface IEdgeItem {
+		getPoints(): IPoint[]
 		getSource(): IItem
 		getTarget(): IItem
-		getPoints(): IControlPoint[]
+		layoutUpdate(): void
+		linkedItemVisible(): void
+		_afterDraw(): void
+		_beforeDraw(): void
+		_shouldDraw(): void
+		_getControlPoints(): IControlPoint[]
 	}
 
 	type IGraphLayout = (
@@ -165,33 +208,102 @@ declare module '@antv/g6' {
 	function zoom(scale: number): void
 	function zoom(graphPoint: IControlPoint, scale: number): void
 
+	function graphOn(eventType: 'afteritemselected', ev: { item: Item }): void
+	function graphOn(eventType: 'afterzoom', ev: IZoom): void
+	function graphOn(
+		eventType: 'hoveranchor:beforeaddedge',
+		ev: { anchor: IPoint; item: IItem; cancel: boolean },
+	): void
+	function graphOn(
+		eventType: 'dragedge:beforeshowanchor',
+		ev: {
+			cancel: boolean
+			dragEndPointType: 'source' | 'target'
+			source: IItem
+			sourceAnchor: IPoint
+			target: IItem
+			targetAnchor: IPoint
+		},
+	)
+	function graphOn(
+		eventType: 'beforechange',
+		{ action: IAction, item: any, model: any },
+	): void
+	function graphOn(
+		eventType: 'afterchange',
+		{ action: IAction, item: any, model: any, updateModel: any },
+	): void
+
 	interface IGraph {
-		save(): void
-		read(data: IData): void
-		on(eventType: IEventType, onEvent: (ev: IEvent) => void): void
-		find(id: string): INode | undefined
 		add(type: IGraphType, model: IModel)
-		remove(item: IModel)
-		update(item: string | IModel, model: IModel)
-		node(mapper: object)
-		edge(mapper: object)
-		group(mapper: object)
-		getDomPoint(graphPoint: IControlPoint): IControlPoint
-		getPoint(domPoint: IControlPoint): IControlPoint
-		focusPoint(graphPoint: IControlPoint): IControlPoint
+		addGroup(t: any): any
+		addOutterShape(t: any, e: any, n: any): any
+		anchorHasBeenLinked(start: IItem, anchor: IPoint): any
+		align(a, b, c): void
+		autoZoom(): void
+		beginAdd(t: any, e: any): any
+		beginEditLabel(t: any): void
+		cancelAdd(): void
+		changeMode(t: any): void
+		clear(): void
+		clearActived(): void
+		clearAlignLine(): void
+		clearItemActived(t: any): void
+		clearItemSelected(t: any): void
+		clearOutterShape(t: any): void
+		clearSelected(): void
+		css(t: any): void
+		delete(): void
+		dragEdgeBeforeShowAnchor(t: any, e: any, n: any): any
+		drawControlPoint(t: any): any
+		endAdd(): void
+		endEditLabel(): void
+		find(id: string): INode | undefined
 		focus(item: string | IModel)
-		zoom
-		translate(number, number: void)
-		changeSize(width: number, height: number)
-		setFitView(fitView: IFitView): void
-		getZoom(): number
-		getWidth(): number
-		getHeight(): number
-		getItems(): IModel[]
-		getNodes(): INode[]
+		focusPoint(graphPoint: IPoint): IPoint
+		focusPointByDom(t: any): any
+		forceDraw(): void
+		getActived(): void
+		getDomPoint(graphPoint: IControlPoint): IControlPoint
 		getEdges(): IEdge[]
+		getGraph(): any
+		getGridCell(): any
 		getGroups(): IGroup[]
-		getGuides(): IGuide[]
+		// getGuides(): IGuide[]
+		getItems(): any[]
+		getMatrix(): any
+		getMaxZoom(): number
+		getMinZoom(): number
+		getMode(): any
+		getNodes(): INode[]
+		getPoint(t: any): any
+		getSelected(): any
+		getZoom(): number
+		hideGrid(): any
+		hoverShowAnchor(t: any): any
+		newGroup(t: any): any
+		on: graphOn
+		read(data: IData): any
+		remove(item: IItem)
+		render(): any
+		resetZoom(): void
+		save(): IData
+		setActived(t, e): any
+		setHotspotActived(t: any, e: any): any
+		setItemSelected(t: any): any
+		setLabelEditorBeginPosition(t: any): any
+		setSelected(t, e): any
+		showAnchor(t: any, e: any, n: any): any
+		showGrid(t: any): any
+		toBack(): void
+		toFront(): void
+		translate(t: number, t: number): void
+		update(item: string | IItem, model: IModel)
+		updateMatrix(t: any): any
+		updateStatus(): any
+		unGroup(): any
+		zoom(t: any, e: any): any
+		zoomByDom(t: any, e: any): any
 	}
 
 	interface IGraphConfig {
