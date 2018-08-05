@@ -1,3 +1,5 @@
+import { IGraph } from '@antv/g6'
+import { IEditor } from '@antv/g6-editor'
 import * as React from 'react'
 
 import './editor.css'
@@ -21,17 +23,17 @@ interface IState {
 }
 
 class Editor extends React.Component<{}, IState> {
-	flow: any
-	editor: any
+	flow: IGraph
+	editor: IEditor
 	state = {
 		selectedModel: {},
 		tempModel: null,
 	}
 	componentDidMount() {
 		const flow = initFlow(this.onChange)
-		const editor = initEditor(flow)
+		this.editor = initEditor(flow)
+		console.log('editor', this.editor)
 		this.flow = flow
-		this.editor = editor
 		registerFlow()
 		// load saved data
 		this.load()

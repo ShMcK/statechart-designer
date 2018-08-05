@@ -1,7 +1,7 @@
-import G6Editor from '@antv/g6-editor'
+import G6Editor, { IEditor } from '@antv/g6-editor'
 
 const initEditorComponents = (page: any) => {
-	const editor = new G6Editor()
+	const editor: IEditor = new G6Editor()
 
 	const minimap = new G6Editor.Minimap({
 		container: 'minimap',
@@ -32,10 +32,9 @@ const initEditorComponents = (page: any) => {
 	editor.add(detailpannel)
 	editor.add(page)
 
-	editor.on('aftercommandexecute', (ev: any) => {
+	editor.on('aftercommandexecute', (ev: { command: any }) => {
 		switch (ev.command.name) {
 			case 'addGroup':
-				console.log('group!', ev)
 				const groupId = ev.command.addGroupId
 				page.clearSelected()
 				page.setSelected(groupId, true)

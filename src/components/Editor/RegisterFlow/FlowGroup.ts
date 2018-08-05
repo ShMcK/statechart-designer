@@ -1,10 +1,10 @@
-import { IItem, IKeyShape } from '@antv/g6'
+import { IGroupItem, IKeyShape } from '@antv/g6'
 import { IFlow, IFlowNodeOptions } from '@antv/g6-editor'
 import anchor from './anchor'
 
 export default (Flow: IFlow) => {
 	Flow.registerGroup('flow-group', {
-		draw(this: IFlowNodeOptions, item: IItem): IKeyShape {
+		draw(this: IFlowNodeOptions, item: IGroupItem): IKeyShape {
 			const model = item.getModel()
 			const group = item.getGraphicGroup()
 

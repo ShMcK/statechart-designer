@@ -1,8 +1,9 @@
+import { INodeItem } from '@antv/g6'
 import { IFlow } from '@antv/g6-editor'
 
 export default (Flow: IFlow): void => {
 	Flow.registerNode('model-card', {
-		draw(this: any, item: any) {
+		draw(this: any, item: INodeItem) {
 			const group = item.getGraphicGroup()
 			const model = item.getModel()
 			const width = 184

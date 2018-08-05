@@ -248,7 +248,7 @@ declare module '@antv/g6' {
 		model: any
 	}
 
-	export interface IGroupItem {
+	export interface IGroupItem extends INodeItem {
 		getChildren(): INode[]
 		getAllChildren(): INode[]
 		getChildrenBBox(): BBox
@@ -384,7 +384,7 @@ declare module '@antv/g6' {
 		setLabelEditorBeginPosition(t: any): any
 		setSelected(t, e): any
 		showAnchor(t: any, e: any, n: any): any
-		showGrid(t: any): any
+		showGrid(): any
 		toBack(): void
 		toFront(): void
 		translate(t: number, t: number): void
@@ -392,7 +392,7 @@ declare module '@antv/g6' {
 		updateMatrix(t: any): any
 		updateStatus(): any
 		unGroup(): any
-		zoom(t: any, e: any): any
+		zoom(t: number, e?: any): any
 		zoomByDom(t: any, e: any): any
 	}
 

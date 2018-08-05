@@ -28,8 +28,25 @@ declare module '@antv/g6-editor' {
 		registerGroup(name: string, options: object, extandShape?: string): void
 	}
 
-	let EditorObject = {
-		Flow: IFlow,
+	export interface G6Editor {
+		Flow: IFlow
+	}
+
+	function editorOn(action: 'aftercommandexecute', ev: { command: any }): void
+
+	export interface IEditor {
+		add(a: any): any
+		commandEnable(a: any): any
+		destroy(): void
+		executeCommand(a?: any, b?: any): any
+		getCommands(): any
+		getComponents(): any
+		getComponentsByType(type: string): any
+		getCurrentCommand(): any
+		getCurrentPage(): any
+		getDefaultCfg(): any
+		setCommandDOMenable(): any
+		on: editorOn
 	}
 
 	let G6Editor: EditorObject
