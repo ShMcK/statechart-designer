@@ -33,7 +33,7 @@ export default (Flow: IFlow) => {
 			// group title
 			group.addShape('text', {
 				attrs: {
-					text: model.label ? model.label : 'Group',
+					text: model.label || 'Group',
 					x: childBox.minX + padding,
 					y: childBox.minY - paddingTop,
 					textAlign: 'center',

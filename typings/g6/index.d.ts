@@ -200,8 +200,12 @@ declare module '@antv/g6' {
 
 	type IEditorEvent =
 		| 'afteritemselected'
+		| 'beforeitemselected'
 		| 'afterzoom'
+		| 'beforezoom'
+		| 'hoveranchor:afteraddedge'
 		| 'hoveranchor:beforeaddedge'
+		| 'dragedge:aftershowanchor'
 		| 'dragedge:beforeshowanchor'
 
 	export type IAction = 'add' | 'update' | 'remove' | 'changeData'
@@ -237,6 +241,10 @@ declare module '@antv/g6' {
 	}
 
 	export interface IItem {
+		graph?: any
+		group?: any
+		shapeObj: any
+		getAnchorPoints(index?: number): any[]
 		getModel(): any
 		getGraphicGroup(): IGraphicGroup
 		getKeyShape(): object
@@ -254,9 +262,10 @@ declare module '@antv/g6' {
 		getChildrenBBox(): BBox
 	}
 
-	export interface INodeItem {
+	export interface INodeItem extends IItem {
+		getAnchorPoints(index?: number): any[]
+		getBBox(): IBBox
 		getGraphicGroup(): IGraphicGroup
-		getAnchorPoints(t: any): any[]
 		getEges(t: any): IEdge[]
 		getModel(): any
 		getInEdges(): IEdge[]
