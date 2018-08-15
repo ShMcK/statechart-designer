@@ -379,7 +379,7 @@ describe('export xstate', () => {
 						{
 							source: '97431d6f',
 							sourceAnchor: 9,
-							target: 'b66468dc',
+							target: 'ca850085',
 							targetAnchor: 34,
 							id: '6469ddcd',
 							index: 2,

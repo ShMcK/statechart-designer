@@ -1,5 +1,5 @@
 import { IData, IEdge, IGroup, INode } from '@antv/g6' // IGroup
-import { StateNodeConfig } from 'typings/xstate'
+import { get, set } from 'lodash'
 
 import { getEdgesByNode, getLabel, getStart } from './utils'
 
@@ -8,11 +8,11 @@ export default (data: IData) => {
 	data.groups = data.groups || []
 
 	// normalize nodes & edges
-	const states: { [key: string]: INode | IGroup } = {}
-	const events: { [key: string]: IEdge } = {}
+	const nodesById: { [key: string]: INode | IGroup } = {}
+	const edgesById: { [key: string]: IEdge } = {}
 
 	// xstate setup
-	const xstate: StateNodeConfig = {
+	const xstate: any = {
 		states: {},
 	}
 
@@ -21,21 +21,15 @@ export default (data: IData) => {
 	}
 
 	// normalize nodes
-	data.nodes.forEach((node: INode) => {
-		states[node.id] = node
+	const allNodes: Array<INode | IGroup> = [...data.nodes, ...data.groups]
+	allNodes.forEach((node: INode) => {
+		nodesById[node.id] = node
 	})
 
-	const allNodes: Array<INode | IGroup> = [...data.nodes, ...data.groups]
+	const start: INode | IGroup = getStart(allNodes)
 
-	const initial: INode | IGroup = getStart(allNodes)
-	const label = getLabel(initial.label)
-	xstate.initial = label
-	xstate.states = {
-		[label]: {},
-	}
-
-	const traversedStates = {}
-	const untraversedStateIds: string[] = [initial.id]
+	// collect nodes to avoid calling a node twice
+	const traversedStates = new Set()
 
 	// if no edges, cannot continue
 	if (!data.edges) {
@@ -44,46 +38,61 @@ export default (data: IData) => {
 
 	// normalize edges
 	data.edges.forEach((edge: IEdge) => {
-		events[edge.id] = edge
+		edgesById[edge.id] = edge
 	})
 
-	function traverseEdges(edgeList: IEdge[]): void {
+	function traverseEdges(edgeList: IEdge[], path: string[]): void {
 		edgeList.forEach((edge: IEdge) => {
 			if (xstate.states) {
 				// add state
-				const target: string = states[edge.target].label || ''
-				xstate.states[target] = xstate.states[target] || {}
-				untraversedStateIds.push(edge.target)
+				const target: string = nodesById[edge.target].label || ''
+				set(xstate, [...path, target], get(xstate, [...path, target]) || {})
+				const nextNode = allNodes.find((n) => n.id === edge.target)
+				if (nextNode) {
+					traverseNode(nextNode, path)
+				}
 
 				// add state.on
-				const source: string = states[edge.source].label || ''
-				xstate.states[source].on = {
-					...xstate.states[source].on,
-					[edge.label]: target,
-				}
+				const source: string = nodesById[edge.source].label || ''
+				set(xstate, [...path, source, 'on', edge.label], target)
 			}
 		})
 	}
 
-	function traverseNode(node: INode | IGroup): void {
-		if (!traversedStates[node.id]) {
-			const nodeEdges = getEdgesByNode(data, node)
-			if (!nodeEdges) {
-				return
+	function traverseNode(
+		node: INode | IGroup,
+		path: string[] = ['states'],
+	): void {
+		// node has not been checked yet
+		if (!traversedStates.has(node.id)) {
+			traversedStates.add(node.id)
+
+			const label = getLabel(node.label)
+
+			set(xstate, [...path, label], get(xstate, [...path, label]) || {})
+
+			// set initial state
+			if (node.initial) {
+				set(xstate, [...path.slice(0, path.length - 2), 'initial'], node.label)
 			}
-			traversedStates[node.id] = true
-			traverseEdges(nodeEdges)
+
+			// traverse group children
+			const isGroup = !node.hasOwnProperty('type')
+			if (isGroup) {
+				const childNodes = allNodes.filter((n) => n.parent === node.id)
+				childNodes.forEach((n) => {
+					traverseNode(n, [...path, n.label, 'states'])
+				})
+			}
+
+			// traverse edges
+			const nodeEdges = getEdgesByNode(data, node)
+			traverseEdges(nodeEdges || [], path)
 		}
 		return
 	}
 
-	// use edges to find other nodes
-	// breadth first traversal
-	while (untraversedStateIds.length) {
-		const nextId: string = untraversedStateIds.shift() || ''
-		const node = states[nextId]
-		traverseNode(node)
-	}
+	traverseNode(start)
 
 	return xstate
 }
