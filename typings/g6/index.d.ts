@@ -158,7 +158,7 @@ declare module '@antv/g6' {
 		size: number | number[] // [10, 10]
 		shape: IBoxShape
 		index: number
-		label?: ILabel
+		label: ILabel
 		style?: IBoxStyle
 		parallel?: boolean
 		parent?: string
