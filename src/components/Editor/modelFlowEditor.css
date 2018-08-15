@@ -1,5 +1,4 @@
 #itempannel {
-	height: 100%;
 	position: absolute;
 	left: 0px;
 	z-index: 2;
@@ -84,46 +83,3 @@
 .p {
 	margin-bottom: 12px;
 }
-/* .model-card{
-  padding: 8px 14px;
-  padding-right: 8px;
-  font-size: 12px;
-}
-.left-bar{
-  position: absolute;
-  width: 4px;
-  height: 100%;
-  top: 0px;
-  left: 0px;
-  border-radius: 4px 0px 0px 4px;
-}
-.type-icon {
-  width: 20px;
-  height: 16px;
-  margin-top: -8px;
-  display: inline-block;
-  position: absolute;
-  top: 50%;
-}
-.state-icon {
-  width: 16px;
-  height: 16px;
-  margin-top: -8px;
-  margin-left: 4px;
-  position: absolute;
-  top: 50%;
-  right: 8px;
-  display: inline-block;
-}
-.content-list {
-  display: inline-block;
-  min-width: 128px;
-  margin: 0;
-  margin-left: 20px;
-  padding-left: 12px;
-  list-style: none;
-  color: rgba(0,0,0,0.45);
-}
-.model-card .title{
-  color: #000000;
-} */
