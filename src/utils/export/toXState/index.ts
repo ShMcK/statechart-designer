@@ -46,7 +46,9 @@ export default (data: IData) => {
 			if (xstate.states) {
 				// add state
 				const target: string = nodesById[edge.target].label || ''
-				set(xstate, [...path, target], get(xstate, [...path, target]) || {})
+				if (!get(xstate, [...path, target])) {
+					set(xstate, [...path, target], {})
+				}
 				const nextNode = allNodes.find((n) => n.id === edge.target)
 				if (nextNode) {
 					traverseNode(nextNode, path)
@@ -69,21 +71,25 @@ export default (data: IData) => {
 
 			const label = getLabel(node.label)
 
-			set(xstate, [...path, label], get(xstate, [...path, label]) || {})
+			if (!get(xstate, [...path, label])) {
+				set(xstate, [...path, label], {})
+			}
 
 			// set initial state
 			if (node.initial) {
-				set(xstate, [...path.slice(0, path.length - 2), 'initial'], node.label)
+				set(xstate, [...path.slice(0, path.length - 1), 'initial'], node.label)
 			}
 
-			// traverse group children
+			// traverse children
 			const isGroup = !node.hasOwnProperty('type')
 			if (isGroup) {
 				const childNodes = allNodes.filter((n) => n.parent === node.id)
 				childNodes.forEach((n) => {
-					traverseNode(n, [...path, n.label, 'states'])
+					traverseNode(n, [...path, label, 'states'])
 				})
 			}
+
+			// TODO: traverse parent
 
 			// traverse edges
 			const nodeEdges = getEdgesByNode(data, node)

@@ -460,6 +460,7 @@ describe('export xstate', () => {
 					initial: 'FirstGroup',
 					states: {
 						FirstGroup: {
+							initial: 'InnerFirst',
 							on: {
 								FirstToSecond: 'Second',
 							},
