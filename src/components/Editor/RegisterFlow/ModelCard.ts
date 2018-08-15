@@ -1,11 +1,27 @@
-import { INodeItem } from '@antv/g6'
-import { IFlow } from '@antv/g6-editor'
+import { IKeyShape, INodeItem } from '@antv/g6'
+import { IFlow, IFlowNodeOptions } from '@antv/g6-editor'
+import anchor from './anchor'
 
 export default (Flow: IFlow): void => {
 	Flow.registerNode('model-card', {
-		draw(this: any, item: INodeItem) {
+		draw(this: IFlowNodeOptions, item: INodeItem) {
 			const group = item.getGraphicGroup()
 			const model = item.getModel()
+
+			const groups = item.graph.getGroups()
+
+			const getAnchorPoints = item.getAnchorPoints
+
+			// overwrite getAnchorPoints to add node & group points
+			item.getAnchorPoints = function(this: INodeItem) {
+				let anchorPoints = getAnchorPoints.call(item)
+				for (const g of groups) {
+					const groupAnchors = g.getAnchorPoints()
+					anchorPoints = anchorPoints.concat(groupAnchors)
+				}
+				return anchorPoints
+			}
+
 			const width = 184
 			const height = 40
 			const x = -width / 2
@@ -13,7 +29,7 @@ export default (Flow: IFlow): void => {
 			const borderRadius = 4
 
 			// state outline
-			const keyShape = group.addShape('rect', {
+			const keyShape: IKeyShape = group.addShape('rect', {
 				attrs: {
 					x,
 					y,
@@ -28,7 +44,7 @@ export default (Flow: IFlow): void => {
 			// state title
 			group.addShape('text', {
 				attrs: {
-					text: model.label ? model.label : this.label || 'state',
+					text: model.label || 'State',
 					x: x + 13,
 					y: y + 13,
 					textAlign: 'start',
@@ -38,7 +54,7 @@ export default (Flow: IFlow): void => {
 			})
 
 			// initial icon
-			const isInitial = model.initial || this.initial || false
+			const isInitial = model.initial || false
 			group.addShape('image', {
 				attrs: {
 					img: isInitial ? '/assets/icons/initial-state.svg' : null,
@@ -51,6 +67,6 @@ export default (Flow: IFlow): void => {
 
 			return keyShape
 		},
-		anchor: [[0.5, 0], [0.5, 1]],
+		anchor,
 	})
 }

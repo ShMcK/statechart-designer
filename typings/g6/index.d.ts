@@ -241,6 +241,7 @@ declare module '@antv/g6' {
 	}
 
 	export interface IItem {
+		_anchorShapes?: any[]
 		graph?: any
 		group?: any
 		shapeObj: any
@@ -263,6 +264,7 @@ declare module '@antv/g6' {
 	}
 
 	export interface INodeItem extends IItem {
+		_anchorPoints: any[]
 		getAnchorPoints(index?: number): any[]
 		getBBox(): IBBox
 		getGraphicGroup(): IGraphicGroup
