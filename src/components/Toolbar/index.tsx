@@ -1,8 +1,8 @@
 import { Icon } from 'antd'
 import * as React from 'react'
 
-import { exportToXState } from '../../utils/export'
-import { load } from '../../utils/storage'
+import { exportToXState } from 'utils/export'
+import { load } from 'utils/storage'
 import './toolbar.css'
 
 class Toolbar extends React.Component {

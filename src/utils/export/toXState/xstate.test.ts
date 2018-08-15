@@ -1,5 +1,5 @@
-import { IData } from '../../../../typings/g6-editor/data'
-import { StateNodeConfig } from '../../../../typings/xstate/index'
+import { IData } from 'typings/g6-editor/data'
+import { StateNodeConfig } from 'typings/xstate/index'
 import exportToXState from './index'
 
 describe('export xstate', () => {

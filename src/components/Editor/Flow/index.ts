@@ -10,8 +10,8 @@ import {
 } from '@antv/g6'
 import G6Editor from '@antv/g6-editor'
 
-import getSiblingNodes from '../../../utils/getSiblingNodes'
-import { save } from '../../../utils/storage'
+import getSiblingNodes from 'utils/getSiblingNodes'
+import { save } from 'utils/storage'
 
 export default (onChange: any) => {
 	const flow: IGraph = new G6Editor.Flow({
