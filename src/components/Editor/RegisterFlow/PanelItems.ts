@@ -18,13 +18,6 @@ export const items: IPanelItem[] = [
 		class: 'pannel-type-icon',
 		anchor,
 	},
-	{
-		key: 'history',
-		size: '170*34',
-		label: 'History',
-		class: 'pannel-type-icon',
-		anchor,
-	},
 ]
 
 export default (Flow: IFlow) => {

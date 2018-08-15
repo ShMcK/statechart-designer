@@ -61,6 +61,8 @@ export default (data: IData) => {
 		})
 	}
 
+	const fields = ['onEntry', 'onExit', 'history']
+
 	function traverseNode(
 		node: INode | IGroup,
 		path: string[] = ['states'],
@@ -80,6 +82,12 @@ export default (data: IData) => {
 				set(xstate, [...path.slice(0, path.length - 1), 'initial'], node.label)
 			}
 
+			for (const field of fields) {
+				if (node[field]) {
+					set(xstate, [...path, label, field], node[field])
+				}
+			}
+
 			// traverse children
 			const isGroup = !node.hasOwnProperty('type')
 			if (isGroup) {
@@ -94,7 +102,7 @@ export default (data: IData) => {
 			if (parentId && !traversedStates.has(parentId)) {
 				const parent = allNodes.filter((n) => n.id === parentId)
 				// TODO: handle parent
-				console.log('WARNING: parent not yet handled', parent)
+				console.warn('WARNING: parent not yet handled', parent)
 			}
 
 			// traverse edges

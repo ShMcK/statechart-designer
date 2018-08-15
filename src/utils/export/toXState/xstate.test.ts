@@ -482,8 +482,214 @@ describe('export xstate', () => {
 		})
 
 		describe('actions', () => {
-			// it('onEntry action')
-			// it('onExit action')
+			it('onEntry action', () => {
+				const data: IData = {
+					nodes: [
+						{
+							shape: 'state',
+							type: 'node',
+							id: 'e54f9f9b',
+							index: 1,
+							label: 'Second',
+							initial: true,
+							onEntry: ['enterSecond'],
+						},
+						{
+							shape: 'state',
+							type: 'node',
+							id: '05a22f1a',
+							index: 3,
+							initial: false,
+							label: 'First',
+							onEntry: ['enterFirst'],
+						},
+					],
+					edges: [
+						{
+							source: 'e54f9f9b',
+							target: '05a22f1a',
+							id: '36bc360f',
+							index: 2,
+							label: 'SecondToFirst',
+						},
+					],
+				}
+
+				const result = exportToXState(data)
+
+				const expected: StateNodeConfig = {
+					initial: 'Second',
+					states: {
+						First: {
+							onEntry: ['enterFirst'],
+						},
+						Second: {
+							onEntry: ['enterSecond'],
+							on: {
+								SecondToFirst: 'First',
+							},
+						},
+					},
+				}
+				expect(result).toEqual(expected)
+			})
+			it('onExit action', () => {
+				const data: IData = {
+					nodes: [
+						{
+							shape: 'state',
+							type: 'node',
+							id: 'e54f9f9b',
+							index: 1,
+							label: 'Second',
+							initial: true,
+							onExit: ['exitSecond'],
+						},
+						{
+							shape: 'state',
+							type: 'node',
+							id: '05a22f1a',
+							index: 3,
+							initial: false,
+							label: 'First',
+							onExit: ['exitFirst'],
+						},
+					],
+					edges: [
+						{
+							source: 'e54f9f9b',
+							target: '05a22f1a',
+							id: '36bc360f',
+							index: 2,
+							label: 'SecondToFirst',
+						},
+					],
+				}
+
+				const result = exportToXState(data)
+
+				const expected: StateNodeConfig = {
+					initial: 'Second',
+					states: {
+						First: {
+							onExit: ['exitFirst'],
+						},
+						Second: {
+							onExit: ['exitSecond'],
+							on: {
+								SecondToFirst: 'First',
+							},
+						},
+					},
+				}
+				expect(result).toEqual(expected)
+			})
+			it('history state', () => {
+				const data: IData = {
+					nodes: [
+						{
+							shape: 'state',
+							type: 'node',
+							id: 'e54f9f9b',
+							index: 1,
+							label: 'Second',
+							initial: true,
+						},
+						{
+							shape: 'state',
+							type: 'node',
+							id: '05a22f1a',
+							index: 3,
+							initial: false,
+							label: 'First',
+						},
+					],
+					edges: [
+						{
+							source: 'e54f9f9b',
+							target: '05a22f1a',
+							id: '36bc360f',
+							index: 2,
+							label: 'SecondToFirst',
+						},
+					],
+				}
+
+				const result = exportToXState(data)
+
+				const expected: StateNodeConfig = {
+					initial: 'Second',
+					states: {
+						First: {},
+						Second: {
+							on: {
+								SecondToFirst: 'First',
+							},
+						},
+					},
+				}
+				expect(result).toEqual(expected)
+			})
+			it('parallel state', () => {
+				const data: IData = {
+					nodes: [
+						{
+							shape: 'state',
+							type: 'node',
+							id: 'e54f9f9b',
+							index: 1,
+							label: 'Second',
+							initial: true,
+							history: true,
+							parent: 'ca850085',
+						},
+						{
+							shape: 'state',
+							type: 'node',
+							id: '05a22f1a',
+							index: 3,
+							initial: false,
+							label: 'First',
+							parent: 'ca850085',
+						},
+					],
+					edges: [
+						{
+							source: 'e54f9f9b',
+							target: '05a22f1a',
+							id: '36bc360f',
+							index: 2,
+							label: 'SecondToFirst',
+						},
+					],
+					groups: [
+						{
+							id: 'ca850085',
+							index: 0,
+							label: 'SecondGroup',
+							initial: true,
+							parallel: true,
+						},
+					],
+				}
+
+				const result = exportToXState(data)
+
+				const expected: StateNodeConfig = {
+					initial: 'Second',
+					parallel: true,
+					states: {
+						First: {},
+						Second: {
+							history: true,
+							on: {
+								SecondToFirst: 'First',
+							},
+						},
+					},
+				}
+				expect(result).toEqual(expected)
+			})
 		})
 	})
 })
