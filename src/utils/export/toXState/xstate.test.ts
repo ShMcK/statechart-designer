@@ -1,5 +1,5 @@
-import { IData } from '../../../../typings/g6-editor/data'
-import { StateNodeConfig } from '../../../../typings/xstate/index'
+import { IData } from 'typings/g6-editor/data'
+import { StateNodeConfig } from 'typings/xstate/index'
 import exportToXState from './index'
 
 describe('export xstate', () => {
@@ -354,13 +354,126 @@ describe('export xstate', () => {
 		})
 
 		describe('nested states', () => {
-			it('should connect to a nested state', () => {
-				const data: IData = {}
-
-				const result = {}
-				const expected = {}
+			it('should connect from a state to group', () => {
+				const data: IData = {
+					nodes: [
+						{
+							shape: 'state',
+							type: 'node',
+							id: '97431d6f',
+							index: 0,
+							initial: true,
+							label: 'First',
+						},
+						{
+							shape: 'state',
+							type: 'node',
+							id: 'b66468dc',
+							index: 3,
+							parent: 'ca850085',
+							initial: true,
+							label: 'Third',
+						},
+					],
+					edges: [
+						{
+							source: '97431d6f',
+							sourceAnchor: 9,
+							target: 'b66468dc',
+							targetAnchor: 34,
+							id: '6469ddcd',
+							index: 2,
+							label: 'FirstToGroup',
+						},
+					],
+					groups: [
+						{
+							id: 'ca850085',
+							index: 1,
+							label: 'SecondGroup',
+						},
+					],
+				}
+				const result = exportToXState(data)
+				const expected = {
+					initial: 'First',
+					states: {
+						First: {
+							on: {
+								FirstToGroup: 'SecondGroup',
+							},
+						},
+						SecondGroup: {
+							initial: 'Third',
+							states: {
+								Third: {},
+							},
+						},
+					},
+				}
 				expect(result).toEqual(expected)
 			})
+
+			it('should connect from a group to a state', () => {
+				const data: IData = {
+					nodes: [
+						{
+							shape: 'state',
+							type: 'node',
+							id: 'b66468dc',
+							index: 1,
+							parent: 'ca850085',
+							initial: true,
+							label: 'InnerFirst',
+						},
+						{
+							shape: 'state',
+							type: 'node',
+							id: '97431d6f',
+							index: 2,
+							initial: false,
+							label: 'Second',
+						},
+					],
+					edges: [
+						{
+							source: 'ca850085',
+							sourceAnchor: 1,
+							target: '97431d6f',
+							targetAnchor: 9,
+							id: '11fd64a6',
+							index: 3,
+							label: 'FirstToSecond',
+						},
+					],
+					groups: [
+						{
+							id: 'ca850085',
+							index: 0,
+							label: 'FirstGroup',
+							initial: true,
+						},
+					],
+				}
+				const result = exportToXState(data)
+				const expected = {
+					initial: 'FirstGroup',
+					states: {
+						FirstGroup: {
+							on: {
+								FirstToSecond: 'Second',
+							},
+							states: { InnerFirst: {} },
+						},
+						Second: {},
+					},
+				}
+				expect(result).toEqual(expected)
+			})
+
+			// it('should ensure a nested state has an initial state')
+
+			// it('should connect to a nested state within a nested state')
 		})
 
 		describe('transitions', () => {

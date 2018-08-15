@@ -1,7 +1,7 @@
-import { IData, IEdge, ILabel, INode } from '@antv/g6'
+import { IData, IEdge, IGroup, ILabel, INode } from '@antv/g6'
 
-export function getStart(data: IData): INode {
-	const rootNodes = data.nodes.filter(
+export function getStart(allNodes: Array<INode | IGroup>): INode | IGroup {
+	const rootNodes = allNodes.filter(
 		(node: INode) => node.initial === true && !node.parent,
 	)
 	if (rootNodes.length > 1) {
@@ -14,7 +14,10 @@ export function getStart(data: IData): INode {
 }
 
 // for each node, search its edges as source
-export function getEdgesByNode(data: IData, node: INode): IEdge[] | null {
+export function getEdgesByNode(
+	data: IData,
+	node: INode | IGroup,
+): IEdge[] | null {
 	if (!data.edges) {
 		return null
 	}
