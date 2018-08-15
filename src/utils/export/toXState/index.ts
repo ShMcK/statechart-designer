@@ -90,6 +90,12 @@ export default (data: IData) => {
 			}
 
 			// TODO: traverse parent
+			const parentId = node.parent
+			if (parentId && !traversedStates.has(parentId)) {
+				const parent = allNodes.filter((n) => n.id === parentId)
+				// TODO: handle parent
+				console.log('WARNING: parent not yet handled', parent)
+			}
 
 			// traverse edges
 			const nodeEdges = getEdgesByNode(data, node)
