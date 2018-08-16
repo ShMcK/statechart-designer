@@ -74,25 +74,10 @@ class Editor extends React.Component<{}, IState> {
 		const model = tempModel !== null ? tempModel : selectedModel
 		return (
 			<div id="editor">
-				<Toolbar />
+				<Toolbar items={items} />
 				<div style={{ height: '42px' }} />
 				<div className="bottom-container">
 					<ContextMenu />
-					<div id="itempannel">
-						<ul>
-							{items.map((item: any) => (
-								<li
-									key={item.key}
-									className="getItem"
-									data-shape={item.key}
-									data-type="node"
-									data-size={item.size}>
-									<span className={item.class} />
-									{item.label}
-								</li>
-							))}
-						</ul>
-					</div>
 					<div id="detailpannel">
 						<div
 							data-status="node-selected"

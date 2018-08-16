@@ -41,10 +41,16 @@ export default (Flow: IFlow): void => {
 				},
 			})
 
+			// defaults
+			model.initial = model.initial || false
+			model.label = model.label || 'State'
+			model.onEntry = model.onEntry || []
+			model.onExit = model.onExit || []
+
 			// state title
 			group.addShape('text', {
 				attrs: {
-					text: model.label || 'State',
+					text: model.label,
 					x: x + 13,
 					y: y + 13,
 					textAlign: 'start',
@@ -54,16 +60,17 @@ export default (Flow: IFlow): void => {
 			})
 
 			// initial icon
-			const isInitial = model.initial || false
 			group.addShape('image', {
 				attrs: {
-					img: isInitial ? '/assets/icons/initial-state.svg' : null,
+					img: model.initial ? '/assets/icons/initial-state.svg' : null,
 					x: x - 10 + width / 2,
 					y: y - 40,
 					width: 19,
 					height: 40,
 				},
 			})
+
+			console.log('model end', model)
 
 			return keyShape
 		},

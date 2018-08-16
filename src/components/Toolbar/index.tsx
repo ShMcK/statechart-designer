@@ -5,7 +5,10 @@ import { exportToXState } from 'utils/export'
 import { load } from 'utils/storage'
 import './toolbar.css'
 
-class Toolbar extends React.Component {
+interface IProps {
+	items: any[]
+}
+class Toolbar extends React.Component<IProps> {
 	export = async () => {
 		const data = await load()
 		const xstate = exportToXState(data)
@@ -14,6 +17,21 @@ class Toolbar extends React.Component {
 	render() {
 		return (
 			<div id="toolbar">
+				<span id="itempannel">
+					<ul>
+						{this.props.items.map((item: any) => (
+							<li
+								key={item.key}
+								className="getItem"
+								data-shape={item.key}
+								data-type="node"
+								data-size={item.size}>
+								<span className={item.class} />
+								{item.label}
+							</li>
+						))}
+					</ul>
+				</span>
 				<span>
 					<link
 						rel="stylesheet"

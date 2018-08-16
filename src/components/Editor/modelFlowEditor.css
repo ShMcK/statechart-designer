@@ -1,11 +1,7 @@
 #itempannel {
-	position: absolute;
-	left: 0px;
 	z-index: 2;
-	background: #f7f9fb;
-	width: 200px;
-	padding-top: 8px;
-	border-right: 1px solid #e6e9ed;
+	height: 42px;
+	width: 50px;
 }
 #itempannel ul {
 	padding: 0px;
