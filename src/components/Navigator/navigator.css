@@ -1,10 +1,6 @@
 #navigator {
-	width: 200px;
+	width: 100%;
 	height: 176px;
-	position: absolute;
-	bottom: 0px;
-	right: 0px;
-	z-index: 3;
 }
 #navigator .slider {
 	margin: 7px 10px 10px;
