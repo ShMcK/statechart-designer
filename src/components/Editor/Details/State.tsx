@@ -1,5 +1,6 @@
 import { Checkbox, Input } from 'antd'
 import * as React from 'react'
+import ActionList from './ActionList'
 
 interface IProps {
 	model: any
@@ -43,16 +44,16 @@ export default class StateDetails extends React.Component<IProps> {
 						Initial
 					</Checkbox>
 				</div>
-				{/* <div className="p">
-					On Entry:
-					<Input
-						size="small"
-						className="input name-input"
-						value={this.props.model.entryAction}
-						onChange={(e) => this.onChange('entryAction', e.target.value)}
-						onBlur={(e) => this.onBlur('entryAction', e.target.value)}
-					/>
-				</div> */}
+				<ActionList
+					label="onEntry"
+					value={this.props.model.onEntry || []}
+					onChange={(values) => this.onChange('onEntry', values)}
+				/>
+				<ActionList
+					label="onExit"
+					value={this.props.model.onExit || []}
+					onChange={(values) => this.onChange('onEntry', values)}
+				/>
 			</React.Fragment>
 		)
 	}
