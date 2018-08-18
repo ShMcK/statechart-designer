@@ -8,14 +8,26 @@ export default (Flow: IFlow): void => {
 			const group = item.getGraphicGroup()
 			const model = item.getModel()
 
+			// fix for node not showing group anchors for select
 			const groups = item.graph.getGroups()
 
-			const getAnchorPoints = item.getAnchorPoints
+			let dragging = false
+			item.graph.on('node:drag', () => {
+				dragging = false
+			})
+			item.graph.on('dragstart', () => {
+				dragging = true
+			})
+			item.graph.on('dragend', () => {
+				dragging = false
+			})
+
+			const getAnchorPointsOriginal = item.getAnchorPoints
 
 			// overwrite getAnchorPoints to add node & group points
 			item.getAnchorPoints = function(this: INodeItem) {
-				let anchorPoints = getAnchorPoints.call(item)
-				if (!item.dragging) {
+				let anchorPoints = getAnchorPointsOriginal.call(item)
+				if (dragging) {
 					for (const g of groups) {
 						const groupAnchors = g.getAnchorPoints()
 						anchorPoints = anchorPoints.concat(groupAnchors)
@@ -23,6 +35,7 @@ export default (Flow: IFlow): void => {
 				}
 				return anchorPoints
 			}
+			// fix ends
 
 			const width = 184
 			const height = 40

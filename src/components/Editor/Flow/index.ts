@@ -38,7 +38,6 @@ export default (page: IGraph, onChange: any) => {
 			target: IItem
 			targetAnchor: IPoint
 		}) => {
-			ev.source.dragging = true
 			// inputs connect to outputs
 			if (
 				!(ev.targetAnchor.type === 'input' && ev.sourceAnchor.type === 'output')

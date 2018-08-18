@@ -32,6 +32,9 @@ class Editor extends React.Component<{}, IState> {
 		const { editor, page } = initEditor()
 		initFlow(page, this.onChange)
 		this.editor = editor
+
+		console.log(page)
+
 		this.flow = page
 		registerFlow()
 		this.forceUpdate()
