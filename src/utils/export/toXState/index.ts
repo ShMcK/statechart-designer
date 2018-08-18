@@ -61,7 +61,7 @@ export default (data: IData) => {
 		})
 	}
 
-	const fields = ['onEntry', 'onExit', 'history']
+	const fields = ['onEntry', 'onExit', 'history', 'parallel']
 
 	function traverseNode(
 		node: INode | IGroup,

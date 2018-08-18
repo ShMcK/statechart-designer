@@ -639,8 +639,6 @@ describe('export xstate', () => {
 							id: 'e54f9f9b',
 							index: 1,
 							label: 'Second',
-							initial: true,
-							history: true,
 							parent: 'ca850085',
 						},
 						{
@@ -648,25 +646,15 @@ describe('export xstate', () => {
 							type: 'node',
 							id: '05a22f1a',
 							index: 3,
-							initial: false,
-							label: 'First',
+							label: 'Third',
 							parent: 'ca850085',
-						},
-					],
-					edges: [
-						{
-							source: 'e54f9f9b',
-							target: '05a22f1a',
-							id: '36bc360f',
-							index: 2,
-							label: 'SecondToFirst',
 						},
 					],
 					groups: [
 						{
 							id: 'ca850085',
 							index: 0,
-							label: 'SecondGroup',
+							label: 'FirstGroup',
 							initial: true,
 							parallel: true,
 						},
@@ -676,14 +664,14 @@ describe('export xstate', () => {
 				const result = exportToXState(data)
 
 				const expected: StateNodeConfig = {
-					initial: 'Second',
-					parallel: true,
+					initial: 'FirstGroup',
+
 					states: {
-						First: {},
-						Second: {
-							history: true,
-							on: {
-								SecondToFirst: 'First',
+						FirstGroup: {
+							parallel: true,
+							states: {
+								Second: {},
+								Third: {},
 							},
 						},
 					},
