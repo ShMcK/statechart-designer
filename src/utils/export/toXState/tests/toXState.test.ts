@@ -1,8 +1,8 @@
 import { IData } from '@antv/g6'
-import { StateNodeConfig } from '../../../typings/xstate/index'
-import exportToXState from './index'
+import { StateNodeConfig } from '../../../../typings/xstate/index'
+import exportToXState from '../index'
 
-describe('export xstate', () => {
+describe('export to xstate', () => {
 	describe('initial', () => {
 		it('uses the root initial state', () => {
 			const data: IData = {
