@@ -15,9 +15,11 @@ export default (Flow: IFlow): void => {
 			// overwrite getAnchorPoints to add node & group points
 			item.getAnchorPoints = function(this: INodeItem) {
 				let anchorPoints = getAnchorPoints.call(item)
-				for (const g of groups) {
-					const groupAnchors = g.getAnchorPoints()
-					anchorPoints = anchorPoints.concat(groupAnchors)
+				if (!item.dragging) {
+					for (const g of groups) {
+						const groupAnchors = g.getAnchorPoints()
+						anchorPoints = anchorPoints.concat(groupAnchors)
+					}
 				}
 				return anchorPoints
 			}
@@ -69,8 +71,6 @@ export default (Flow: IFlow): void => {
 					height: 40,
 				},
 			})
-
-			console.log('model end', model)
 
 			return keyShape
 		},

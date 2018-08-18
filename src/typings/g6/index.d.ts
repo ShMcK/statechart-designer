@@ -255,6 +255,7 @@ declare module '@antv/g6' {
 		getChildrenBBox(): BBox
 		getKeyShape(): IKeyShape
 		model: any
+		dragging?: boolean
 	}
 
 	export interface IGroupItem extends INodeItem {
