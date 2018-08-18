@@ -1,4 +1,4 @@
-import { Tabs } from 'antd'
+import { Icon, Tabs } from 'antd'
 import * as React from 'react'
 
 import Navigator from '../../Navigator'
@@ -40,7 +40,7 @@ export default class SidePanel extends React.Component<IProps> {
 					size="small"
 					defaultActiveKey="1"
 					onChange={console.log}>
-					<TabPane tab="Details" key="1">
+					<TabPane tab={<Icon type="info-circle" />} key="1">
 						<div
 							style={{
 								display: 'flex',
@@ -113,10 +113,10 @@ export default class SidePanel extends React.Component<IProps> {
 							</div>
 						</div>
 					</TabPane>
-					<TabPane tab="Nav" key="2">
+					<TabPane tab={<Icon type="play-circle" />} key="2" disabled={true}>
 						<div>Navigate</div>
 					</TabPane>
-					<TabPane tab="JSON" key="3">
+					<TabPane tab={<Icon type="code" />} key="3" disabled={true}>
 						<div>JSON</div>
 					</TabPane>
 				</Tabs>

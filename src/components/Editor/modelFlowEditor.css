@@ -1,10 +1,14 @@
 #sidepannel {
-	width: 200px;
+	width: 225px;
 	position: absolute;
 	right: 0px;
 	z-index: 2;
 	background: #f7f9fb;
 	border-left: 1px solid #e6e9ed;
+}
+
+#page {
+	margin-right: 225px;
 }
 
 #itempannel {
