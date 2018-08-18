@@ -1,3 +1,4 @@
+import { IZoom } from '@antv/g6'
 import * as React from 'react'
 
 interface IState {
@@ -7,7 +8,7 @@ interface IState {
 }
 
 interface IProps {
-	changeZoom(zoom: number): void
+	getFlow(): any
 	children(params: IState): any
 }
 
@@ -17,9 +18,17 @@ export default class Zoom extends React.Component<IProps, IState> {
 		maxZoom: 2,
 		minZoom: 0.5,
 	}
+	componentDidMount() {
+		// TODO: cleanup flow hack
+		setTimeout(() => {
+			const flow = this.props.getFlow()
+			flow.on('afterzoom', (ev: IZoom) => {
+				this.changeZoom(ev.updateMatrix[0])
+			})
+		}, 300)
+	}
 	changeZoom = (zoom: number) => {
 		this.setState({ zoom })
-		this.props.changeZoom(zoom)
 	}
 	render() {
 		const output = {

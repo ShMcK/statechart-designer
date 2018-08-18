@@ -1,6 +1,7 @@
+import { IGraph } from '@antv/g6'
 import G6Editor, { IEditor } from '@antv/g6-editor'
 
-const initEditorComponents = (page: any) => {
+const initEditorComponents = () => {
 	const editor: IEditor = new G6Editor()
 
 	const minimap = new G6Editor.Minimap({
@@ -25,6 +26,18 @@ const initEditorComponents = (page: any) => {
 		container: 'detailpannel',
 	})
 
+	const page: IGraph = new G6Editor.Flow({
+		align: {
+			grid: true,
+		},
+		edgeResizeable: false,
+		graph: {
+			container: 'page',
+			height: window.innerHeight - 38,
+		},
+		noEndEdge: false,
+	})
+
 	editor.add(minimap)
 	editor.add(toolbar)
 	editor.add(contextmenu)
@@ -44,7 +57,7 @@ const initEditorComponents = (page: any) => {
 		}
 	})
 
-	return editor
+	return { editor, page }
 }
 
 export default initEditorComponents

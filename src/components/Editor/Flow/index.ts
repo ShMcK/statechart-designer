@@ -6,39 +6,20 @@ import {
 	INode,
 	IPoint,
 	IPointType,
-	IZoom,
 } from '@antv/g6'
-import G6Editor from '@antv/g6-editor'
 
 import getSiblingNodes from 'utils/getSiblingNodes'
 import { save } from 'utils/storage'
 
-export default (onChange: any) => {
-	const flow: IGraph = new G6Editor.Flow({
-		align: {
-			grid: true,
-		},
-		edgeResizeable: false,
-		graph: {
-			container: 'page',
-			height: window.innerHeight - 38,
-		},
-		noEndEdge: false,
-	})
-
-	flow.on('afteritemselected', (ev: { item: IItem }) => {
+export default (page: IGraph, onChange: any) => {
+	page.on('afteritemselected', (ev: { item: IItem }) => {
 		onChange({
 			selectedModel: ev.item.getModel(),
 		})
 	})
-	flow.on('afterzoom', (ev: IZoom) => {
-		onChange({
-			curZoom: ev.updateMatrix[0],
-		})
-	})
 
 	// before connecting anchor point
-	flow.on(
+	page.on(
 		'hoveranchor:beforeaddedge',
 		(ev: { anchor: IPoint; item: IItem; cancel: boolean }) => {
 			if (ev.anchor.type === 'input') {
@@ -47,7 +28,7 @@ export default (onChange: any) => {
 		},
 	)
 
-	flow.on(
+	page.on(
 		'dragedge:beforeshowanchor',
 		(ev: {
 			cancel: boolean
@@ -66,7 +47,7 @@ export default (onChange: any) => {
 			// cancels if not connected to target
 			if (
 				ev.dragEndPointType === 'target' &&
-				flow.anchorHasBeenLinked(ev.target, ev.targetAnchor)
+				page.anchorHasBeenLinked(ev.target, ev.targetAnchor)
 			) {
 				ev.cancel = true
 			}
@@ -74,14 +55,14 @@ export default (onChange: any) => {
 			// cancels if not connected to source
 			if (
 				ev.dragEndPointType === 'source' &&
-				flow.anchorHasBeenLinked(ev.source, ev.sourceAnchor)
+				page.anchorHasBeenLinked(ev.source, ev.sourceAnchor)
 			) {
 				ev.cancel = true
 			}
 		},
 	)
 
-	flow.on('beforechange', (ev: { action: IAction; item: any; model: any }) => {
+	page.on('beforechange', (ev: { action: IAction; item: any; model: any }) => {
 		if (ev.action === 'add') {
 			const { model } = ev
 			switch (model.type) {
@@ -97,7 +78,7 @@ export default (onChange: any) => {
 		}
 	})
 
-	flow.on(
+	page.on(
 		'afterchange',
 		(ev: { action: IAction; item: any; model: any; updateModel: any }) => {
 			if (ev.action === 'add') {
@@ -110,15 +91,15 @@ export default (onChange: any) => {
 						const firstNode = siblings.length === 0
 						if (firstNode) {
 							item.model.initial = true
-							flow.update(item, item.model)
+							page.update(item, item.model)
 						}
 
 						break
 					case 'edge':
 						// highlight transition on creation
 						item.model.label = 'Event'
-						flow.clearSelected()
-						flow.setSelected(item.id, true)
+						page.clearSelected()
+						page.setSelected(item.id, true)
 
 						break
 					case 'group':
@@ -140,7 +121,7 @@ export default (onChange: any) => {
 									(id: string) => node.id,
 								)
 								nodeItem.model.initial = false
-								flow.update(nodeItem, nodeItem.model)
+								page.update(nodeItem, nodeItem.model)
 							})
 						}
 						break
@@ -153,10 +134,10 @@ export default (onChange: any) => {
 			}
 
 			// save
-			const data: IData = flow.save()
+			const data: IData = page.save()
 			save(data)
 		},
 	)
 
-	return flow
+	return page
 }

@@ -3,7 +3,7 @@ import * as React from 'react'
 
 import Navigator from '../../Navigator'
 import * as Details from '../Details'
-import Zoom from '../Zoom'
+import Zoom from './Zoom'
 
 const TabPane = Tabs.TabPane
 
@@ -100,7 +100,7 @@ export default class SidePanel extends React.Component<IProps> {
 								</div>
 							</div>
 							<div style={{ alignSelf: 'flex-end' }}>
-								<Zoom changeZoom={(zoom: number) => this.props.flow.zoom(zoom)}>
+								<Zoom getFlow={() => this.props.flow}>
 									{({ zoom, minZoom, maxZoom, changeZoom }: any) => (
 										<Navigator
 											zoom={zoom}
