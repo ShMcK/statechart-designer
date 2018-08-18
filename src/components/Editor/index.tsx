@@ -29,9 +29,10 @@ class Editor extends React.Component<{}, IState> {
 		tempModel: null,
 	}
 	componentDidMount() {
-		const flow = initFlow(this.onChange)
-		this.editor = initEditor(flow)
-		this.flow = flow
+		const { editor, page } = initEditor()
+		initFlow(page, this.onChange)
+		this.editor = editor
+		this.flow = page
 		registerFlow()
 		this.forceUpdate()
 		// load saved data
