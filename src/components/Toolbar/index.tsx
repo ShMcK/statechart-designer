@@ -1,19 +1,10 @@
-import { Icon } from 'antd'
 import * as React from 'react'
-
-import { exportToXState } from 'utils/export'
-import { load } from 'utils/storage'
 import './toolbar.css'
 
 interface IProps {
 	items: any[]
 }
 class Toolbar extends React.Component<IProps> {
-	export = async () => {
-		const data = await load()
-		const xstate = exportToXState(data)
-		console.log('export xstate', xstate)
-	}
 	render() {
 		return (
 			<div id="toolbar">
@@ -115,26 +106,6 @@ class Toolbar extends React.Component<IProps> {
 						title="ungroup"
 					/>
 					<span className="separator" />
-				</span>
-
-				<span
-					style={{
-						display: 'flex',
-						alignItems: 'center',
-						padding: '0 2rem',
-					}}>
-					{/* <Icon
-						type="save"
-						className="iconfont"
-						style={{ paddingTop: '4px' }}
-						onClick={this.save}
-					/> */}
-					<Icon
-						type="export"
-						className="iconfont"
-						style={{ marginLeft: '2rem', paddingTop: '4px' }}
-						onClick={this.export}
-					/>
 				</span>
 			</div>
 		)
