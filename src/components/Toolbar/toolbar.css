@@ -9,6 +9,7 @@
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	flex-flow: row wrap;
 }
 #toolbar *::before {
 	font-size: 16px !important;
@@ -31,9 +32,6 @@
 	padding-left: 4px;
 	display: inline-block;
 	border: 1px solid rgba(2, 2, 2, 0);
-}
-#toolbar .iconfont:nth-of-type(1) {
-	margin-left: 24px;
 }
 #toolbar .iconfont:hover {
 	cursor: pointer;

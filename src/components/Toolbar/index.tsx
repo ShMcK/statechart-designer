@@ -32,7 +32,9 @@ class Toolbar extends React.Component<IProps> {
 						))}
 					</ul>
 				</span>
+
 				<span>
+					<span className="separator" />
 					<link
 						rel="stylesheet"
 						type="text/css"
@@ -112,6 +114,7 @@ class Toolbar extends React.Component<IProps> {
 						className="command iconfont icon-ungroup"
 						title="ungroup"
 					/>
+					<span className="separator" />
 				</span>
 
 				<span
