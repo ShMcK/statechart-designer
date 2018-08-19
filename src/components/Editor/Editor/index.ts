@@ -34,6 +34,7 @@ const initEditorComponents = () => {
 		graph: {
 			container: 'page',
 			height: window.innerHeight - 38,
+			fitView: 'cc',
 		},
 		noEndEdge: false,
 	})
