@@ -61,7 +61,8 @@ export default (data: IData) => {
 		})
 	}
 
-	const fields = ['onEntry', 'onExit', 'history', 'parallel']
+	const arrayFields = ['onEntry', 'onExit']
+	const booleanFields = ['history', 'parallel']
 
 	function traverseNode(
 		node: INode | IGroup,
@@ -82,9 +83,17 @@ export default (data: IData) => {
 				set(xstate, [...path.slice(0, path.length - 1), 'initial'], node.label)
 			}
 
-			for (const field of fields) {
-				if (node[field]) {
-					set(xstate, [...path, label, field], node[field])
+			for (const field of booleanFields) {
+				const item = node[field]
+				if (item) {
+					set(xstate, [...path, label, field], true)
+				}
+			}
+
+			for (const field of arrayFields) {
+				const items = node[field]
+				if (items && items.length) {
+					set(xstate, [...path, label, field], items)
 				}
 			}
 
