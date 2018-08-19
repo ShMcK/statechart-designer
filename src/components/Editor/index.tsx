@@ -33,8 +33,6 @@ class Editor extends React.Component<{}, IState> {
 		initFlow(page, this.onChange)
 		this.editor = editor
 
-		console.log(page)
-
 		this.flow = page
 		registerFlow()
 		this.forceUpdate()
@@ -48,7 +46,7 @@ class Editor extends React.Component<{}, IState> {
 
 	load = async () => {
 		const loaded = (await load()) || {}
-		console.log('loaded', loaded)
+		// console.log('loaded', loaded)
 		this.flow.read(loaded)
 	}
 

@@ -1,7 +1,9 @@
 import { Icon, Tabs } from 'antd'
 import * as React from 'react'
 
+import JSONEditor from '../../JSONEditor'
 import Navigator from '../../Navigator'
+import StateNavigator from '../../StateNavigator'
 import * as Details from '../Details'
 import Zoom from './Zoom'
 
@@ -114,10 +116,10 @@ export default class SidePanel extends React.Component<IProps> {
 						</div>
 					</TabPane>
 					<TabPane tab={<Icon type="play-circle" />} key="2" disabled={true}>
-						<div>Navigate</div>
+						<StateNavigator />
 					</TabPane>
-					<TabPane tab={<Icon type="code" />} key="3" disabled={true}>
-						<div>JSON</div>
+					<TabPane tab={<Icon type="code" />} key="3" disabled={false}>
+						<JSONEditor getFlow={() => this.props.flow} />
 					</TabPane>
 				</Tabs>
 			</div>
