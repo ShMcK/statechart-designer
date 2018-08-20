@@ -115,8 +115,8 @@ export default class SidePanel extends React.Component<IProps> {
 							</div>
 						</div>
 					</TabPane>
-					<TabPane tab={<Icon type="play-circle" />} key="2" disabled={true}>
-						<StateNavigator />
+					<TabPane tab={<Icon type="play-circle" />} key="2" disabled={false}>
+						<StateNavigator getFlow={() => this.props.flow} />
 					</TabPane>
 					<TabPane tab={<Icon type="code" />} key="3" disabled={false}>
 						<JSONEditor getFlow={() => this.props.flow} />

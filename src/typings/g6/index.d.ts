@@ -134,6 +134,8 @@ declare module '@antv/g6' {
 		parent?: string
 		/* added */
 		initial?: boolean
+		getInEdges(): any[]
+		getOutEdges(): any[]
 	}
 
 	export interface IEdge {
@@ -152,19 +154,11 @@ declare module '@antv/g6' {
 		style?: IBoxStyle
 	}
 
-	export interface IGroup {
-		id: string
-		color: string
+	export interface IGroup extends INode {
 		size: number | number[] // [10, 10]
-		shape: IBoxShape
-		index: number
-		label: ILabel
-		style?: IBoxStyle
 		parallel?: boolean
-		parent?: string
 		/* added */
 		collapsed?: boolean
-		initial?: boolean
 	}
 
 	export interface IGuide {}
