@@ -18,16 +18,18 @@ export default class Zoom extends React.Component<IProps, IState> {
 		maxZoom: 2,
 		minZoom: 0.5,
 	}
+	flow: any
 	componentDidMount() {
 		// TODO: cleanup flow hack
 		setTimeout(() => {
-			const flow = this.props.getFlow()
-			flow.on('afterzoom', (ev: IZoom) => {
+			this.flow = this.props.getFlow()
+			this.flow.on('afterzoom', (ev: IZoom) => {
 				this.changeZoom(ev.updateMatrix[0])
 			})
 		}, 300)
 	}
 	changeZoom = (zoom: number) => {
+		this.flow.zoom(zoom)
 		this.setState({ zoom })
 	}
 	render() {
