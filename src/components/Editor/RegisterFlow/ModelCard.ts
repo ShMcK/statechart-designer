@@ -58,7 +58,7 @@ export default (Flow: IFlow): void => {
 
 			// defaults
 			model.initial = model.initial || false
-			model.label = model.label || 'State'
+			model.label = model.label || model.id
 			model.onEntry = model.onEntry || []
 			model.onExit = model.onExit || []
 

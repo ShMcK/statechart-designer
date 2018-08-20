@@ -97,9 +97,10 @@ export default (page: IGraph, onChange: any) => {
 						break
 					case 'edge':
 						// highlight transition on creation
-						item.model.label = 'Event'
+						item.model.label = item.id
 						page.clearSelected()
 						page.setSelected(item.id, true)
+						page.update(item, item.model)
 
 						break
 					case 'group':
