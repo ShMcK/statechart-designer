@@ -83,6 +83,9 @@ export default (data: IData) => {
 				set(xstate, [...path.slice(0, path.length - 1), 'initial'], node.label)
 			}
 
+			// set id
+			set(xstate, [...path, label, 'id'], node.id)
+
 			for (const field of booleanFields) {
 				const item = node[field]
 				if (item) {

@@ -17,6 +17,7 @@ interface IProps {
 }
 
 export default class SidePanel extends React.Component<IProps> {
+	stateNavigator: any = React.createRef()
 	toggleGrid = (ev: any) => {
 		if (ev.target.checked) {
 			this.props.flow.showGrid()
@@ -34,6 +35,19 @@ export default class SidePanel extends React.Component<IProps> {
 			})
 		})
 	}
+	onTabChange = (activeKey: string) => {
+		if (activeKey !== '1') {
+			this.props.flow.clearSelected()
+		}
+		if (activeKey === '2') {
+			this.props.onChange({ pageDisabled: true })
+			setTimeout(() => {
+				this.stateNavigator.current.next()
+			})
+		} else {
+			this.props.onChange({ pageDisabled: false })
+		}
+	}
 	render() {
 		return (
 			<div id="sidepannel">
@@ -41,7 +55,7 @@ export default class SidePanel extends React.Component<IProps> {
 					type="line"
 					size="small"
 					defaultActiveKey="1"
-					onChange={console.log}>
+					onChange={this.onTabChange}>
 					<TabPane tab={<Icon type="info-circle" />} key="1">
 						<div
 							style={{
@@ -115,8 +129,11 @@ export default class SidePanel extends React.Component<IProps> {
 							</div>
 						</div>
 					</TabPane>
-					<TabPane tab={<Icon type="play-circle" />} key="2" disabled={true}>
-						<StateNavigator />
+					<TabPane tab={<Icon type="play-circle" />} key="2" disabled={false}>
+						<StateNavigator
+							ref={this.stateNavigator}
+							getFlow={() => this.props.flow}
+						/>
 					</TabPane>
 					<TabPane tab={<Icon type="code" />} key="3" disabled={false}>
 						<JSONEditor getFlow={() => this.props.flow} />

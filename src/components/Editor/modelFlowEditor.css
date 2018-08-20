@@ -11,6 +11,15 @@
 	margin-right: 225px;
 }
 
+#page .overlay {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	opacity: 0;
+}
+
 #itempannel {
 	z-index: 2;
 	height: 42px;
