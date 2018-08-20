@@ -1,7 +1,8 @@
 {
-	"name": "chart-editor",
+	"name": "statechart-designer",
 	"version": "0.1.0",
 	"private": true,
+	"homepage": "http://shmck.github.io/statechart-designer",
 	"dependencies": {
 		"@antv/g6": "^2.0.5-beta.6",
 		"@antv/g6-editor": "^1.0.7",
@@ -17,7 +18,9 @@
 		"start": "react-scripts-ts start",
 		"build": "react-scripts-ts build",
 		"test": "react-scripts-ts test --env=jsdom",
-		"eject": "react-scripts-ts eject"
+		"eject": "react-scripts-ts eject",
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d build"
 	},
 	"devDependencies": {
 		"@types/jest": "^23.3.1",
@@ -25,6 +28,7 @@
 		"@types/node": "^10.7.0",
 		"@types/react": "^16.4.10",
 		"@types/react-dom": "^16.0.7",
+		"gh-pages": "^1.2.0",
 		"typescript": "^2.9.2"
 	}
 }
