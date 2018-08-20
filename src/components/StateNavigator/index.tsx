@@ -72,17 +72,19 @@ export default class StateNavigator extends React.Component<IProps> {
 					display: 'flex',
 					flexDirection: 'column',
 					justifyContent: 'space-between',
-					padding: 5,
 					height: window.innerHeight - 96,
 				}}>
 				<div style={{ display: 'flex', flexDirection: 'row' }}>
 					{this.state.edges.map((label) => (
-						<Button key={label} onClick={() => this.transition(label)}>
+						<Button
+							style={{ margin: 5 }}
+							key={label}
+							onClick={() => this.transition(label)}>
 							{label}
 						</Button>
 					))}
 				</div>
-				<div style={{ marginTop: 10 }}>
+				<div style={{ margin: 5 }}>
 					<Button type="primary" onClick={this.reset}>
 						Reset
 					</Button>

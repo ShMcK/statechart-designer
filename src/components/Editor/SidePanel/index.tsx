@@ -40,6 +40,7 @@ export default class SidePanel extends React.Component<IProps> {
 			this.props.flow.clearSelected()
 		}
 		if (activeKey === '2') {
+			// this.stateNavigator.current.setupStateMachine()
 			this.props.onChange({ pageDisabled: true })
 			setTimeout(() => {
 				this.stateNavigator.current.next()
