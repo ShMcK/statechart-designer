@@ -2,7 +2,7 @@
 	"name": "statechart-designer",
 	"version": "0.1.0",
 	"private": true,
-	"homepage": "http://shmck.github.io/statechart-designer",
+	"homepage": "https://shmck.github.io/statechart-designer",
 	"dependencies": {
 		"@antv/g6": "^2.0.5-beta.6",
 		"@antv/g6-editor": "^1.0.7",
