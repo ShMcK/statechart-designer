@@ -24,8 +24,6 @@ export default class StateNavigator extends React.Component<IProps> {
 		await this.setupStateMachine()
 		this.flow = this.props.getFlow()
 		this.allNodes = [...this.flow.getNodes(), ...this.flow.getGroups()]
-
-		this.next()
 	}
 	setupStateMachine = async () => {
 		const data: IData = await load()
