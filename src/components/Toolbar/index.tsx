@@ -5,6 +5,16 @@ interface IProps {
 	items: any[]
 }
 class Toolbar extends React.Component<IProps> {
+	state = {
+		initial: true,
+	}
+	componentDidMount() {
+		this.showHighlight()
+	}
+	showHighlight = () => {
+		this.setState({ initial: true })
+		setTimeout(() => this.setState({ initial: false }), 3000)
+	}
 	render() {
 		return (
 			<div id="toolbar">
@@ -12,8 +22,11 @@ class Toolbar extends React.Component<IProps> {
 					<ul>
 						{this.props.items.map((item: any) => (
 							<li
+								onMouseOver={this.showHighlight}
 								key={item.key}
-								className="getItem"
+								className={`getItem ${
+									this.state.initial ? 'initial-highlight' : ''
+								}`}
 								data-shape={item.key}
 								data-type="node"
 								data-size={item.size}>

@@ -41,3 +41,54 @@
 	cursor: default;
 	border: 1px solid rgba(2, 2, 2, 0);
 }
+
+.initial-highlight {
+	-webkit-animation: glowing 3000ms 1;
+	-moz-animation: glowing 3000ms 1;
+	-o-animation: glowing 3000ms 1;
+	animation: glowing 3000ms 1;
+}
+
+@-webkit-keyframes glowing {
+	0% {
+		border-color: #1890ff;
+		-webkit-box-shadow: 0 0 3px #1890ff;
+	}
+	100% {
+		border-color: #f4f9fe;
+		-webkit-box-shadow: 0 0 40px #f4f9fe;
+	}
+}
+
+@-moz-keyframes glowing {
+	0% {
+		border-color: #1890ff;
+		-webkit-box-shadow: 0 0 3px #1890ff;
+	}
+	100% {
+		border-color: #f4f9fe;
+		-webkit-box-shadow: 0 0 40px #f4f9fe;
+	}
+}
+
+@-o-keyframes glowing {
+	0% {
+		border-color: #1890ff;
+		-webkit-box-shadow: 0 0 3px #1890ff;
+	}
+	100% {
+		border-color: #f4f9fe;
+		-webkit-box-shadow: 0 0 40px #f4f9fe;
+	}
+}
+
+@keyframes glowing {
+	0% {
+		border-color: #1890ff;
+		-webkit-box-shadow: 0 0 3px #1890ff;
+	}
+	100% {
+		border-color: #f4f9fe;
+		-webkit-box-shadow: 0 0 40px #f4f9fe;
+	}
+}
