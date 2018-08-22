@@ -1,7 +1,9 @@
-import { Button, message } from 'antd'
+import { Button } from 'antd'
 import * as React from 'react'
 import { exportToXState } from 'utils/export'
 import { load } from 'utils/storage'
+import ErrorPage from '../ErrorPage'
+import { notifyCanvas } from '../Notify'
 
 import './json-editor.css'
 
@@ -11,6 +13,7 @@ interface IProps {
 
 export default class JSONEditor extends React.Component<IProps> {
 	state = {
+		error: null,
 		xstate: {},
 	}
 	componentDidMount() {
@@ -19,17 +22,24 @@ export default class JSONEditor extends React.Component<IProps> {
 		flow.on('afterchange', this.loadXState)
 	}
 	loadXState = async () => {
-		const data = await load()
-		const xstate = exportToXState(data)
-		this.setState({ xstate })
+		try {
+			const data = await load()
+			const xstate = exportToXState(data)
+			this.setState({ error: null, xstate })
+		} catch (error) {
+			this.setState({ error: error.message, xstate: {} })
+		}
 	}
 	copy = () => {
 		let navigator: any
 		navigator = window.navigator
 		navigator.clipboard.writeText(JSON.stringify(this.state.xstate, null, 2))
-		message.info('Copied to clipboard')
+		notifyCanvas.info('Copied to clipboard')
 	}
 	render() {
+		if (this.state.error) {
+			return <ErrorPage>{this.state.error}</ErrorPage>
+		}
 		return (
 			<div id="jsoneditor" style={{ minHeight: window.innerHeight - 76 }}>
 				<Button

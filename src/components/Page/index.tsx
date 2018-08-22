@@ -1,10 +1,4 @@
-import { message } from 'antd'
 import * as React from 'react'
-
-message.config({
-	top: 50,
-	getContainer: () => document.getElementById('page') || document.body,
-})
 
 interface IProps {
 	disabled: boolean

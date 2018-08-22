@@ -5,6 +5,7 @@ import * as React from 'react'
 import { exportToXState } from 'utils/export'
 import { load } from 'utils/storage'
 import { Machine } from 'xstate'
+import ErrorPage from '../ErrorPage'
 
 interface IProps {
 	getFlow(): any
@@ -12,6 +13,7 @@ interface IProps {
 
 export default class StateNavigator extends React.Component<IProps> {
 	state = {
+		error: null,
 		edges: [],
 		state: null,
 	}
@@ -20,17 +22,22 @@ export default class StateNavigator extends React.Component<IProps> {
 	flow: any
 	allNodes: Array<INode | IGroup>
 
-	async componentDidMount() {
-		await this.setupStateMachine()
+	componentDidMount() {
 		this.flow = this.props.getFlow()
 		this.allNodes = [...this.flow.getNodes(), ...this.flow.getGroups()]
+		this.setupStateMachine()
 	}
 	setupStateMachine = async () => {
-		const data: IData = await load()
-		const xstate = exportToXState(data)
-		const machine = Machine(xstate)
-		this.xsf = createStatefulMachine({ machine })
-		this.xsf.init()
+		try {
+			const data: IData = await load()
+			const xstate = exportToXState(data)
+			const machine = Machine(xstate)
+			this.xsf = createStatefulMachine({ machine })
+			this.xsf.init()
+			this.setState({ error: null })
+		} catch (error) {
+			this.setState({ error: error.message })
+		}
 	}
 	setNode = (node: INode | IGroup) => {
 		this.setState({ node })
@@ -57,15 +64,20 @@ export default class StateNavigator extends React.Component<IProps> {
 		this.next()
 	}
 	next = () => {
-		const node = this.getNode()
-		this.getEdges(node)
-		this.setNode(node)
+		if (!this.state.error) {
+			const node = this.getNode()
+			this.getEdges(node)
+			this.setNode(node)
+		}
 	}
 	reset = () => {
 		this.xsf.init()
 		this.next()
 	}
 	render() {
+		if (this.state.error) {
+			return <ErrorPage>{this.state.error}</ErrorPage>
+		}
 		return (
 			<div
 				style={{
