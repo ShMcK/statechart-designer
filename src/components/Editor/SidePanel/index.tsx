@@ -42,9 +42,7 @@ export default class SidePanel extends React.Component<IProps> {
 		if (activeKey === '2') {
 			// this.stateNavigator.current.setupStateMachine()
 			this.props.onChange({ pageDisabled: true })
-			setTimeout(() => {
-				this.stateNavigator.current.next()
-			})
+			setTimeout(() => this.stateNavigator.current.setupStateMachine())
 		} else {
 			this.props.onChange({ pageDisabled: false })
 		}

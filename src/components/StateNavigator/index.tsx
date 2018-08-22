@@ -24,17 +24,17 @@ export default class StateNavigator extends React.Component<IProps> {
 
 	componentDidMount() {
 		this.flow = this.props.getFlow()
-		this.allNodes = [...this.flow.getNodes(), ...this.flow.getGroups()]
-		this.setupStateMachine()
 	}
 	setupStateMachine = async () => {
 		try {
+			this.allNodes = [...this.flow.getNodes(), ...this.flow.getGroups()]
 			const data: IData = await load()
 			const xstate = exportToXState(data)
 			const machine = Machine(xstate)
 			this.xsf = createStatefulMachine({ machine })
 			this.xsf.init()
 			this.setState({ error: null })
+			this.next()
 		} catch (error) {
 			this.setState({ error: error.message })
 		}
