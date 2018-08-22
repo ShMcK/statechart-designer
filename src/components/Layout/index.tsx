@@ -4,8 +4,10 @@ import * as React from 'react'
 const { Sider, Content } = Layout
 
 const styles = {
-	logo: {
-		margin: 16,
+	sider: {
+		paddingTop: '1em',
+		display: 'flex',
+		justifyContent: 'center',
 	},
 	trigger: {
 		fontSize: 18,
@@ -35,19 +37,19 @@ export default class SiderDemo extends React.Component {
 		return (
 			<Layout>
 				<Sider
+					style={styles.sider}
 					trigger={null}
 					collapsible={true}
 					collapsed={this.state.collapsed}>
-					<div style={styles.logo}>
-						<Badge dot={true} title="Alpha">
-							<Avatar
-								shape="square"
-								size={32}
-								style={{ background: 'rgba(255,255,255,.2)' }}>
-								SCD
-							</Avatar>
-						</Badge>
-					</div>
+					<Badge dot={true} title="Alpha">
+						<Avatar
+							shape="square"
+							size={32}
+							style={{ background: 'rgba(255,255,255,.2)' }}>
+							SCD
+						</Avatar>
+					</Badge>
+
 					{/* <div style={styles.logo} /> */}
 					{/* <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
 						<Menu.Item key="1">
