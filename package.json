@@ -5,9 +5,9 @@
 	"homepage": "https://shmck.github.io/statechart-designer",
 	"dependencies": {
 		"@antv/g6": "^2.0.5-beta.6",
-		"@antv/g6-editor": "^1.0.7",
+		"@antv/g6-editor": "^1.0.8",
 		"@avaragado/xstateful": "^0.5.0",
-		"antd": "^3.8.1",
+		"antd": "^3.8.3",
 		"lodash": "^4.17.10",
 		"react": "^16.4.2",
 		"react-dom": "^16.4.2",
@@ -25,8 +25,8 @@
 	"devDependencies": {
 		"@types/jest": "^23.3.1",
 		"@types/lodash": "^4.14.116",
-		"@types/node": "^10.7.0",
-		"@types/react": "^16.4.10",
+		"@types/node": "^10.9.2",
+		"@types/react": "^16.4.12",
 		"@types/react-dom": "^16.0.7",
 		"gh-pages": "^1.2.0",
 		"typescript": "^2.9.2"
