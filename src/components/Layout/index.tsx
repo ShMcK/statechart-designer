@@ -1,4 +1,4 @@
-import { Avatar, Badge, Layout } from 'antd'
+import { Avatar, Badge, Icon, Layout, Menu } from 'antd'
 import * as React from 'react'
 
 const { Sider, Content } = Layout
@@ -19,6 +19,11 @@ const styles = {
 	content: {
 		background: '#fff',
 		minHeight: 280,
+	},
+	logo: {
+		display: 'flex',
+		justifyContent: 'center',
+		marginBottom: '20px',
 	},
 }
 
@@ -41,30 +46,27 @@ export default class SiderDemo extends React.Component {
 					trigger={null}
 					collapsible={true}
 					collapsed={this.state.collapsed}>
-					<Badge dot={true} title="Alpha">
-						<Avatar
-							shape="square"
-							size={32}
-							style={{ background: 'rgba(255,255,255,.2)' }}>
-							SCD
-						</Avatar>
-					</Badge>
+					<div style={styles.logo}>
+						<Badge dot={true} title="Alpha">
+							<Avatar
+								shape="square"
+								size={32}
+								style={{ background: 'rgba(255,255,255,.2)' }}>
+								SCD
+							</Avatar>
+						</Badge>
+					</div>
 
-					{/* <div style={styles.logo} /> */}
-					{/* <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+					<Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
 						<Menu.Item key="1">
-							<Icon type="user" />
-							<span>nav 1</span>
+							<Icon type="edit" />
+							<span>Edit</span>
 						</Menu.Item>
 						<Menu.Item key="2">
-							<Icon type="video-camera" />
-							<span>nav 2</span>
+							<Icon type="play-circle" />
+							<span>Play</span>
 						</Menu.Item>
-						<Menu.Item key="3">
-							<Icon type="upload" />
-							<span>nav 3</span>
-						</Menu.Item>
-					</Menu> */}
+					</Menu>
 				</Sider>
 				<Layout>
 					<Content style={styles.content}>{this.props.children || ''}</Content>
