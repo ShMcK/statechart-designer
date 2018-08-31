@@ -8,13 +8,12 @@ import registerFlow from './RegisterFlow'
 import { items } from './RegisterFlow/PanelItems'
 
 import { load } from '../../utils/storage'
-import ContextMenu from '../ContextMenu'
-import Page from '../Page'
-import Toolbar from '../Toolbar'
-import SidePanel from './SidePanel'
-
+import ContextMenu from './ContextMenu'
 import initEditor from './Editor'
 import initFlow from './Flow'
+import Page from './Page'
+import SidePanel from './SidePanel'
+import Toolbar from './Toolbar'
 
 interface IState {
 	selectedModel: any

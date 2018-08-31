@@ -1,9 +1,9 @@
 import { Button } from 'antd'
 import * as React from 'react'
+import { notifyCanvas } from 'services/notify'
 import { exportToXState } from 'utils/export'
 import { load } from 'utils/storage'
-import ErrorPage from '../ErrorPage'
-import { notifyCanvas } from '../Notify'
+import ErrorPage from '../../ErrorPage'
 
 import './json-editor.css'
 

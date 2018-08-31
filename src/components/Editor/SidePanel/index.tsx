@@ -1,10 +1,10 @@
 import { Icon, Tabs } from 'antd'
 import * as React from 'react'
 
-import JSONEditor from '../../JSONEditor'
-import Navigator from '../../Navigator'
 import StateNavigator from '../../StateNavigator'
 import * as Details from '../Details'
+import JSONEditor from '../JSONEditor'
+import Navigator from '../Navigator'
 import Zoom from './Zoom'
 
 const TabPane = Tabs.TabPane
