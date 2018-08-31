@@ -27,7 +27,15 @@ const styles = {
 	},
 }
 
-export default class SiderDemo extends React.Component {
+interface IProps {
+	onSelectMode(mode: string): void
+}
+
+interface IState {
+	collapsed: boolean
+}
+
+export default class SiderDemo extends React.Component<IProps, IState> {
 	state = {
 		collapsed: true,
 	}
@@ -36,6 +44,10 @@ export default class SiderDemo extends React.Component {
 		this.setState({
 			collapsed: !this.state.collapsed,
 		})
+	}
+
+	onSelect = ({ key }: { key: string }) => {
+		this.props.onSelectMode(key)
 	}
 
 	render() {
@@ -57,12 +69,16 @@ export default class SiderDemo extends React.Component {
 						</Badge>
 					</div>
 
-					<Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-						<Menu.Item key="1">
+					<Menu
+						theme="dark"
+						mode="inline"
+						defaultSelectedKeys={['edit']}
+						onSelect={this.onSelect}>
+						<Menu.Item key="edit">
 							<Icon type="edit" />
 							<span>Edit</span>
 						</Menu.Item>
-						<Menu.Item key="2">
+						<Menu.Item key="play">
 							<Icon type="play-circle" />
 							<span>Play</span>
 						</Menu.Item>

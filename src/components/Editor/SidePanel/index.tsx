@@ -1,7 +1,6 @@
 import { Icon, Tabs } from 'antd'
 import * as React from 'react'
 
-import StateNavigator from '../../StateNavigator'
 import * as Details from '../Details'
 import JSONEditor from '../JSONEditor'
 import Navigator from '../Navigator'
@@ -39,13 +38,6 @@ export default class SidePanel extends React.Component<IProps> {
 		if (activeKey !== '1') {
 			this.props.flow.clearSelected()
 		}
-		if (activeKey === '2') {
-			// this.stateNavigator.current.setupStateMachine()
-			this.props.onChange({ pageDisabled: true })
-			setTimeout(() => this.stateNavigator.current.setupStateMachine())
-		} else {
-			this.props.onChange({ pageDisabled: false })
-		}
 	}
 	render() {
 		return (
@@ -53,9 +45,9 @@ export default class SidePanel extends React.Component<IProps> {
 				<Tabs
 					type="line"
 					size="small"
-					defaultActiveKey="1"
+					defaultActiveKey="info"
 					onChange={this.onTabChange}>
-					<TabPane tab={<Icon type="info-circle" />} key="1">
+					<TabPane tab={<Icon type="info-circle" />} key="info">
 						<div
 							style={{
 								display: 'flex',
@@ -128,13 +120,7 @@ export default class SidePanel extends React.Component<IProps> {
 							</div>
 						</div>
 					</TabPane>
-					<TabPane tab={<Icon type="play-circle" />} key="2" disabled={false}>
-						<StateNavigator
-							ref={this.stateNavigator}
-							getFlow={() => this.props.flow}
-						/>
-					</TabPane>
-					<TabPane tab={<Icon type="code" />} key="3" disabled={false}>
+					<TabPane tab={<Icon type="code" />} key="code" disabled={false}>
 						<JSONEditor getFlow={() => this.props.flow} />
 					</TabPane>
 				</Tabs>

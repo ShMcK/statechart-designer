@@ -26,7 +26,6 @@ class Editor extends React.Component<{}, IState> {
 	state = {
 		selectedModel: {},
 		tempModel: null,
-		pageDisabled: false,
 	}
 	componentDidMount() {
 		const { editor, page } = initEditor()
@@ -68,7 +67,7 @@ class Editor extends React.Component<{}, IState> {
 						editor={this.editor}
 						model={model}
 					/>
-					<Page disabled={this.state.pageDisabled} />
+					<Page />
 				</div>
 			</div>
 		)

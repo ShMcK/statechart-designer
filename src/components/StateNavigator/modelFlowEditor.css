@@ -1,0 +1,99 @@
+#sidepannel {
+	width: 225px;
+	position: absolute;
+	right: 0px;
+	z-index: 2;
+	background: #f7f9fb;
+	border-left: 1px solid #e6e9ed;
+}
+
+#page {
+	margin-right: 225px;
+}
+
+#page .overlay {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	opacity: 0;
+	cursor: not-allowed;
+}
+
+#itempannel {
+	z-index: 2;
+	height: 42px;
+	width: 200px;
+	margin-right: 10px;
+}
+#itempannel ul {
+	padding: 0px;
+	padding-left: 16px;
+}
+#itempannel li {
+	color: rgba(0, 0, 0, 0.65);
+	border-radius: 4px;
+	width: 160px;
+	height: 28px;
+	line-height: 26px;
+	padding-left: 8px;
+	border: 1px solid rgba(0, 0, 0, 0);
+	list-style-type: none;
+}
+#itempannel .pannel-type-icon {
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 8px;
+	background: url(https://gw.alipayobjects.com/zos/rmsportal/czNEJAmyDpclFaSucYWB.svg);
+}
+#itempannel li:hover {
+	background: white;
+	border: 1px solid #ced4d9;
+	cursor: move;
+}
+#detailpannel {
+	width: 100%;
+}
+#detailpannel .pannel {
+	display: none;
+}
+#detailpannel .block-containe {
+	padding-top: 20px;
+}
+#detailpannel .input {
+	margin-left: 16px;
+}
+#detailpannel .name-input {
+	width: 120px;
+}
+#detailpannel .width-input {
+	width: 52px;
+}
+#detailpannel .height-input {
+	width: 52px;
+}
+#detailpannel .block-container {
+	padding: 16px 8px;
+}
+.bottom-container {
+	position: relative;
+}
+.pannel-title {
+	height: 32px;
+	border-top: 1px solid #dce3e8;
+	border-bottom: 1px solid #dce3e8;
+	background: #ebeef2;
+	color: #000;
+	line-height: 28px;
+	padding-left: 12px;
+}
+.color-picker {
+	vertical-align: middle;
+	margin-left: 16px;
+}
+.p {
+	margin-bottom: 12px;
+}
