@@ -10,14 +10,14 @@ interface IState {
 
 export default class App extends React.Component<{}, IState> {
 	state = {
-		mode: 'play',
+		mode: 'edit',
 	}
 	onSelectMode = (mode: string) => {
 		this.setState({ mode })
 	}
 	get view() {
 		switch (this.state.mode) {
-			case 'editor':
+			case 'edit':
 				return <Editor />
 			case 'play':
 				return <StateNavigator />

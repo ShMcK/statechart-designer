@@ -6,12 +6,13 @@ import Zoom from './Zoom'
 
 const styles = {
 	sidePanel: {
+		height: '100vh',
 		width: '225px',
 		position: 'absolute' as 'absolute',
 		right: 0,
 		zIndex: 2,
 		background: '#f7f9fb',
-		// borderLeft: '1px solid #e6e9ed',
+		borderLeft: '1px solid #e6e9ed',
 	},
 }
 

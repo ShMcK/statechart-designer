@@ -84,7 +84,6 @@ export default class StateNavigator extends React.Component<IProps> {
 					display: 'flex',
 					flexDirection: 'column',
 					justifyContent: 'space-between',
-					marginTop: -15,
 					height: window.innerHeight - 96,
 				}}>
 				<div>

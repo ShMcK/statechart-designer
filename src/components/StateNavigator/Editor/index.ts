@@ -26,18 +26,6 @@ const initEditorComponents = () => {
 	editor.add(minimap)
 	editor.add(page)
 
-	editor.on('aftercommandexecute', (ev: { command: any }) => {
-		switch (ev.command.name) {
-			case 'addGroup':
-				const groupId = ev.command.addGroupId
-				page.clearSelected()
-				page.setSelected(groupId, true)
-
-			default:
-				return
-		}
-	})
-
 	return { editor, page }
 }
 
