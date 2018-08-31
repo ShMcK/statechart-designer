@@ -8,6 +8,7 @@ const styles = {
 		paddingTop: '1em',
 		display: 'flex',
 		justifyContent: 'center',
+		height: '100vh',
 	},
 	trigger: {
 		fontSize: 18,
@@ -28,6 +29,7 @@ const styles = {
 }
 
 interface IProps {
+	mode: string
 	onSelectMode(mode: string): void
 }
 
@@ -72,7 +74,7 @@ export default class SiderDemo extends React.Component<IProps, IState> {
 					<Menu
 						theme="dark"
 						mode="inline"
-						defaultSelectedKeys={['edit']}
+						defaultSelectedKeys={[this.props.mode]}
 						onSelect={this.onSelect}>
 						<Menu.Item key="edit">
 							<Icon type="edit" />

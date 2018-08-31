@@ -10,22 +10,6 @@ const initEditorComponents = () => {
 		width: 200,
 	})
 
-	const toolbar = new G6Editor.Toolbar({
-		container: 'toolbar',
-	})
-
-	const contextmenu = new G6Editor.Contextmenu({
-		container: 'contextmenu',
-	})
-
-	const itempannel = new G6Editor.Itempannel({
-		container: 'itempannel',
-	})
-
-	const detailpannel = new G6Editor.Detailpannel({
-		container: 'detailpannel',
-	})
-
 	const page: IGraph = new G6Editor.Flow({
 		align: {
 			grid: true,
@@ -40,10 +24,6 @@ const initEditorComponents = () => {
 	})
 
 	editor.add(minimap)
-	editor.add(toolbar)
-	editor.add(contextmenu)
-	editor.add(itempannel)
-	editor.add(detailpannel)
 	editor.add(page)
 
 	editor.on('aftercommandexecute', (ev: { command: any }) => {

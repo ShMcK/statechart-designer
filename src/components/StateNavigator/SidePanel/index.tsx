@@ -4,6 +4,17 @@ import Navigator from '../Navigator'
 import StateNav from './StateNav'
 import Zoom from './Zoom'
 
+const styles = {
+	sidePanel: {
+		width: '225px',
+		position: 'absolute' as 'absolute',
+		right: 0,
+		zIndex: 2,
+		background: '#f7f9fb',
+		// borderLeft: '1px solid #e6e9ed',
+	},
+}
+
 interface IProps {
 	editor: any
 	flow: any
@@ -38,7 +49,7 @@ export default class SidePanel extends React.Component<IProps> {
 	}
 	render() {
 		return (
-			<div id="sidepannel">
+			<div style={styles.sidePanel}>
 				<StateNav getFlow={() => this.props.flow} />
 				<div style={{ alignSelf: 'flex-end' }}>
 					<Zoom getFlow={() => this.props.flow}>

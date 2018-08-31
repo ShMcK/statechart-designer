@@ -10,7 +10,7 @@ interface IState {
 
 export default class App extends React.Component<{}, IState> {
 	state = {
-		mode: 'editor',
+		mode: 'play',
 	}
 	onSelectMode = (mode: string) => {
 		this.setState({ mode })
@@ -26,6 +26,10 @@ export default class App extends React.Component<{}, IState> {
 		}
 	}
 	render() {
-		return <Layout onSelectMode={this.onSelectMode}>{this.view}</Layout>
+		return (
+			<Layout mode={this.state.mode} onSelectMode={this.onSelectMode}>
+				{this.view}
+			</Layout>
+		)
 	}
 }
