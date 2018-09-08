@@ -1,41 +1,14 @@
 import * as React from 'react'
+import StateModelCard from './StateModelCard'
 import './toolbar.css'
 
 class Toolbar extends React.Component {
-	state = {
-		initial: true,
-	}
-	highlightTimeout: any
-	componentDidMount() {
-		this.showHighlight()
-	}
-	componentWillUnmount() {
-		clearTimeout(this.highlightTimeout)
-	}
-	showHighlight = () => {
-		this.setState({ initial: true })
-		this.highlightTimeout = setTimeout(
-			() => this.setState({ initial: false }),
-			3000,
-		)
-	}
 	render() {
 		return (
 			<div id="toolbar">
 				<span id="itempannel">
-					<ul>
-						<li
-							onMouseOver={this.showHighlight}
-							key="state"
-							className={`getItem ${
-								this.state.initial ? 'initial-highlight' : ''
-							}`}
-							data-shape="state"
-							data-type="node"
-							data-size="170*34">
-							<span className="pannel-type-icon" />
-							State
-						</li>
+					<ul style={{ marginLeft: 2 }}>
+						<StateModelCard />
 					</ul>
 				</span>
 
