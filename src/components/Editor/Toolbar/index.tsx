@@ -16,22 +16,20 @@ class Toolbar extends React.Component {
 		return (
 			<div id="toolbar">
 				<span id="itempannel">
-					{/* <ul>
-						{this.props.items.map((item: any) => (
-							<li
-								onMouseOver={this.showHighlight}
-								key="state"
-								className={`getItem ${
-									this.state.initial ? 'initial-highlight' : ''
-								}`}
-								data-shape="state"
-								data-type="node"
-								data-size="170*34">
-								<span className="pannel-type-icon" />
-								{item.label}
-							</li>
-						))}
-					</ul> */}
+					<ul>
+						<li
+							onMouseOver={this.showHighlight}
+							key="state"
+							className={`getItem ${
+								this.state.initial ? 'initial-highlight' : ''
+							}`}
+							data-shape="state"
+							data-type="node"
+							data-size="170*34">
+							<span className="pannel-type-icon" />
+							State
+						</li>
+					</ul>
 				</span>
 
 				<span>

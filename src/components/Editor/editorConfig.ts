@@ -6,16 +6,16 @@ import { save } from 'utils/storage'
 
 export default {
 	elements: () => [
-		// new G6Editor.Minimap({
-		// 	container: 'minimap',
-		// 	height: 120,
-		// 	width: 200,
-		// }),
-		new G6Editor.Contextmenu({
-			container: 'contextmenu',
+		new G6Editor.Minimap({
+			container: 'minimap',
+			height: 120,
+			width: 200,
 		}),
 		new G6Editor.Toolbar({
 			container: 'toolbar',
+		}),
+		new G6Editor.Contextmenu({
+			container: 'contextmenu',
 		}),
 		new G6Editor.Itempannel({
 			container: 'itempannel',
@@ -39,13 +39,13 @@ export default {
 			},
 		],
 	],
-	page: (page: any) => [
+	page: (page: any, onChange: (change: any) => void) => [
 		[
 			'afteritemselected',
 			(ev: { item: IItem }) => {
-				// onChange({
-				// 	selectedModel: ev.item.getModel(),
-				// })
+				onChange({
+					selectedModel: ev.item.getModel(),
+				})
 			},
 		],
 		[

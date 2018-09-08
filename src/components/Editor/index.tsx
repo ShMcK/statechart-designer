@@ -6,8 +6,6 @@ import createEditor from 'services/editor/createEditor'
 import './editor.css'
 import editorConfig from './editorConfig'
 import './modelFlowEditor.css'
-// import registerFlow from './RegisterFlow'
-// import { items } from './RegisterFlow/PanelItems'
 
 import { load } from '../../utils/storage'
 import ContextMenu from './ContextMenu'
@@ -29,24 +27,19 @@ class Editor extends React.Component<{}, IState> {
 		tempModel: null,
 	}
 	componentDidMount() {
-		const { editor, page } = createEditor(editorConfig)
-		console.log(editor, page)
+		const { editor, page } = createEditor(editorConfig, this.onChange)
 		this.editor = editor
 		this.flow = page
-		// registerFlow()
+
 		this.forceUpdate()
-		// load saved data
 		this.load()
 	}
 
-	componentWillUnmount() {
-		// this.editor.destroy()
-	}
-
 	load = async () => {
+		// load saved data
 		const loaded = (await load()) || {}
 		console.log('loaded', loaded)
-		// this.flow.read(loaded)
+		this.flow.read(loaded)
 	}
 
 	onChange = (change: any) => {
@@ -62,7 +55,7 @@ class Editor extends React.Component<{}, IState> {
 				<div className="bottom-container">
 					<ContextMenu />
 					<SidePanel
-						// flow={this.flow}
+						flow={this.flow}
 						onChange={this.onChange}
 						editor={this.editor}
 						model={model}

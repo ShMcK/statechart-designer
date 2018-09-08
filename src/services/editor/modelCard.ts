@@ -2,7 +2,7 @@ import { IKeyShape, INodeItem } from '@antv/g6'
 import { IFlow, IFlowNodeOptions } from '@antv/g6-editor'
 import anchor from './anchor'
 
-export default (Flow: IFlow): void => {
+export default (Flow: IFlow) => {
 	Flow.registerNode('model-card', {
 		draw(this: IFlowNodeOptions, item: INodeItem) {
 			const group = item.getGraphicGroup()

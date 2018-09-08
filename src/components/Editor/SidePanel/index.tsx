@@ -1,15 +1,17 @@
+import { IGraph } from '@antv/g6'
+import { IEditor } from '@antv/g6-editor'
 import { Icon, Tabs } from 'antd'
 import * as React from 'react'
 
-// import PageNavigator from '../../PageNavigator'
+import PageNavigator from '../../PageNavigator'
 import * as Details from '../Details'
 // import JSONEditor from '../JSONEditor'
 
 const TabPane = Tabs.TabPane
 
 interface IProps {
-	editor: any
-	// flow: any
+	editor: IEditor
+	flow: IGraph
 	model: any
 	onChange(change: any): void
 }
@@ -18,24 +20,24 @@ export default class SidePanel extends React.Component<IProps> {
 	stateNavigator: any = React.createRef()
 	toggleGrid = (ev: any) => {
 		if (ev.target.checked) {
-			// this.props.flow.showGrid()
+			this.props.flow.showGrid()
 		} else {
-			// this.props.flow.hideGrid()
+			this.props.flow.hideGrid()
 		}
 	}
 	updateGraph = (key: string, value: any) => {
 		this.props.editor.executeCommand(() => {
-			// const selectedItems = this.props.flow.getSelected()
-			// selectedItems.forEach((item: any) => {
-			// 	const updateModel = {}
-			// 	updateModel[key] = value
-			// 	// this.props.flow.update(item, updateModel)
-			// })
+			const selectedItems = this.props.flow.getSelected()
+			selectedItems.forEach((item: any) => {
+				const updateModel = {}
+				updateModel[key] = value
+				this.props.flow.update(item, updateModel)
+			})
 		})
 	}
 	onTabChange = (activeKey: string) => {
 		if (activeKey !== '1') {
-			// this.props.flow.clearSelected()
+			this.props.flow.clearSelected()
 		}
 	}
 	render() {
@@ -106,7 +108,7 @@ export default class SidePanel extends React.Component<IProps> {
 								</div>
 							</div>
 							<div style={{ alignSelf: 'flex-end' }}>
-								{/* <PageNavigator flow={this.props.flow} /> */}
+								<PageNavigator flow={this.props.flow} />
 							</div>
 						</div>
 					</TabPane>
