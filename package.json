@@ -8,10 +8,10 @@
 		"@antv/g6-editor": "^1.0.8",
 		"@avaragado/xstateful": "^0.5.0",
 		"@types/styled-components": "^3.0.0",
-		"antd": "^3.8.3",
+		"antd": "^3.9.2",
 		"lodash": "^4.17.10",
-		"react": "^16.4.2",
-		"react-dom": "^16.4.2",
+		"react": "^16.5.0",
+		"react-dom": "^16.5.0",
 		"react-scripts-ts": "^2.17.0",
 		"styled-components": "^4.0.0-beta.1",
 		"xstate": "^3.3.3"
@@ -25,10 +25,10 @@
 		"deploy": "gh-pages -d build"
 	},
 	"devDependencies": {
-		"@types/jest": "^23.3.1",
+		"@types/jest": "^23.3.2",
 		"@types/lodash": "^4.14.116",
-		"@types/node": "^10.9.2",
-		"@types/react": "^16.4.12",
+		"@types/node": "^10.9.4",
+		"@types/react": "^16.4.13",
 		"@types/react-dom": "^16.0.7",
 		"gh-pages": "^1.2.0",
 		"typescript": "^2.9.2"
