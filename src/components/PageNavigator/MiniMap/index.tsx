@@ -1,7 +1,32 @@
 import { Dropdown, Icon, Menu, Slider } from 'antd'
 import * as React from 'react'
+import styled from 'styled-components'
 
-import './minimap.css'
+import { Title } from 'components/Panel'
+
+const Container = styled.div`
+	width: 225px;
+	height: 176px;
+`
+
+const ZoomSlider = styled(Slider)`
+	margin: 7px 10px 10px;
+	float: left;
+	width: 120px;
+`
+
+const MiniMap = styled.div`
+	width: 100%;
+	height: 120px;
+`
+
+const ZoomDropdownButton = styled.a`
+	color: rgba(0, 0, 0, 0.45);
+	margin-left: 4px;
+	line-height: 24px;
+	font-weight: 100;
+	text-decoration: none;
+`
 
 interface IProps {
 	zoom: number
@@ -39,23 +64,22 @@ class Navigator extends React.Component<IProps> {
 	render() {
 		const { zoom, minZoom, maxZoom } = this.props
 		return (
-			<div id="navigator">
-				<div className="pannel-title">Navigator</div>
-				<div id="minimap" />
-				<div id="zoom-slider">
-					<Slider
+			<Container>
+				<Title>Navigator</Title>
+				<MiniMap id="minimap" />
+				<div>
+					<ZoomSlider
 						value={((zoom - minZoom) / (maxZoom - minZoom)) * 100}
-						className="slider"
 						tipFormatter={this.sliderTipFormatter}
 						onChange={this.sliderChange}
 					/>
 					<Dropdown overlay={this.menu}>
-						<a className="zoom-dropdown-btn" href="#">
+						<ZoomDropdownButton href="#">
 							{Math.ceil(zoom * 100)} %<Icon type="down" />
-						</a>
+						</ZoomDropdownButton>
 					</Dropdown>
 				</div>
-			</div>
+			</Container>
 		)
 	}
 }

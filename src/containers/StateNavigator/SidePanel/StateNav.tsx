@@ -3,6 +3,8 @@ import { createStatefulMachine } from '@avaragado/xstateful'
 import { Button } from 'antd'
 import * as React from 'react'
 
+import { ButtonOptions, Title } from 'components/Panel'
+
 import ErrorPage from 'components/ErrorPage'
 import { exportToXState } from 'utils/export'
 import { load } from 'utils/storage'
@@ -82,8 +84,8 @@ export default class StateNavigator extends React.Component<IProps> {
 		return (
 			<React.Fragment>
 				<div>
-					<div className="pannel-title">Transitions</div>
-					<div style={{ display: 'flex', flexDirection: 'row' }}>
+					<Title>Transitions</Title>
+					<ButtonOptions>
 						{this.state.edges.map((label) => (
 							<Button
 								style={{ margin: 5 }}
@@ -92,18 +94,20 @@ export default class StateNavigator extends React.Component<IProps> {
 								{label}
 							</Button>
 						))}
-					</div>
+					</ButtonOptions>
 				</div>
 
 				<div>
-					<div className="pannel-title">Actions</div>
+					<Title>Actions</Title>
 				</div>
 
 				<div>
-					<div className="pannel-title">Options</div>
-					<Button type="primary" onClick={this.reset} style={{ margin: 5 }}>
-						Reset
-					</Button>
+					<Title>Options</Title>
+					<ButtonOptions>
+						<Button type="primary" onClick={this.reset} style={{ margin: 5 }}>
+							Reset
+						</Button>
+					</ButtonOptions>
 				</div>
 			</React.Fragment>
 		)

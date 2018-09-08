@@ -2,12 +2,23 @@ import { IGraph } from '@antv/g6'
 import { IEditor } from '@antv/g6-editor'
 import { Icon, Tabs } from 'antd'
 import * as React from 'react'
+import styled from 'styled-components'
 
 import PageNavigator from 'components/PageNavigator'
+import { Title } from 'components/Panel'
 import * as Details from './Details'
 import JSONEditor from './JSONEditor'
 
 const TabPane = Tabs.TabPane
+
+const SidePanelContainer = styled.div`
+	width: 225px;
+	position: absolute;
+	right: 0px;
+	z-index: 2;
+	background: #f7f9fb;
+	border-left: 1px solid #e6e9ed;
+`
 
 interface IProps {
 	editor: IEditor
@@ -42,7 +53,7 @@ export default class SidePanel extends React.Component<IProps> {
 	}
 	render() {
 		return (
-			<div id="sidepannel">
+			<SidePanelContainer id="sidepanel">
 				<Tabs
 					type="line"
 					size="small"
@@ -62,7 +73,7 @@ export default class SidePanel extends React.Component<IProps> {
 									data-status="node-selected"
 									className="pannel"
 									id="node_detailpannel">
-									<div className="pannel-title">State</div>
+									<Title>State</Title>
 									<div className="block-container">
 										<Details.State
 											model={this.props.model}
@@ -75,7 +86,7 @@ export default class SidePanel extends React.Component<IProps> {
 									data-status="edge-selected"
 									className="pannel"
 									id="edge_detailpannel">
-									<div className="pannel-title">Transition</div>
+									<Title>Transition</Title>
 									<div className="block-container">
 										<Details.Transition
 											model={this.props.model}
@@ -88,7 +99,7 @@ export default class SidePanel extends React.Component<IProps> {
 									data-status="group-selected"
 									className="pannel"
 									id="node_detailpannel">
-									<div className="pannel-title">Group</div>
+									<Title>Group</Title>
 									<div className="block-container">
 										<Details.Group
 											model={this.props.model}
@@ -101,7 +112,7 @@ export default class SidePanel extends React.Component<IProps> {
 									data-status="canvas-selected"
 									className="pannel"
 									id="canvas_detailpannel">
-									<div className="pannel-title">Canvas</div>
+									<Title>Canvas</Title>
 									<div className="block-container">
 										<Details.Canvas toggleGrid={this.toggleGrid} />
 									</div>
@@ -116,7 +127,7 @@ export default class SidePanel extends React.Component<IProps> {
 						<JSONEditor flow={this.props.flow} />
 					</TabPane>
 				</Tabs>
-			</div>
+			</SidePanelContainer>
 		)
 	}
 }

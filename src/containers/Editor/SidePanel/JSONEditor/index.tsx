@@ -4,10 +4,29 @@ import * as React from 'react'
 
 import ErrorPage from 'components/ErrorPage'
 import { notifyCanvas } from 'services/notify'
+import styled from 'styled-components'
 import { exportToXState } from 'utils/export'
 import { load } from 'utils/storage'
 
-import './json-editor.css'
+const Container = styled.div`
+	position: relative;
+	padding: 5px;
+	background: #565758;
+	margin-top: -15px;
+	color: white;
+	height: 100%;
+	overflow: scroll;
+`
+
+const Copy = styled.div`
+	position: absolute;
+	top: 8px;
+	right: 12px;
+	transition: all 0.2s ease-in-out;
+	:hover {
+		transform: scale(1.1);
+	}
+`
 
 interface IProps {
 	flow: IGraph
@@ -31,7 +50,7 @@ export default class JSONEditor extends React.Component<IProps> {
 			this.setState({ error: error.message, xstate: {} })
 		}
 	}
-	copy = () => {
+	copyToClipboard = () => {
 		let navigator: any
 		navigator = window.navigator
 		navigator.clipboard.writeText(JSON.stringify(this.state.xstate, null, 2))
@@ -42,18 +61,17 @@ export default class JSONEditor extends React.Component<IProps> {
 			return <ErrorPage>{this.state.error}</ErrorPage>
 		}
 		return (
-			<div id="jsoneditor" style={{ minHeight: window.innerHeight - 76 }}>
-				<Button
-					className="copy"
-					onClick={this.copy}
-					icon="copy"
-					ghost={true}
-					size="small"
-				/>
+			<Container style={{ minHeight: window.innerHeight - 76 }}>
+				<Copy>
+					<Button
+						onClick={this.copyToClipboard}
+						{...{ icon: 'copy', ghost: true, size: 'small' }}
+					/>
+				</Copy>
 				<code>
 					<pre id="json">{JSON.stringify(this.state.xstate, null, 2)}</pre>
 				</code>
-			</div>
+			</Container>
 		)
 	}
 }
