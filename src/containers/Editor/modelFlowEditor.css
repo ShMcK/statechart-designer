@@ -7,20 +7,6 @@
 	border-left: 1px solid #e6e9ed;
 }
 
-#page {
-	margin-right: 225px;
-}
-
-#page .overlay {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	opacity: 0;
-	cursor: not-allowed;
-}
-
 #itempannel {
 	z-index: 2;
 	height: 42px;
@@ -89,10 +75,6 @@
 	color: #000;
 	line-height: 28px;
 	padding-left: 12px;
-}
-.color-picker {
-	vertical-align: middle;
-	margin-left: 16px;
 }
 .p {
 	margin-bottom: 12px;

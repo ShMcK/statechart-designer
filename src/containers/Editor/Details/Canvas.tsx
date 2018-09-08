@@ -1,4 +1,4 @@
-import { Checkbox } from 'antd'
+import { Checkbox, Form } from 'antd'
 import * as React from 'react'
 
 interface IProps {
@@ -7,6 +7,10 @@ interface IProps {
 
 export default class DetailsCanvas extends React.Component<IProps> {
 	render() {
-		return <Checkbox onChange={this.props.toggleGrid}>Grid</Checkbox>
+		return (
+			<Form.Item>
+				<Checkbox onChange={this.props.toggleGrid}>Grid</Checkbox>
+			</Form.Item>
+		)
 	}
 }

@@ -1,8 +1,13 @@
 import * as React from 'react'
+import styled from 'styled-components'
+
+const PageEditor = styled.div`
+	margin-right: 225px;
+`
 
 class Page extends React.Component {
 	render() {
-		return <div id="page" />
+		return <PageEditor id="page" />
 	}
 }
 

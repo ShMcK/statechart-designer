@@ -1,4 +1,4 @@
-import { Checkbox, Input } from 'antd'
+import { Checkbox, Form, Input } from 'antd'
 import * as React from 'react'
 import ActionList from './ActionList'
 
@@ -25,7 +25,7 @@ export default class StateDetails extends React.Component<IProps> {
 	render() {
 		return (
 			<React.Fragment>
-				<div className="p">
+				<Form.Item>
 					Label：
 					<Input
 						size="small"
@@ -34,8 +34,8 @@ export default class StateDetails extends React.Component<IProps> {
 						onChange={(e) => this.onChange('label', e.target.value)}
 						onBlur={(e) => this.onBlur()}
 					/>
-				</div>
-				<div className="p">
+				</Form.Item>
+				<Form.Item>
 					<Checkbox
 						checked={this.props.model.initial}
 						onChange={(e) => {
@@ -43,17 +43,21 @@ export default class StateDetails extends React.Component<IProps> {
 						}}>
 						Initial
 					</Checkbox>
-				</div>
-				<ActionList
-					label="onEntry"
-					value={this.props.model.onEntry || []}
-					onChange={(values) => this.onChange('onEntry', values)}
-				/>
-				<ActionList
-					label="onExit"
-					value={this.props.model.onExit || []}
-					onChange={(values) => this.onChange('onEntry', values)}
-				/>
+				</Form.Item>
+				<Form.Item>
+					<ActionList
+						label="onEntry"
+						value={this.props.model.onEntry || []}
+						onChange={(values) => this.onChange('onEntry', values)}
+					/>
+				</Form.Item>
+				<Form.Item>
+					<ActionList
+						label="onExit"
+						value={this.props.model.onExit || []}
+						onChange={(values) => this.onChange('onEntry', values)}
+					/>
+				</Form.Item>
 			</React.Fragment>
 		)
 	}

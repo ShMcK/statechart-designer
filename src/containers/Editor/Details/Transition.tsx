@@ -1,4 +1,4 @@
-import { Input } from 'antd'
+import { Form, Input } from 'antd'
 import * as React from 'react'
 
 interface IProps {
@@ -30,7 +30,7 @@ export default class TransitionDetails extends React.Component<IProps> {
 	render() {
 		return (
 			<React.Fragment>
-				<div className="p">
+				<Form.Item>
 					Event:
 					<Input
 						size="small"
@@ -39,8 +39,8 @@ export default class TransitionDetails extends React.Component<IProps> {
 						onChange={(e) => this.onChange('label', e.target.value)}
 						onBlur={(e) => this.onBlur()}
 					/>
-				</div>
-				{/* <div className="p">
+				</Form.Item>
+				{/* <Form.Item>
 					Guard:
 					<Input
 						size="small"
@@ -49,7 +49,7 @@ export default class TransitionDetails extends React.Component<IProps> {
 						onChange={(e) => this.onChange('guard', e.target.value)}
 						onBlur={(e) => this.onBlur('guard', e.target.value)}
 					/>
-				</div> */}
+				</Form.Item> */}
 			</React.Fragment>
 		)
 	}
