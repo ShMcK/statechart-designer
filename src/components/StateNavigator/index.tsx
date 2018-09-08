@@ -1,16 +1,17 @@
-import { IGraph } from '@antv/g6'
-import { IEditor } from '@antv/g6-editor'
+// import { IGraph } from '@antv/g6'
+// import { IEditor } from '@antv/g6-editor'
 import * as React from 'react'
 
-import './editor.css'
-import './modelFlowEditor.css'
-import registerFlow from './RegisterFlow'
+// import createEditor from 'services/editor/createEditor'
 
-import { load } from '../../utils/storage'
-import initEditor from './Editor'
-import initFlow from './Flow'
-import Page from './Page'
-import SidePanel from './SidePanel'
+import './editor.css'
+// import editorConfig from './editorConfig'
+import './modelFlowEditor.css'
+// import registerFlow from './RegisterFlow'
+
+// import { load } from '../../utils/storage'
+// import Page from './Page'
+// import SidePanel from './SidePanel'
 
 interface IState {
 	selectedModel: any
@@ -18,44 +19,40 @@ interface IState {
 }
 
 class Editor extends React.Component<{}, IState> {
-	flow: IGraph
-	editor: IEditor
+	// flow: IGraph
+	// editor: IEditor
 	state = {
 		selectedModel: {},
 		tempModel: null,
 		pageDisabled: false,
 	}
-	componentDidMount() {
-		console.log('load')
-		const { editor, page } = initEditor()
-		initFlow(page, this.onChange)
-		this.editor = editor
+	// componentDidMount() {
+	// 	console.log('load')
+	// 	// this.editor = createEditor(editorConfig)
+	// 	registerFlow()
+	// 	this.forceUpdate()
+	// 	// load saved data
+	// 	this.load()
+	// }
 
-		this.flow = page
-		registerFlow()
-		this.forceUpdate()
-		// load saved data
-		this.load()
-	}
+	// componentWillUnmount() {
+	// 	// this.editor.destroy()
+	// }
 
-	componentWillUnmount() {
-		this.editor.destroy()
-	}
+	// load = async () => {
+	// 	const loaded = (await load()) || {}
+	// 	// this.flow.read(loaded)
+	// }
 
-	load = async () => {
-		const loaded = (await load()) || {}
-		this.flow.read(loaded)
-	}
-
-	onChange = (change: any) => {
-		this.setState(change)
-	}
+	// onChange = (change: any) => {
+	// 	this.setState(change)
+	// }
 	render() {
-		const { tempModel, selectedModel } = this.state
-		const model = tempModel !== null ? tempModel : selectedModel
+		// const { tempModel, selectedModel } = this.state
+		// const model = tempModel !== null ? tempModel : selectedModel
 		return (
 			<div id="editor">
-				<div className="bottom-container">
+				{/* <div className="bottom-container">
 					<SidePanel
 						flow={this.flow}
 						onChange={this.onChange}
@@ -63,7 +60,7 @@ class Editor extends React.Component<{}, IState> {
 						model={model}
 					/>
 					<Page />
-				</div>
+				</div> */}
 			</div>
 		)
 	}

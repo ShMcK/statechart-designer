@@ -2,15 +2,16 @@ import { IGraph } from '@antv/g6'
 import { IEditor } from '@antv/g6-editor'
 import * as React from 'react'
 
+import createEditor from 'services/editor/createEditor'
 import './editor.css'
+import editorConfig from './editorConfig'
 import './modelFlowEditor.css'
-import registerFlow from './RegisterFlow'
-import { items } from './RegisterFlow/PanelItems'
+// import registerFlow from './RegisterFlow'
+// import { items } from './RegisterFlow/PanelItems'
 
 import { load } from '../../utils/storage'
 import ContextMenu from './ContextMenu'
-import initEditor from './Editor'
-import initFlow from './Flow'
+
 import Page from './Page'
 import SidePanel from './SidePanel'
 import Toolbar from './Toolbar'
@@ -28,25 +29,24 @@ class Editor extends React.Component<{}, IState> {
 		tempModel: null,
 	}
 	componentDidMount() {
-		const { editor, page } = initEditor()
-		initFlow(page, this.onChange)
+		const { editor, page } = createEditor(editorConfig)
+		console.log(editor, page)
 		this.editor = editor
-
 		this.flow = page
-		registerFlow()
+		// registerFlow()
 		this.forceUpdate()
 		// load saved data
 		this.load()
 	}
 
 	componentWillUnmount() {
-		this.editor.destroy()
+		// this.editor.destroy()
 	}
 
 	load = async () => {
 		const loaded = (await load()) || {}
-		// console.log('loaded', loaded)
-		this.flow.read(loaded)
+		console.log('loaded', loaded)
+		// this.flow.read(loaded)
 	}
 
 	onChange = (change: any) => {
@@ -57,12 +57,12 @@ class Editor extends React.Component<{}, IState> {
 		const model = tempModel !== null ? tempModel : selectedModel
 		return (
 			<div id="editor">
-				<Toolbar items={items} />
+				<Toolbar />
 				<div style={{ height: '42px' }} />
 				<div className="bottom-container">
 					<ContextMenu />
 					<SidePanel
-						flow={this.flow}
+						// flow={this.flow}
 						onChange={this.onChange}
 						editor={this.editor}
 						model={model}

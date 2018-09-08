@@ -84,7 +84,7 @@ export default class StateNavigator extends React.Component<IProps> {
 					display: 'flex',
 					flexDirection: 'column',
 					justifyContent: 'space-between',
-					height: window.innerHeight - 96,
+					// height: window.innerHeight - 96,
 				}}>
 				<div>
 					<div className="pannel-title">Transitions</div>

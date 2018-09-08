@@ -1,10 +1,7 @@
 import * as React from 'react'
 import './toolbar.css'
 
-interface IProps {
-	items: any[]
-}
-class Toolbar extends React.Component<IProps> {
+class Toolbar extends React.Component {
 	state = {
 		initial: true,
 	}
@@ -19,22 +16,22 @@ class Toolbar extends React.Component<IProps> {
 		return (
 			<div id="toolbar">
 				<span id="itempannel">
-					<ul>
+					{/* <ul>
 						{this.props.items.map((item: any) => (
 							<li
 								onMouseOver={this.showHighlight}
-								key={item.key}
+								key="state"
 								className={`getItem ${
 									this.state.initial ? 'initial-highlight' : ''
 								}`}
-								data-shape={item.key}
+								data-shape="state"
 								data-type="node"
-								data-size={item.size}>
-								<span className={item.class} />
+								data-size="170*34">
+								<span className="pannel-type-icon" />
 								{item.label}
 							</li>
 						))}
-					</ul>
+					</ul> */}
 				</span>
 
 				<span>

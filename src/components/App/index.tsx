@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import Editor from '../Editor'
-import StateNavigator from '../StateNavigator'
+// import StateNavigator from '../StateNavigator'
 import Layout from './Layout'
 
 interface IState {
@@ -19,8 +19,8 @@ export default class App extends React.Component<{}, IState> {
 		switch (this.state.mode) {
 			case 'edit':
 				return <Editor />
-			case 'play':
-				return <StateNavigator />
+			// case 'play':
+			// 	return <StateNavigator />
 			default:
 				return null
 		}
