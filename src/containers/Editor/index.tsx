@@ -7,7 +7,7 @@ import './editor.css'
 import editorConfig from './editorConfig'
 import './modelFlowEditor.css'
 
-import { load } from '../../utils/storage'
+import { load } from 'utils/storage'
 import ContextMenu from './ContextMenu'
 
 import Page from './Page'

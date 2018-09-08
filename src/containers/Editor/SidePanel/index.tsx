@@ -4,8 +4,8 @@ import { Icon, Tabs } from 'antd'
 import * as React from 'react'
 
 import PageNavigator from 'components/PageNavigator'
-import * as Details from '../Details'
-import JSONEditor from '../JSONEditor'
+import * as Details from './Details'
+import JSONEditor from './JSONEditor'
 
 const TabPane = Tabs.TabPane
 
