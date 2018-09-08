@@ -5,7 +5,7 @@ import * as React from 'react'
 
 import PageNavigator from '../../PageNavigator'
 import * as Details from '../Details'
-// import JSONEditor from '../JSONEditor'
+import JSONEditor from '../JSONEditor'
 
 const TabPane = Tabs.TabPane
 
@@ -113,7 +113,7 @@ export default class SidePanel extends React.Component<IProps> {
 						</div>
 					</TabPane>
 					<TabPane tab={<Icon type="code" />} key="code" disabled={false}>
-						{/* <JSONEditor getFlow={() => this.props.flow} /> */}
+						<JSONEditor flow={this.props.flow} />
 					</TabPane>
 				</Tabs>
 			</div>

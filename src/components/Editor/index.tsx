@@ -51,7 +51,6 @@ class Editor extends React.Component<{}, IState> {
 		return (
 			<div id="editor">
 				<Toolbar />
-				<div style={{ height: '42px' }} />
 				<div className="bottom-container">
 					<ContextMenu />
 					<SidePanel

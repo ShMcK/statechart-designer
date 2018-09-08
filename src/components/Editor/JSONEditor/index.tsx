@@ -1,3 +1,4 @@
+import { IGraph } from '@antv/g6'
 import { Button } from 'antd'
 import * as React from 'react'
 import { notifyCanvas } from 'services/notify'
@@ -8,7 +9,7 @@ import ErrorPage from '../../ErrorPage'
 import './json-editor.css'
 
 interface IProps {
-	getFlow(): any
+	flow: IGraph
 }
 
 export default class JSONEditor extends React.Component<IProps> {
@@ -18,8 +19,7 @@ export default class JSONEditor extends React.Component<IProps> {
 	}
 	componentDidMount() {
 		this.loadXState()
-		const flow = this.props.getFlow()
-		flow.on('afterchange', this.loadXState)
+		this.props.flow.on('afterchange', this.loadXState)
 	}
 	loadXState = async () => {
 		try {
