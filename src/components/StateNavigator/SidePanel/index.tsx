@@ -1,3 +1,5 @@
+import { IGraph } from '@antv/g6'
+import { IEditor } from '@antv/g6-editor'
 import * as React from 'react'
 
 import PageNavigator from '../../PageNavigator'
@@ -13,17 +15,22 @@ const styles = {
 		background: '#f7f9fb',
 		borderLeft: '1px solid #e6e9ed',
 	},
+	innerSidePanel: {
+		height: '100%',
+		display: 'flex',
+		flexDirection: 'column' as 'column',
+		justifyContent: 'space-between',
+	},
 }
 
 interface IProps {
-	editor: any
-	flow: any
+	editor: IEditor
+	flow: IGraph
 	model: any
 	onChange(change: any): void
 }
 
 export default class SidePanel extends React.Component<IProps> {
-	stateNavigator: any = React.createRef()
 	toggleGrid = (ev: any) => {
 		if (ev.target.checked) {
 			this.props.flow.showGrid()
@@ -41,18 +48,14 @@ export default class SidePanel extends React.Component<IProps> {
 			})
 		})
 	}
-	onTabChange = (activeKey: string) => {
-		if (activeKey !== '1') {
-			this.props.flow.clearSelected()
-		}
-		this.props.onChange({ pageDisabled: false })
-	}
 	render() {
 		return (
 			<div style={styles.sidePanel}>
-				<StateNav getFlow={() => this.props.flow} />
-				<div style={{ alignSelf: 'flex-end' }}>
-					<PageNavigator flow={this.props.flow} />
+				<div style={styles.innerSidePanel}>
+					<StateNav flow={this.props.flow} />
+					<div style={{ alignSelf: 'flex-end' }}>
+						<PageNavigator flow={this.props.flow} />
+					</div>
 				</div>
 			</div>
 		)

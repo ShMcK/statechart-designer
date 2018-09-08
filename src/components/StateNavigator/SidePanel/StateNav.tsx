@@ -1,4 +1,4 @@
-import { IData, IGroup, INode } from '@antv/g6' // IGroup
+import { IData, IGraph, IGroup, INode } from '@antv/g6' // IGroup
 import { createStatefulMachine } from '@avaragado/xstateful'
 import { Button } from 'antd'
 import * as React from 'react'
@@ -8,7 +8,7 @@ import { Machine } from 'xstate'
 import ErrorPage from '../../ErrorPage'
 
 interface IProps {
-	getFlow(): any
+	flow: IGraph
 }
 
 export default class StateNavigator extends React.Component<IProps> {
@@ -22,12 +22,12 @@ export default class StateNavigator extends React.Component<IProps> {
 	flow: any
 	allNodes: Array<INode | IGroup>
 
-	componentDidMount() {
-		this.flow = this.props.getFlow()
-	}
 	setupStateMachine = async () => {
 		try {
-			this.allNodes = [...this.flow.getNodes(), ...this.flow.getGroups()]
+			this.allNodes = [
+				...this.props.flow.getNodes(),
+				...this.props.flow.getGroups(),
+			]
 			const data: IData = await load()
 			const xstate = exportToXState(data)
 			const machine = Machine(xstate)
@@ -41,8 +41,8 @@ export default class StateNavigator extends React.Component<IProps> {
 	}
 	setNode = (node: INode | IGroup) => {
 		this.setState({ node })
-		this.flow.clearSelected()
-		this.flow.setSelected(node, true)
+		this.props.flow.clearSelected()
+		this.props.flow.setSelected(node, true)
 		this.getEdges(node)
 	}
 	getNode = (): INode | IGroup => {
@@ -79,13 +79,7 @@ export default class StateNavigator extends React.Component<IProps> {
 			return <ErrorPage>{this.state.error}</ErrorPage>
 		}
 		return (
-			<div
-				style={{
-					display: 'flex',
-					flexDirection: 'column',
-					justifyContent: 'space-between',
-					// height: window.innerHeight - 96,
-				}}>
+			<React.Fragment>
 				<div>
 					<div className="pannel-title">Transitions</div>
 					<div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -110,7 +104,7 @@ export default class StateNavigator extends React.Component<IProps> {
 						Reset
 					</Button>
 				</div>
-			</div>
+			</React.Fragment>
 		)
 	}
 }
