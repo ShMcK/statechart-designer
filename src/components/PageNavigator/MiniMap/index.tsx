@@ -1,7 +1,7 @@
 import { Dropdown, Icon, Menu, Slider } from 'antd'
 import * as React from 'react'
 
-import './navigator.css'
+import './minimap.css'
 
 interface IProps {
 	zoom: number

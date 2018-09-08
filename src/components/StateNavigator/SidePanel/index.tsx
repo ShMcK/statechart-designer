@@ -1,8 +1,7 @@
 import * as React from 'react'
 
-import Navigator from '../Navigator'
+import PageNavigator from '../../PageNavigator'
 import StateNav from './StateNav'
-import Zoom from './Zoom'
 
 const styles = {
 	sidePanel: {
@@ -53,16 +52,7 @@ export default class SidePanel extends React.Component<IProps> {
 			<div style={styles.sidePanel}>
 				<StateNav getFlow={() => this.props.flow} />
 				<div style={{ alignSelf: 'flex-end' }}>
-					<Zoom getFlow={() => this.props.flow}>
-						{({ zoom, minZoom, maxZoom, changeZoom }: any) => (
-							<Navigator
-								zoom={zoom}
-								minZoom={minZoom}
-								maxZoom={maxZoom}
-								changeZoom={changeZoom}
-							/>
-						)}
-					</Zoom>
+					<PageNavigator flow={this.props.flow} />
 				</div>
 			</div>
 		)
