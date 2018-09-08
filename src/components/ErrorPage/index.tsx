@@ -1,18 +1,14 @@
 import { Alert } from 'antd'
 import * as React from 'react'
+import styled from 'styled-components'
 
 interface IProps {
 	children: string | null
 }
 
-const styles = {
-	page: {
-		padding: '1em',
-	},
-	text: {
-		color: 'white',
-	},
-}
+const HasError = styled.div`
+	padding: 1rem;
+`
 
 export default class ErrorPage extends React.Component<IProps> {
 	render() {
@@ -20,9 +16,9 @@ export default class ErrorPage extends React.Component<IProps> {
 			return null
 		}
 		return (
-			<div style={styles.page}>
+			<HasError>
 				<Alert message="Error" description={this.props.children} type="error" />
-			</div>
+			</HasError>
 		)
 	}
 }
