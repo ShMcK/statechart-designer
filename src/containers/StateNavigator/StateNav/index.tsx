@@ -15,7 +15,6 @@ interface IProps {
 }
 
 interface IState {
-	loaded: boolean
 	error: string | null
 	edges: any[]
 	state: any
@@ -27,36 +26,23 @@ interface IState {
 let xsf: any
 
 export default class StateNavigator extends React.Component<IProps, IState> {
-	static getDerivedStateFromProps = async (props: IProps, state: IState) => {
-		if (props.flow && (!state.allNodes || !state.allNodes.length)) {
-			try {
-				console.log(props)
-				const allNodes = [...props.flow.getNodes(), ...props.flow.getGroups()]
-				console.log({ allNodes })
-				const data: IData = await load()
-				console.log({ data })
-				setTimeout(() => {
-					const xstate = exportToXState(data)
-					const machine = Machine(xstate)
-					xsf = createStatefulMachine({
-						machine,
-					})
-					xsf.init()
-				}, 1000)
-				return { error: null, allNodes }
-			} catch (error) {
-				return { error: error.message }
-			}
-		}
-		return null
-	}
 	state = {
-		loaded: false,
 		error: null,
 		edges: [],
 		state: null,
 		allNodes: [],
 		node: null,
+	}
+	async componentDidMount() {
+		const data: IData = await load()
+		const xstate = exportToXState(data)
+		const machine = Machine(xstate)
+		xsf = createStatefulMachine({ machine })
+		xsf.init()
+		const { flow } = this.props
+		const allNodes = [...flow.getNodes(), ...flow.getGroups()]
+		this.setState({ allNodes })
+		this.next()
 	}
 
 	setNode = (node: INode | IGroup) => {
@@ -67,10 +53,7 @@ export default class StateNavigator extends React.Component<IProps, IState> {
 	}
 	getNode = (): INode | IGroup | null => {
 		const currentNode = xsf.state.value
-		console.log('state', currentNode, this.state.allNodes)
-		const node = this.state.allNodes.find(
-			({ model }: any) => model.label === currentNode,
-		)
+		const node = this.state.allNodes.find(({ id }: any) => id === currentNode)
 		if (!node) {
 			this.setState({ error: 'Node not found' })
 			return null
@@ -101,9 +84,6 @@ export default class StateNavigator extends React.Component<IProps, IState> {
 		this.next()
 	}
 	render() {
-		if (this.props.flow) {
-			console.log(this.props.flow.getNodes())
-		}
 		if (this.state.error) {
 			return <ErrorPage>{this.state.error}</ErrorPage>
 		}

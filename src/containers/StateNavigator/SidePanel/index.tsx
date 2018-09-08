@@ -35,7 +35,7 @@ export default class SidePanel extends React.Component<IProps> {
 		return (
 			<SidePanelContainer>
 				<SidePanelInner>
-					<StateNav flow={this.props.flow} />
+					{this.props.flow && <StateNav flow={this.props.flow} />}
 					<div style={{ alignSelf: 'flex-end' }}>
 						<PageNavigator flow={this.props.flow} />
 					</div>
