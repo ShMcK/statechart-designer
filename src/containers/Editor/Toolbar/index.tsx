@@ -5,12 +5,19 @@ class Toolbar extends React.Component {
 	state = {
 		initial: true,
 	}
+	highlightTimeout: any
 	componentDidMount() {
 		this.showHighlight()
 	}
+	componentWillUnmount() {
+		clearTimeout(this.highlightTimeout)
+	}
 	showHighlight = () => {
 		this.setState({ initial: true })
-		setTimeout(() => this.setState({ initial: false }), 3000)
+		this.highlightTimeout = setTimeout(
+			() => this.setState({ initial: false }),
+			3000,
+		)
 	}
 	render() {
 		return (
