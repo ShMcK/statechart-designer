@@ -3,7 +3,7 @@ import { IEditor } from '@antv/g6-editor'
 import { Icon, Tabs } from 'antd'
 import * as React from 'react'
 
-import PageNavigator from '../../PageNavigator'
+import PageNavigator from 'components/PageNavigator'
 import * as Details from '../Details'
 import JSONEditor from '../JSONEditor'
 

@@ -2,10 +2,11 @@ import { IData, IGraph, IGroup, INode } from '@antv/g6' // IGroup
 import { createStatefulMachine } from '@avaragado/xstateful'
 import { Button } from 'antd'
 import * as React from 'react'
+
+import ErrorPage from 'components/ErrorPage'
 import { exportToXState } from 'utils/export'
 import { load } from 'utils/storage'
 import { Machine } from 'xstate'
-import ErrorPage from '../../ErrorPage'
 
 interface IProps {
 	flow: IGraph

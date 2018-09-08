@@ -1,10 +1,11 @@
 import { IGraph } from '@antv/g6'
 import { Button } from 'antd'
 import * as React from 'react'
+
+import ErrorPage from 'components/ErrorPage'
 import { notifyCanvas } from 'services/notify'
 import { exportToXState } from 'utils/export'
 import { load } from 'utils/storage'
-import ErrorPage from '../../ErrorPage'
 
 import './json-editor.css'
 

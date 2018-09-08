@@ -1,7 +1,7 @@
 import * as React from 'react'
 
-import Editor from '../Editor'
-import StateNavigator from '../StateNavigator'
+import Editor from 'containers/Editor'
+import StateNavigator from 'containers/StateNavigator'
 import Layout from './Layout'
 
 interface IState {

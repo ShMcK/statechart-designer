@@ -2,7 +2,7 @@ import { IGraph } from '@antv/g6'
 import { IEditor } from '@antv/g6-editor'
 import * as React from 'react'
 
-import PageNavigator from '../../PageNavigator'
+import PageNavigator from 'components/PageNavigator'
 import StateNav from './StateNav'
 
 const styles = {
