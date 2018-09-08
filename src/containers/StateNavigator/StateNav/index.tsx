@@ -14,45 +14,66 @@ interface IProps {
 	flow: IGraph
 }
 
-export default class StateNavigator extends React.Component<IProps> {
+interface IState {
+	loaded: boolean
+	error: string | null
+	edges: any[]
+	state: any
+	node: INode | IGroup | null
+	allNodes: Array<INode | IGroup>
+}
+
+// external state machine
+let xsf: any
+
+export default class StateNavigator extends React.Component<IProps, IState> {
+	static getDerivedStateFromProps = async (props: IProps, state: IState) => {
+		if (props.flow && (!state.allNodes || !state.allNodes.length)) {
+			try {
+				console.log(props)
+				const allNodes = [...props.flow.getNodes(), ...props.flow.getGroups()]
+				console.log({ allNodes })
+				const data: IData = await load()
+				console.log({ data })
+				setTimeout(() => {
+					const xstate = exportToXState(data)
+					const machine = Machine(xstate)
+					xsf = createStatefulMachine({
+						machine,
+					})
+					xsf.init()
+				}, 1000)
+				return { error: null, allNodes }
+			} catch (error) {
+				return { error: error.message }
+			}
+		}
+		return null
+	}
 	state = {
+		loaded: false,
 		error: null,
 		edges: [],
 		state: null,
+		allNodes: [],
+		node: null,
 	}
 
-	xsf: any
-	flow: any
-	allNodes: Array<INode | IGroup>
-
-	setupStateMachine = async () => {
-		try {
-			this.allNodes = [
-				...this.props.flow.getNodes(),
-				...this.props.flow.getGroups(),
-			]
-			const data: IData = await load()
-			const xstate = exportToXState(data)
-			const machine = Machine(xstate)
-			this.xsf = createStatefulMachine({ machine })
-			this.xsf.init()
-			this.setState({ error: null })
-			this.next()
-		} catch (error) {
-			this.setState({ error: error.message })
-		}
-	}
 	setNode = (node: INode | IGroup) => {
 		this.setState({ node })
 		this.props.flow.clearSelected()
 		this.props.flow.setSelected(node, true)
 		this.getEdges(node)
 	}
-	getNode = (): INode | IGroup => {
-		const state = this.xsf.state.value
-		const node = this.allNodes.find(({ model }: any) => model.label === state)
+	getNode = (): INode | IGroup | null => {
+		const currentNode = xsf.state.value
+		console.log('state', currentNode, this.state.allNodes)
+		const node = this.state.allNodes.find(
+			({ model }: any) => model.label === currentNode,
+		)
 		if (!node) {
-			throw new Error('Node not found')
+			this.setState({ error: 'Node not found' })
+			return null
 		}
 		return node
 	}
@@ -63,21 +84,26 @@ export default class StateNavigator extends React.Component<IProps> {
 		})
 	}
 	transition = (event: string) => {
-		this.xsf.transition(event)
+		xsf.transition(event)
 		this.next()
 	}
 	next = () => {
 		if (!this.state.error) {
 			const node = this.getNode()
-			this.getEdges(node)
-			this.setNode(node)
+			if (node) {
+				this.getEdges(node)
+				this.setNode(node)
+			}
 		}
 	}
 	reset = () => {
-		this.xsf.init()
+		xsf.init()
 		this.next()
 	}
 	render() {
+		if (this.props.flow) {
+			console.log(this.props.flow.getNodes())
+		}
 		if (this.state.error) {
 			return <ErrorPage>{this.state.error}</ErrorPage>
 		}

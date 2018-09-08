@@ -4,7 +4,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 
 import PageNavigator from 'components/PageNavigator'
-import StateNav from './StateNav'
+import StateNav from '../StateNav'
 
 const SidePanelContainer = styled.div`
 	height: 100vh;
@@ -31,23 +31,6 @@ interface IProps {
 }
 
 export default class SidePanel extends React.Component<IProps> {
-	toggleGrid = (ev: any) => {
-		if (ev.target.checked) {
-			this.props.flow.showGrid()
-		} else {
-			this.props.flow.hideGrid()
-		}
-	}
-	updateGraph = (key: string, value: any) => {
-		this.props.editor.executeCommand(() => {
-			const selectedItems = this.props.flow.getSelected()
-			selectedItems.forEach((item: any) => {
-				const updateModel = {}
-				updateModel[key] = value
-				this.props.flow.update(item, updateModel)
-			})
-		})
-	}
 	render() {
 		return (
 			<SidePanelContainer>

@@ -3,12 +3,8 @@ import { IEditor } from '@antv/g6-editor'
 import * as React from 'react'
 
 import createEditor from 'services/editor/createEditor'
-
-import './editor.css'
-import editorConfig from './editorConfig'
-import './modelFlowEditor.css'
-
 import { load } from 'utils/storage'
+import editorConfig from './editorConfig'
 import Page from './Page'
 import SidePanel from './SidePanel'
 
