@@ -4,6 +4,9 @@ import anchor from './anchor'
 
 export default (Flow: IFlow) => {
 	Flow.registerGroup('flow-group', {
+		// getSelectedStyle() {
+		// 	return { fill: '#1890ff' }
+		// },
 		draw(this: IFlowNodeOptions, item: IGroupItem): IKeyShape {
 			const model = item.getModel()
 			const group = item.getGraphicGroup()
