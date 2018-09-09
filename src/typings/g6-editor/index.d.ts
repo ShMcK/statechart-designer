@@ -24,8 +24,9 @@ declare module '@antv/g6-editor' {
 	}
 
 	export interface IFlow {
-		registerNode(name: string, options: object, extandShape?: string): void
-		registerGroup(name: string, options: object, extandShape?: string): void
+		registerEdge(name: string, options: object, extendShape?: string): void
+		registerNode(name: string, options: object, extendShape?: string): void
+		registerGroup(name: string, options: object, extendShape?: string): void
 	}
 
 	export interface G6Editor {

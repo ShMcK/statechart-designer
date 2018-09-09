@@ -28,8 +28,12 @@ export default (Flow: IFlow) => {
 			item.getAnchorPoints = function(this: INodeItem) {
 				let anchorPoints = getAnchorPointsOriginal.call(item)
 				if (dragging) {
+					const finalAnchorPointIndex = anchorPoints.length
 					for (const g of groups) {
-						const groupAnchors = g.getAnchorPoints()
+						const groupAnchors = g.getAnchorPoints().map((gr: any) => ({
+							...gr,
+							index: gr.index + finalAnchorPointIndex,
+						}))
 						anchorPoints = anchorPoints.concat(groupAnchors)
 					}
 				}
