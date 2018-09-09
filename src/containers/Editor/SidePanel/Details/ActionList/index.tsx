@@ -9,30 +9,12 @@ interface IItem {
 }
 
 interface IProps {
-	label: string
 	value: string[]
 	onChange(values: string[]): void
 }
 
 interface IState {
 	items: IItem[]
-}
-
-const formItemLayout = {
-	labelCol: {
-		xs: { span: 24 },
-		sm: { span: 6 },
-	},
-	wrapperCol: {
-		xs: { span: 24 },
-		sm: { span: 20 },
-	},
-}
-const formItemLayoutWithOutLabel = {
-	wrapperCol: {
-		xs: { span: 24, offset: 0 },
-		sm: { span: 10, offset: 6 },
-	},
 }
 
 export default class ActionList extends React.Component<IProps, IState> {
@@ -67,11 +49,7 @@ export default class ActionList extends React.Component<IProps, IState> {
 		return (
 			<>
 				{items.map((item, index) => (
-					<FormItem
-						{...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
-						label={index === 0 ? `${this.props.label}:` : ''}
-						required={false}
-						key={item.id}>
+					<FormItem required={false} key={item.id}>
 						<Input
 							placeholder="action name"
 							style={{ width: '60%', marginRight: 8 }}
@@ -92,7 +70,7 @@ export default class ActionList extends React.Component<IProps, IState> {
 						size="small"
 						style={{ width: '60%' }}
 						onClick={this.add}>
-						<Icon type="plus" /> {this.props.label}
+						<Icon type="plus" />
 					</Button>
 				</FormItem>
 			</>

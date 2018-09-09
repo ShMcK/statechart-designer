@@ -134,6 +134,7 @@ declare module '@antv/g6' {
 		parent?: string
 		/* added */
 		initial?: boolean
+		model: INode
 		getInEdges(): any[]
 		getOutEdges(): any[]
 	}

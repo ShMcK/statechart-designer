@@ -30,8 +30,7 @@ export default class TransitionDetails extends React.Component<IProps> {
 	render() {
 		return (
 			<React.Fragment>
-				<Form.Item>
-					Event:
+				<Form.Item label="Event">
 					<Input
 						size="small"
 						className="input name-input"
@@ -40,8 +39,7 @@ export default class TransitionDetails extends React.Component<IProps> {
 						onBlur={(e) => this.onBlur()}
 					/>
 				</Form.Item>
-				{/* <Form.Item>
-					Guard:
+				{/* <Form.Item label='Guard'>
 					<Input
 						size="small"
 						className="input name-input"

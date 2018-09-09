@@ -38,7 +38,6 @@ class Editor extends React.Component<{}, IState> {
 	load = async () => {
 		// load saved data
 		const loaded = (await load()) || {}
-		console.log('loaded', loaded)
 		this.flow.read(loaded)
 	}
 

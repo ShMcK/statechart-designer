@@ -10,13 +10,18 @@ import { exportToXState } from 'utils/export'
 import { load } from 'utils/storage'
 import { Machine } from 'xstate'
 
+interface IEdge {
+	id: string
+	label: string
+}
+
 interface IProps {
 	flow: IGraph
 }
 
 interface IState {
 	error: string | null
-	edges: any[]
+	edges: IEdge[]
 	state: any
 	node: INode | IGroup | null
 	allNodes: Array<INode | IGroup>
@@ -26,13 +31,7 @@ interface IState {
 let xsf: any
 
 export default class StateNavigator extends React.Component<IProps, IState> {
-	state = {
-		error: null,
-		edges: [],
-		state: null,
-		allNodes: [],
-		node: null,
-	}
+	state = { error: null, edges: [], state: null, allNodes: [], node: null }
 	async componentDidMount() {
 		const data: IData = await load()
 		const xstate = exportToXState(data)
@@ -41,43 +40,59 @@ export default class StateNavigator extends React.Component<IProps, IState> {
 		xsf.init()
 		const { flow } = this.props
 		const allNodes = [...flow.getNodes(), ...flow.getGroups()]
+		this.validateNodes(allNodes)
 		this.setState({ allNodes })
 		this.next()
 	}
-
-	setNode = (node: INode | IGroup) => {
-		this.setState({ node })
-		this.props.flow.clearSelected()
-		this.props.flow.setSelected(node, true)
-		this.getEdges(node)
-	}
-	getNode = (): INode | IGroup | null => {
-		const currentNode = xsf.state.value
-		const node = this.state.allNodes.find(({ id }: any) => id === currentNode)
-		if (!node) {
-			this.setState({ error: 'Node not found' })
-			return null
+	validateNodes = (allNodes: Array<INode | IGroup>) => {
+		// validate no labels repeat
+		const labels = {}
+		for (const node of allNodes) {
+			const label = node.model.label
+			if (!label || !label.length) {
+				this.setState({ error: `Node [${node.id}] requires a label` })
+				return
+			}
+			if (labels[label]) {
+				this.setState({
+					error: `Duplicate node label "${label}" on [${labels[label]}] & [${
+						node.id
+					}]`,
+				})
+			}
+			labels[label] = node.id
 		}
-		return node
-	}
-	getEdges = (node: INode | IGroup) => {
-		const edges = node.getOutEdges()
-		this.setState({
-			edges: edges.map(({ model }) => model.label),
-		})
-	}
-	transition = (event: string) => {
-		xsf.transition(event)
-		this.next()
 	}
 	next = () => {
 		if (!this.state.error) {
-			const node = this.getNode()
-			if (node) {
-				this.getEdges(node)
-				this.setNode(node)
+			const currentNode = xsf.state.value
+			const node: INode | IGroup | null =
+				this.state.allNodes.find(
+					({ model: { label } }: any) => label === currentNode,
+				) || null
+			if (!node) {
+				this.setState({ error: 'Node not found' })
+			} else {
+				// clear previous selected
+				this.props.flow.clearSelected()
+				// set node as selected
+				this.props.flow.setSelected(node, true)
+				// get possible transitions as node edges
+				const outEdges = node!.getOutEdges()
+				const edges: IEdge[] = outEdges.map(({ model: { label, id } }) => ({
+					label,
+					id,
+				}))
+				// update state
+				this.setState({ node, edges })
 			}
 		}
+	}
+	transition = (event: string) => {
+		// consider using ids for transitioning
+		// as names may not be unique
+		xsf.transition(event)
+		this.next()
 	}
 	reset = () => {
 		xsf.init()
@@ -92,10 +107,10 @@ export default class StateNavigator extends React.Component<IProps, IState> {
 				<div>
 					<Title>Transitions</Title>
 					<ButtonOptions>
-						{this.state.edges.map((label) => (
+						{this.state.edges.map(({ id, label }: any) => (
 							<Button
 								style={{ margin: 5 }}
-								key={label}
+								key={id}
 								onClick={() => this.transition(label)}>
 								{label}
 							</Button>

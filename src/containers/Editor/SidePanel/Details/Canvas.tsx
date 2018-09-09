@@ -8,8 +8,8 @@ interface IProps {
 export default class DetailsCanvas extends React.Component<IProps> {
 	render() {
 		return (
-			<Form.Item>
-				<Checkbox onChange={this.props.toggleGrid}>Grid</Checkbox>
+			<Form.Item label="Grid">
+				<Checkbox onChange={this.props.toggleGrid} />
 			</Form.Item>
 		)
 	}

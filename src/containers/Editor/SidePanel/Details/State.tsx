@@ -25,8 +25,15 @@ export default class StateDetails extends React.Component<IProps> {
 	render() {
 		return (
 			<React.Fragment>
-				<Form.Item>
-					Label：
+				<Form.Item label="Id">
+					<Input
+						size="small"
+						className="input name-input"
+						value={this.props.model.id}
+						disabled={true}
+					/>
+				</Form.Item>
+				<Form.Item label="Label">
 					<Input
 						size="small"
 						className="input name-input"
@@ -35,25 +42,22 @@ export default class StateDetails extends React.Component<IProps> {
 						onBlur={(e) => this.onBlur()}
 					/>
 				</Form.Item>
-				<Form.Item>
+				<Form.Item label="Initial">
 					<Checkbox
 						checked={this.props.model.initial}
 						onChange={(e) => {
 							this.onChange('initial', !this.props.model.initial)
-						}}>
-						Initial
-					</Checkbox>
+						}}
+					/>
 				</Form.Item>
-				<Form.Item>
+				<Form.Item label="OnEntry">
 					<ActionList
-						label="onEntry"
 						value={this.props.model.onEntry || []}
 						onChange={(values) => this.onChange('onEntry', values)}
 					/>
 				</Form.Item>
-				<Form.Item>
+				<Form.Item label="OnExit">
 					<ActionList
-						label="onExit"
 						value={this.props.model.onExit || []}
 						onChange={(values) => this.onChange('onEntry', values)}
 					/>
