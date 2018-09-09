@@ -1,5 +1,11 @@
 import { Form, Input } from 'antd'
+import { Title } from 'components/Panel'
 import * as React from 'react'
+
+const formItemLayout = {
+	labelCol: { span: 5 },
+	wrapperCol: { span: 14 },
+}
 
 interface IProps {
 	model: any
@@ -30,16 +36,26 @@ export default class TransitionDetails extends React.Component<IProps> {
 	render() {
 		return (
 			<React.Fragment>
-				<Form.Item label="Event">
-					<Input
-						size="small"
-						className="input name-input"
-						value={this.props.model.label}
-						onChange={(e) => this.onChange('label', e.target.value)}
-						onBlur={(e) => this.onBlur()}
-					/>
-				</Form.Item>
-				{/* <Form.Item label='Guard'>
+				<Title>Transition</Title>
+				<div className="block-container">
+					<Form.Item label="Id" {...formItemLayout}>
+						<Input
+							size="small"
+							className="input name-input"
+							value={this.props.model.id}
+							disabled={true}
+						/>
+					</Form.Item>
+					<Form.Item label="Event" {...formItemLayout}>
+						<Input
+							size="small"
+							className="input name-input"
+							value={this.props.model.label}
+							onChange={(e) => this.onChange('label', e.target.value)}
+							onBlur={(e) => this.onBlur()}
+						/>
+					</Form.Item>
+					{/* <Form.Item label='Guard'>
 					<Input
 						size="small"
 						className="input name-input"
@@ -48,6 +64,7 @@ export default class TransitionDetails extends React.Component<IProps> {
 						onBlur={(e) => this.onBlur('guard', e.target.value)}
 					/>
 				</Form.Item> */}
+				</div>
 			</React.Fragment>
 		)
 	}

@@ -73,40 +73,31 @@ export default class SidePanel extends React.Component<IProps> {
 									data-status="node-selected"
 									className="pannel"
 									id="node_detailpannel">
-									<Title>State</Title>
-									<div className="block-container">
-										<Details.State
-											model={this.props.model}
-											onChange={this.props.onChange}
-											updateGraph={this.updateGraph}
-										/>
-									</div>
+									<Details.State
+										model={this.props.model}
+										onChange={this.props.onChange}
+										updateGraph={this.updateGraph}
+									/>
 								</div>
 								<div
 									data-status="edge-selected"
 									className="pannel"
 									id="edge_detailpannel">
-									<Title>Transition</Title>
-									<div className="block-container">
-										<Details.Transition
-											model={this.props.model}
-											onChange={this.props.onChange}
-											updateGraph={this.updateGraph}
-										/>
-									</div>
+									<Details.Transition
+										model={this.props.model}
+										onChange={this.props.onChange}
+										updateGraph={this.updateGraph}
+									/>
 								</div>
 								<div
 									data-status="group-selected"
 									className="pannel"
 									id="node_detailpannel">
-									<Title>Group</Title>
-									<div className="block-container">
-										<Details.Group
-											model={this.props.model}
-											onChange={this.props.onChange}
-											updateGraph={this.updateGraph}
-										/>
-									</div>
+									<Details.Group
+										model={this.props.model}
+										onChange={this.props.onChange}
+										updateGraph={this.updateGraph}
+									/>
 								</div>
 								<div
 									data-status="canvas-selected"

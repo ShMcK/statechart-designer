@@ -1,7 +1,5 @@
-import { Button, Form, Icon, Input } from 'antd'
+import { Button, Icon, Input } from 'antd'
 import * as React from 'react'
-
-const FormItem = Form.Item
 
 interface IItem {
 	id: number
@@ -9,6 +7,7 @@ interface IItem {
 }
 
 interface IProps {
+	style: object
 	value: string[]
 	onChange(values: string[]): void
 }
@@ -47,33 +46,30 @@ export default class ActionList extends React.Component<IProps, IState> {
 	render() {
 		const { items } = this.state
 		return (
-			<>
+			<div style={{ marginLeft: 20 }}>
 				{items.map((item, index) => (
-					<FormItem required={false} key={item.id}>
-						<Input
-							placeholder="action name"
-							style={{ width: '60%', marginRight: 8 }}
-						/>
+					<div key={item.id}>
+						<Input placeholder="action name" style={{ width: '90%' }} />
 						{items.length > 1 && (
 							<Icon
-								className="dynamic-delete-button"
+								style={{ width: '10px' }}
 								type="minus-circle-o"
 								onClick={() => this.remove(item.id)}
 							/>
 						)}
-					</FormItem>
+					</div>
 				))}
 
-				<FormItem>
+				<div>
 					<Button
 						type="dashed"
 						size="small"
-						style={{ width: '60%' }}
+						style={{ width: '40%' }}
 						onClick={this.add}>
 						<Icon type="plus" />
 					</Button>
-				</FormItem>
-			</>
+				</div>
+			</div>
 		)
 	}
 }
