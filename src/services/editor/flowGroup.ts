@@ -30,10 +30,15 @@ export default (Flow: IFlow) => {
 				},
 			})
 
+			model.initial = model.initial || false
+			model.label = model.label || model.id
+			model.onEntry = model.onEntry || []
+			model.onExit = model.onExit || []
+
 			// group title
 			group.addShape('text', {
 				attrs: {
-					text: model.label || 'Group',
+					text: model.label,
 					x: childBox.minX + padding,
 					y: childBox.minY - paddingTop,
 					textAlign: 'center',
