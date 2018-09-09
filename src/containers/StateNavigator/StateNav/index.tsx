@@ -40,22 +40,25 @@ export default class StateNavigator extends React.Component<IProps, IState> {
 		xsf.init()
 		const { flow } = this.props
 		const allNodes = [...flow.getNodes(), ...flow.getGroups()]
-		this.validateNodes(allNodes)
+		this.validate(allNodes, 'Node')
 		this.setState({ allNodes })
 		this.next()
 	}
-	validateNodes = (allNodes: Array<INode | IGroup>) => {
-		// validate no labels repeat
+	validate = (allNodes: Array<INode | IGroup>, type: string) => {
 		const labels = {}
 		for (const node of allNodes) {
 			const label = node.model.label
+			// validate all nodes have labels
 			if (!label || !label.length) {
-				this.setState({ error: `Node [${node.id}] requires a label` })
+				this.setState({
+					error: `${type} [${node.id}] requires a label`,
+				})
 				return
 			}
+			// validate no labels repeat
 			if (labels[label]) {
 				this.setState({
-					error: `Duplicate node label "${label}" on [${labels[label]}] & [${
+					error: `${type} duplicate label "${label}" on [${labels[label]}] & [${
 						node.id
 					}]`,
 				})
@@ -71,7 +74,9 @@ export default class StateNavigator extends React.Component<IProps, IState> {
 					({ model: { label } }: any) => label === currentNode,
 				) || null
 			if (!node) {
-				this.setState({ error: 'Node not found' })
+				this.setState({
+					error: 'Node not found',
+				})
 			} else {
 				// clear previous selected
 				this.props.flow.clearSelected()
@@ -79,6 +84,7 @@ export default class StateNavigator extends React.Component<IProps, IState> {
 				this.props.flow.setSelected(node, true)
 				// get possible transitions as node edges
 				const outEdges = node!.getOutEdges()
+				this.validate(outEdges, 'Edge')
 				const edges: IEdge[] = outEdges.map(({ model: { label, id } }) => ({
 					label,
 					id,
