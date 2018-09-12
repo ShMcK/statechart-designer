@@ -22,6 +22,24 @@
     gtag('config', 'UA-125405168-1');
   </script>
 
+  <script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js"
+    data-dojo-config="usePlainJson: true, isDebug: false"></script>
+  <script type="text/javascript">
+    // mailing list popup after a minute or so
+    function showMailingPopUp() {
+      window.dojoRequire(["mojo/signup-forms/Loader"], function (L) {
+        L.start({ "baseUrl": "mc.us19.list-manage.com", "uuid": "3534db1ce7d44bf8e2579708f", "lid": "3bb4dc6f53", "uniqueMethods": true })
+        alert('here')
+      })
+    };
+
+    setTimeout(showMailingPopUp, 50000)
+  </script>
+
+
+
+
+
   <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
