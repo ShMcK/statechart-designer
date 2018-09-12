@@ -5,6 +5,7 @@ import * as React from 'react'
 import createEditor from 'services/editor/createEditor'
 import './editor.css'
 import editorConfig from './editorConfig'
+import example from './example'
 import './modelFlowEditor.css'
 
 import { load } from 'utils/storage'
@@ -38,7 +39,11 @@ class Editor extends React.Component<{}, IState> {
 	load = async () => {
 		// load saved data
 		const loaded = (await load()) || {}
-		this.flow.read(loaded)
+		if (loaded && Object.keys(loaded).length) {
+			this.flow.read(loaded)
+		} else {
+			this.flow.read(example)
+		}
 	}
 
 	onChange = (change: any) => {
