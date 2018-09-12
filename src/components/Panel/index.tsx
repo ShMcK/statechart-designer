@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const ButtonOptions = styled.div`
 	display: flex;
 	flex-direction: row;
+	padding: 1rem;
 `
 
 export const Title = styled.div`

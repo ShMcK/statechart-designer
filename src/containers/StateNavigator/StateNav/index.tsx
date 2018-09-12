@@ -108,6 +108,16 @@ export default class StateNavigator extends React.Component<IProps, IState> {
 		xsf.init()
 		this.next()
 	}
+	edges = () =>
+		this.state.edges.map(({ id, label }: any) => (
+			<Button
+				style={{ margin: 5 }}
+				key={id}
+				onClick={() => this.transition(label)}>
+				{label}
+			</Button>
+		))
+
 	render() {
 		if (this.state.error) {
 			return <ErrorPage>{this.state.error}</ErrorPage>
@@ -117,14 +127,7 @@ export default class StateNavigator extends React.Component<IProps, IState> {
 				<div>
 					<Title>Transitions</Title>
 					<ButtonOptions>
-						{this.state.edges.map(({ id, label }: any) => (
-							<Button
-								style={{ margin: 5 }}
-								key={id}
-								onClick={() => this.transition(label)}>
-								{label}
-							</Button>
-						))}
+						{this.state.edges.length ? this.edges() : 'No transitions'}
 					</ButtonOptions>
 				</div>
 
@@ -135,7 +138,7 @@ export default class StateNavigator extends React.Component<IProps, IState> {
 				<div>
 					<Title>Options</Title>
 					<ButtonOptions>
-						<Button type="primary" onClick={this.reset} style={{ margin: 5 }}>
+						<Button type="primary" onClick={this.reset}>
 							Reset
 						</Button>
 					</ButtonOptions>
