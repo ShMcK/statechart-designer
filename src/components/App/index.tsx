@@ -1,3 +1,4 @@
+import { Icon, notification } from 'antd'
 import * as React from 'react'
 
 import Editor from 'containers/Editor'
@@ -11,6 +12,24 @@ interface IState {
 export default class App extends React.Component<{}, IState> {
 	state = {
 		mode: 'edit',
+	}
+	async componentDidMount() {
+		const informedAlpha = await window.localStorage.getItem('tellYaBoutDaBugs')
+		if (!informedAlpha) {
+			this.bugNotify()
+			window.localStorage.setItem('tellYaBoutDaBugs', 'DoneToldja')
+		}
+	}
+	bugNotify() {
+		setTimeout(
+			() =>
+				notification.info({
+					icon: <Icon type="heart" />,
+					message: 'Forgive me',
+					description: 'I have bugs. Still working things out.',
+				}),
+			3000,
+		)
 	}
 	onSelectMode = (mode: string) => {
 		this.setState({ mode })
