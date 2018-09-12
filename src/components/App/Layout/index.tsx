@@ -10,6 +10,11 @@ const styles = {
 		justifyContent: 'center',
 		height: '100vh',
 	},
+	version: {
+		color: 'white',
+		textAlign: 'center' as 'center',
+		opacity: 0.4,
+	},
 	trigger: {
 		fontSize: 18,
 		lineHeight: 64,
@@ -24,7 +29,7 @@ const styles = {
 	logo: {
 		display: 'flex',
 		justifyContent: 'center',
-		marginBottom: '20px',
+		marginBottom: '5px',
 	},
 }
 
@@ -70,6 +75,7 @@ export default class SiderDemo extends React.Component<IProps, IState> {
 							</Avatar>
 						</Badge>
 					</div>
+					<div style={styles.version}>v0.1 alpha</div>
 
 					<Menu
 						theme="dark"

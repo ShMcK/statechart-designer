@@ -4,6 +4,9 @@ import anchor from './anchor'
 
 export default (Flow: IFlow) => {
 	Flow.registerNode('model-card', {
+		// getSelectedStyle() {
+		// 	return { fill: '#1890ff' }
+		// },
 		draw(this: IFlowNodeOptions, item: INodeItem) {
 			const group = item.getGraphicGroup()
 			const model = item.getModel()

@@ -1,7 +1,7 @@
 import { Checkbox, Form, Input } from 'antd'
 import { Title } from 'components/Panel'
 import * as React from 'react'
-import ActionList from './ActionList'
+// import ActionList from './ActionList'
 
 const formItemLayout = {
 	labelCol: { span: 5 },
@@ -60,7 +60,7 @@ export default class StateDetails extends React.Component<IProps> {
 						/>
 					</Form.Item>
 				</div>
-				<Title>Actions</Title>
+				{/* <Title>Actions</Title>
 				<div className="block-container">
 					<Form.Item label="Entry" {...formItemLayout} required={false}>
 						<ActionList
@@ -76,7 +76,7 @@ export default class StateDetails extends React.Component<IProps> {
 							onChange={(values) => this.onChange('onEntry', values)}
 						/>
 					</Form.Item>
-				</div>
+				</div> */}
 			</React.Fragment>
 		)
 	}
