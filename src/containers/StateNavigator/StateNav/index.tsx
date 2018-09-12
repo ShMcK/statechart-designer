@@ -33,16 +33,20 @@ let xsf: any
 export default class StateNavigator extends React.Component<IProps, IState> {
 	state = { error: null, edges: [], state: null, allNodes: [], node: null }
 	async componentDidMount() {
-		const data: IData = await load()
-		const xstate = exportToXState(data)
-		const machine = Machine(xstate)
-		xsf = createStatefulMachine({ machine })
-		xsf.init()
-		const { flow } = this.props
-		const allNodes = [...flow.getNodes(), ...flow.getGroups()]
-		this.validate(allNodes, 'Node')
-		this.setState({ allNodes })
-		this.next()
+		try {
+			const data: IData = await load()
+			const xstate = exportToXState(data)
+			const machine = Machine(xstate)
+			xsf = createStatefulMachine({ machine })
+			xsf.init()
+			const { flow } = this.props
+			const allNodes = [...flow.getNodes(), ...flow.getGroups()]
+			this.validate(allNodes, 'Node')
+			this.setState({ allNodes })
+			this.next()
+		} catch (error) {
+			this.setState({ error: error.message || 'Something went wrong' })
+		}
 	}
 	validate = (allNodes: Array<INode | IGroup>, type: string) => {
 		const labels = {}
