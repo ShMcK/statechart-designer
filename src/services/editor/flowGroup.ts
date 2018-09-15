@@ -54,7 +54,7 @@ export default (Flow: IFlow) => {
 			const isParallel = model.parallel || false
 			group.addShape('image', {
 				attrs: {
-					img: isParallel ? '/assets/icons/parallel.svg' : null,
+					img: isParallel ? `${process.env.PUBLIC_URL}/assets/icons/parallel.svg` : null,
 					x: childBox.maxX - padding,
 					y: childBox.minY - paddingTop,
 					width: 16,
@@ -65,7 +65,7 @@ export default (Flow: IFlow) => {
 			const isInitial = model.initial || false
 			group.addShape('image', {
 				attrs: {
-					img: isInitial ? '/assets/icons/initial-state.svg' : null,
+					img: isInitial ? `${process.env.PUBLIC_URL}/assets/icons/initial-state.svg` : null,
 					x: childBox.minX + width / 2 - 29,
 					y: childBox.minY - paddingTop - 60,
 					width: 19,

@@ -84,7 +84,7 @@ export default (Flow: IFlow) => {
 			// initial icon
 			group.addShape('image', {
 				attrs: {
-					img: model.initial ? '/assets/icons/initial-state.svg' : null,
+					img: model.initial ? `${process.env.PUBLIC_URL}/assets/icons/initial-state.svg` : null,
 					x: x - 10 + width / 2,
 					y: y - 40,
 					width: 19,
