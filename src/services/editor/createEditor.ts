@@ -2,7 +2,6 @@ import { IGraph } from '@antv/g6'
 import G6Editor, { IEditor } from '@antv/g6-editor'
 
 import createFlowGroup from './flowGroup'
-import createModelCard from './modelCard'
 import createStateCard from './stateCard'
 
 interface IConfig {
@@ -48,8 +47,11 @@ const initEditorComponents = (
 	}
 
 	const Flow = G6Editor.Flow
+
+	// edit the group node card
 	createFlowGroup(Flow)
-	createModelCard(Flow)
+
+	// edit the state node card
 	createStateCard(Flow)
 
 	return { editor, page }
