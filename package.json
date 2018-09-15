@@ -2,26 +2,26 @@
 	"name": "statechart-designer",
 	"version": "0.1.0-alpha.0",
 	"private": true,
-	"homepage": "https://shmck.github.io/statechart-designer",
+	"homepage": "https://shmck.github.io/statechart-designer/",
 	"dependencies": {
-		"@antv/g6": "^2.0.5-beta.6",
+		"@antv/g6": "^2.1.0",
 		"@antv/g6-editor": "^1.0.8",
 		"@avaragado/xstateful": "^0.5.0",
 		"@types/styled-components": "^3.0.1",
 		"antd": "^3.9.2",
-		"lodash": "^4.17.10",
-		"react": "^16.5.0",
-		"react-dom": "^16.5.0",
+		"lodash": "^4.17.11",
+		"react": "^16.5.1",
+		"react-dom": "^16.5.1",
 		"react-scripts-ts": "^2.17.0",
 		"styled-components": "^4.0.0-beta.1",
-		"xstate": "^3.3.3"
+		"xstate": "^4.0.0-8"
 	},
 	"scripts": {
 		"start": "react-scripts-ts start",
 		"build": "react-scripts-ts build",
 		"test": "react-scripts-ts test --env=jsdom",
 		"eject": "react-scripts-ts eject",
-		"predeploy": "npm run build",
+		"predeploy": "npm run build && rm build/static/js/*.map",
 		"deploy": "gh-pages -d build"
 	},
 	"devDependencies": {
