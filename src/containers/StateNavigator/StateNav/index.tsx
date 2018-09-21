@@ -70,6 +70,20 @@ export default class StateNavigator extends React.Component<IProps, IState> {
 			labels[label] = node.id
 		}
 	}
+	getEdges = (node: INode | IGroup): Array<INode | IGroup> => {
+		let outEdges = node!.getOutEdges()
+		this.validate(outEdges, 'Edge')
+
+		if (node.model.parent) {
+			const parent =
+				this.state.allNodes.find(({ id }: any) => id === node.model.parent) ||
+				null
+			if (parent) {
+				outEdges = outEdges.concat(this.getEdges(parent))
+			}
+		}
+		return outEdges
+	}
 	next = () => {
 		if (!this.state.error) {
 			const currentNode = xsf.state.value
@@ -87,12 +101,13 @@ export default class StateNavigator extends React.Component<IProps, IState> {
 				// set node as selected
 				this.props.flow.setSelected(node, true)
 				// get possible transitions as node edges
-				const outEdges = node!.getOutEdges()
-				this.validate(outEdges, 'Edge')
-				const edges: IEdge[] = outEdges.map(({ model: { label, id } }) => ({
-					label,
-					id,
-				}))
+				const outEdges = this.getEdges(node)
+				const edges: IEdge[] = outEdges.map(
+					({ model: { label, id } }: any) => ({
+						label,
+						id,
+					}),
+				)
 				// update state
 				this.setState({ node, edges })
 			}

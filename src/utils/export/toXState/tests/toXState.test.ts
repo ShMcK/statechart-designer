@@ -40,8 +40,11 @@ describe('export to xstate', () => {
 			const expected: StateNodeConfig = {
 				initial: 'Second',
 				states: {
-					First: {},
+					First: {
+						id: '05a22f1a',
+					},
 					Second: {
+						id: 'e54f9f9b',
 						on: {
 							SecondToFirst: 'First',
 						},
@@ -143,9 +146,7 @@ describe('export to xstate', () => {
 
 			const expected: StateNodeConfig = {
 				initial: 'First',
-				states: {
-					First: {},
-				},
+				states: { First: { id: '27bd6ab5' } },
 			}
 			expect(result).toEqual(expected)
 		})
@@ -185,12 +186,8 @@ describe('export to xstate', () => {
 			const expected: StateNodeConfig = {
 				initial: 'First',
 				states: {
-					First: {
-						on: {
-							FirstToSecond: 'Second',
-						},
-					},
-					Second: {},
+					First: { id: '27bd6ab5', on: { FirstToSecond: 'Second' } },
+					Second: { id: '132835b3' },
 				},
 			}
 			expect(result).toEqual(expected)
@@ -226,7 +223,7 @@ describe('export to xstate', () => {
 					{
 						source: '132835b3',
 						target: '27bd6ab5',
-						id: '2a553b4c',
+						id: '27bd6ab5',
 						index: 2,
 						label: 'SecondToFirst',
 					},
@@ -238,16 +235,8 @@ describe('export to xstate', () => {
 			const expected: StateNodeConfig = {
 				initial: 'First',
 				states: {
-					First: {
-						on: {
-							FirstToSecond: 'Second',
-						},
-					},
-					Second: {
-						on: {
-							SecondToFirst: 'First',
-						},
-					},
+					First: { id: '27bd6ab5', on: { FirstToSecond: 'Second' } },
+					Second: { id: '132835b3', on: { SecondToFirst: 'First' } },
 				},
 			}
 			expect(result).toEqual(expected)
@@ -331,18 +320,21 @@ describe('export to xstate', () => {
 				initial: 'First',
 				states: {
 					First: {
+						id: '7d8ff3c3',
 						on: {
 							FirstToSecond: 'Second',
 							FirstToThird: 'Third',
 						},
 					},
 					Second: {
+						id: '37770e39',
 						on: {
 							SecondToFirst: 'First',
 							SecondToThird: 'Third',
 						},
 					},
 					Third: {
+						id: 'f7bef9df',
 						on: {
 							ThirdToFirst: 'First',
 							ThirdToSecond: 'Second',
@@ -399,14 +391,18 @@ describe('export to xstate', () => {
 					initial: 'First',
 					states: {
 						First: {
+							id: '97431d6f',
 							on: {
 								FirstToGroup: 'SecondGroup',
 							},
 						},
 						SecondGroup: {
+							id: 'ca850085',
 							initial: 'Third',
 							states: {
-								Third: {},
+								Third: {
+									id: 'b66468dc',
+								},
 							},
 						},
 					},
@@ -429,7 +425,7 @@ describe('export to xstate', () => {
 						{
 							shape: 'state',
 							type: 'node',
-							id: '97431d6f',
+							id: 'b66468dc',
 							index: 2,
 							initial: false,
 							label: 'Second',
@@ -447,12 +443,7 @@ describe('export to xstate', () => {
 						},
 					],
 					groups: [
-						{
-							id: 'ca850085',
-							index: 0,
-							label: 'FirstGroup',
-							initial: true,
-						},
+						{ id: 'ca850085', index: 0, label: 'FirstGroup', initial: true },
 					],
 				}
 				const result = exportToXState(data)
@@ -460,19 +451,18 @@ describe('export to xstate', () => {
 					initial: 'FirstGroup',
 					states: {
 						FirstGroup: {
+							id: 'ca850085',
 							initial: 'InnerFirst',
-							on: {
-								FirstToSecond: 'Second',
-							},
-							states: { InnerFirst: {} },
+							on: { FirstToSecond: 'Second' },
+							states: { InnerFirst: { id: 'b66468dc' } },
 						},
-						Second: {},
+						Second: { id: 'b66468dc' },
 					},
 				}
 				expect(result).toEqual(expected)
 			})
 
-			// it('should ensure a nested state has an initial state')
+			// it('should ensure a nested state has an initial s'tate')
 
 			// it('should connect to a nested state within a nested state')
 		})
@@ -521,9 +511,11 @@ describe('export to xstate', () => {
 					initial: 'Second',
 					states: {
 						First: {
+							id: '05a22f1a',
 							onEntry: ['enterFirst'],
 						},
 						Second: {
+							id: 'e54f9f9b',
 							onEntry: ['enterSecond'],
 							on: {
 								SecondToFirst: 'First',
@@ -572,9 +564,11 @@ describe('export to xstate', () => {
 					initial: 'Second',
 					states: {
 						First: {
+							id: '05a22f1a',
 							onExit: ['exitFirst'],
 						},
 						Second: {
+							id: 'e54f9f9b',
 							onExit: ['exitSecond'],
 							on: {
 								SecondToFirst: 'First',
@@ -620,12 +614,8 @@ describe('export to xstate', () => {
 				const expected: StateNodeConfig = {
 					initial: 'Second',
 					states: {
-						First: {},
-						Second: {
-							on: {
-								SecondToFirst: 'First',
-							},
-						},
+						First: { id: '05a22f1a' },
+						Second: { id: 'e54f9f9b', on: { SecondToFirst: 'First' } },
 					},
 				}
 				expect(result).toEqual(expected)
@@ -665,14 +655,11 @@ describe('export to xstate', () => {
 
 				const expected: StateNodeConfig = {
 					initial: 'FirstGroup',
-
 					states: {
 						FirstGroup: {
+							id: 'ca850085',
 							parallel: true,
-							states: {
-								Second: {},
-								Third: {},
-							},
+							states: { Second: { id: 'e54f9f9b' }, Third: { id: '05a22f1a' } },
 						},
 					},
 				}
