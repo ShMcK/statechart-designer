@@ -45,7 +45,14 @@ export default (data: IData) => {
 		edgeList.forEach((edge: IEdge) => {
 			if (xstate.states) {
 				// add state
-				const target: string = nodesById[edge.target].label || ''
+				const node = nodesById[edge.target]
+				if (!node) {
+					// BUG HERE, should have node
+					throw new Error(
+						'Node does not exist. This is likely a bug in the toXstate function',
+					)
+				}
+				const target: string = node.label || node.id || ''
 				if (!get(xstate, [...path, target])) {
 					set(xstate, [...path, target], {})
 				}
@@ -112,9 +119,12 @@ export default (data: IData) => {
 			// TODO: traverse parent
 			const parentId = node.parent
 			if (parentId && !traversedStates.has(parentId)) {
-				const parent = allNodes.filter((n) => n.id === parentId)
+				const parent = allNodes.find((n) => n.id === parentId)
+				if (parent) {
+					traverseNode(parent, [...path, label, 'states'])
+				}
 				// TODO: handle parent
-				console.warn('WARNING: parent not yet handled', parent)
+				// console.warn('WARNING: parent not yet handled', parent)
 			}
 
 			// traverse edges
